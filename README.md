@@ -47,8 +47,8 @@ This is a simple dapp, its core functionality implements two mappings: "promptCi
 
 ## Building and running the project locally
 
-1. Clone this repo to your local environment. Run `git clone https://github.com/mariomazzaferro/blockchain-developer-bootcamp-final-project.git`
-2. Enter the repo. Run `cd blockchain-developer-bootcamp-final-project`
+1. Clone this repo to your local environment. Run `git clone https://github.com/mariomazzaferro/cryptoPrompts.git`
+2. Enter the repo. Run `cd cryptoPrompts`
 3. Install root dependencies. Run `npm install`
 4. Initialize Ganache. Run `truffle develop`
 5. Run unit tests on default port 9545. Run `truffle test`
@@ -57,19 +57,3 @@ This is a simple dapp, its core functionality implements two mappings: "promptCi
 8. Install frontend dependencies. Run `npm install`
 9. Create .env file inside frontend folder with REACT_APP_NFTSTORAGE_API_KEY = <NFTSTORAGE_API_KEY> (you can create a new NFT Storage API Key on <a href="https://nft.storage/">https://nft.storage/</a>)
 10. Once installation is complete, from within the frontend folder run `npm start` to launch the front-end.
-
-
-## Deployed Application
-https://sharp-bose-58b7c2.netlify.app/
-
-
-## Screencast link
-https://www.loom.com/share/ead28f81d6c249d48689f1a84b23192e
-
-
-## My ethereum adress for the NFT certificate
-    0x11111081d8428d4F3A82Ee3D64e8C6350eD4FcB5 
-
-## Future Improvements
-
-In the future, by integrating Moralis to this project it will be possible to exclude the ramifications mapping and include a MintedPrompt(uint newId, string newCid, uint oldId) event that would be fired on every mint. This change creates a Moralis backend that records and organizes the historical data of Crypto Prompts making it more accessible and rich. Moralis' back end will also allow purely off-chain functionalities (upvoting prompts, commenting prompts, etc).

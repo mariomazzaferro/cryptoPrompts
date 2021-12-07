@@ -1,5 +1,0 @@
-Network: Ropsten
-
-Prompts' Smart Contract Address: 0xA9E5456fcbCb2630D3Cd93504832c30E77B4c7c9
-
-Public Interface: https://sharp-bose-58b7c2.netlify.app/
