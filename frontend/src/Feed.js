@@ -8,6 +8,7 @@ const Feed = ({promptById, counter, ramificationsById, ramificate, updateCounter
   const [NFTId, setNFTId] = useState(undefined);
   const [showId, setShowId] = useState(undefined);
   const [ramiText, setRamiText] = useState(undefined);
+  const [loading, setLoading] = useState(false);
   const formRef = useRef(null);
 
   useEffect(() => {
@@ -26,10 +27,12 @@ const Feed = ({promptById, counter, ramificationsById, ramificate, updateCounter
     e.preventDefault();
     let resStatus;
     if(ramiText && text && NFTId <= counter) {
+      setLoading(true);
       resStatus = await ramificate(ramiText, text, NFTId);
     }
     setRamiText(undefined);
     formRef.current.reset();
+    setLoading(false);
     if(resStatus) {
       alert("Ramification Prompt minted successfully");
       await updateCounter();
@@ -108,7 +111,8 @@ const Feed = ({promptById, counter, ramificationsById, ramificate, updateCounter
           as="textarea" rows="13"  placeholder='Write your ramification...    Once minted, it will become a NFT prompt, anyone will be able to create new prompts by ramificating yours. Every prompt or ramification starts with "0x..." to sinalize different writers : )'
           onChange={e => updateRamification(e)}
         ></Form.Control>
-        <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}>Mint Prompt $ (wait a few seconds for the confirmation)</Button>
+        <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}>Mint Prompt $</Button>
+        {loading && <div><br/><div class="spinner-border"></div></div>}
         </Form.Group>
       </Form>
         </Card.Text>

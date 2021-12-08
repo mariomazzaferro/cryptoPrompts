@@ -9,6 +9,7 @@ const Ownership = ({ownerOf, balanceOf, transfer}) => {
   const [from, setFrom] = useState(undefined);
   const [to, setTo] = useState(undefined);
   const [tokenId, setTokenId] = useState(undefined);
+  const [loading, setLoading] = useState(false);
   const formRef = useRef(null);
 
   const updateFrom = (e) => {
@@ -29,6 +30,7 @@ const Ownership = ({ownerOf, balanceOf, transfer}) => {
   const transferToken = async (e) => {
     e.preventDefault();
     if(from && to && tokenId) {
+      setLoading(true);
       try {
         const resStatus = await transfer(from, to, tokenId);
         if(resStatus) {
@@ -43,6 +45,7 @@ const Ownership = ({ownerOf, balanceOf, transfer}) => {
       } catch(err){
         console.log(err.message);
       }
+      setLoading(false);
     }
   }
 
@@ -164,6 +167,7 @@ const Ownership = ({ownerOf, balanceOf, transfer}) => {
             </Col>
             <Col>
             <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}>Transfer NFT $</Button>
+            {loading && <div class="spinner-border"></div>}
             </Col>
             </Row>
             </Form.Group>
