@@ -82,7 +82,7 @@ function App() {
   };
 
   const ramificate = async (newString, oldString, oldId) => {
-    let formatedString = `${oldString} 0x...${newString}`;
+    let formatedString = `${oldString}\n0x...${newString}`;
     const cid = await storeString(formatedString);
     const res = await contract.methods.mintPrompt(cid, oldId).send({from: accounts[0] });
     return res.status;

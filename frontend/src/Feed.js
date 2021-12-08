@@ -98,7 +98,7 @@ const Feed = ({promptById, counter, ramificationsById, ramificate, updateCounter
         </Card.Title>
         <Card.Text>
         <br/>
-        <h5>{text && `${text}`}</h5>
+        <h5 style={{whiteSpace: "pre-wrap"}}>{text && `${text}`}</h5>
         <br/>
         <p style={{color: "lightgray"}}>{`RAMIFICATIONS: ${ramifications}`}</p>
         <br/>

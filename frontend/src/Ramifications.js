@@ -80,7 +80,7 @@ const Ramifications = ({promptById, counter, ramificationsById, getRamificationC
         </Card.Title>
         <Card.Text>
         <br/>
-        <h5>{text && `${text}`}</h5>
+        <h5 style={{whiteSpace: "pre-wrap"}}>{text && `${text}`}</h5>
         <br/>
         <p style={{color: "lightgray"}}>{`RAMIFICATIONS: ${ramifications}`}</p>
         </Card.Text>
