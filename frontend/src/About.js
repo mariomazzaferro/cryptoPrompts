@@ -4,7 +4,6 @@ import { Container, Card } from 'react-bootstrap';
 const About = () => {
   return (
     <Container>
-      <br/>
       <Card className="shadow-lg p-3 mb-5 bg-white rounded text-center" style={{ width: 'auto' }}>
         <Card.Body>
         <Card.Title>

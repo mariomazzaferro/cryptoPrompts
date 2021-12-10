@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap';
 
-const Ownership = ({ownerOf, balanceOf, transfer}) => {
+const Ownership = ({ownerOf, balanceOf, transfer, accounts}) => {
   const [NFTId, setNFTId] = useState(undefined);
   const [ownerById, setOwnerById] = useState(undefined);
   const [owner, setOwner] = useState(undefined);
@@ -79,7 +79,6 @@ const Ownership = ({ownerOf, balanceOf, transfer}) => {
 
   return (
     <Container>
-      <br/>
       <Card className="shadow-lg p-3 mb-5 bg-white rounded" style={{ width: 'auto', maxWidth: '57rem' }}>
         <Card.Body>
           <Card.Title>
@@ -88,7 +87,7 @@ const Ownership = ({ownerOf, balanceOf, transfer}) => {
             <Row>
             <Col>
             <Form.Control
-              placeholder="NFT Id : )"
+              placeholder="Prompt Id : )"
               type="number"
               onChange={e => updateNFTId(e)}
             ></Form.Control>
@@ -137,7 +136,8 @@ const Ownership = ({ownerOf, balanceOf, transfer}) => {
             </Card.Text>
             </Card.Body>
           </Card>
-
+      
+      { accounts.length !== 0 &&
       <Card className="shadow-lg p-3 mb-5 bg-white rounded" style={{ width: 'auto', maxWidth: '57rem'}}>
         <Card.Body>
           <Card.Title>
@@ -160,7 +160,7 @@ const Ownership = ({ownerOf, balanceOf, transfer}) => {
             </Col>
             <Col>
             <Form.Control
-              placeholder="NFT Id : )"
+              placeholder="Prompt Id : )"
               type="number"
               onChange={e => updateTokenId(e)}
             ></Form.Control>
@@ -172,11 +172,12 @@ const Ownership = ({ownerOf, balanceOf, transfer}) => {
             </Row>
             </Form.Group>
           </Form>
-            </Card.Title>
-            <Card.Text>
-            </Card.Text>
-            </Card.Body>
-          </Card>
+          </Card.Title>
+          <Card.Text>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+      }
     </Container>
   );
 }

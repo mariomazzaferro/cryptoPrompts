@@ -17,35 +17,34 @@ import metamaskLogo from './metamask.png';
 
 function App() {
   const [web3, setWeb3] = useState(undefined);
-  const [accounts, setAccounts] = useState(undefined);
+  const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState(undefined);
   const [counter, setCounter] = useState(undefined);
-  const [network, setNetwork] = useState(undefined);
 
   useEffect(() => {
     const init = async () => {
       const web3 = await getWeb3();
-      const accounts = await web3.eth.getAccounts();
-      const contract = await getContract(web3);
+      
+      let accounts;
+      try {
+        accounts = await web3.eth.getAccounts();
+      } catch(err) {
+        console.log(err.message);  
+      }
+      console.log(accounts);
+      let contract;
+      try {
+        contract = await getContract(web3);
+      } catch(err) {
+        console.log(err.message);  
+      }
+
       let counter;
       try {
         counter = await contract.methods.counter().call();
       } catch(err) {
         console.log(err.message);  
       }
-      
-      const networkId = await web3.eth.net.getId();
-      if(networkId === 1) {
-        setNetwork("Ethereum");
-      } else if(networkId === 3) {
-        setNetwork("Ropsten");
-      } else if(networkId === 4) {
-        setNetwork("Rinkeby");
-      } else if(networkId === 5) {
-        setNetwork("Goerli");
-      } else if(networkId === 5777) {
-        setNetwork("Ganache");
-      } 
 
       setWeb3(web3);
       setAccounts(accounts);
@@ -118,13 +117,12 @@ function App() {
 
   if(
     typeof web3 === 'undefined'
-    || typeof accounts === 'undefined'
-    || typeof counter === 'undefined'
   ) {
     return (
       <div className="my-5 text-center">
-        <img src={metamaskLogo} width="250" class="mb-4" alt=""/>
-        <h1>Please install Metamask, connect to Ropsten Network and reload this page</h1>
+        <div class="spinner-border"></div>
+        <img src={metamaskLogo} width="200" class="mb-4" alt=""/>
+        <div class="spinner-border"></div>
       </div>
     )
   }
@@ -146,20 +144,20 @@ function App() {
         </Container>
       </Navbar>
       <br/>
-      {accounts && <p style={{color: "silver", textAlign: "center"}}>{`Active Account: ${accounts[0]} (${network})`}</p>
+      {accounts.length !== 0 && <p style={{color: "silver", textAlign: "center"}}>{`Active Account: ${accounts[0]}`}</p>
       }
       <Switch>
           <Route exact path="/">
-            <WritePrompt writePrompt={writePrompt} updateCounter={updateCounter} />
+            <WritePrompt accounts={accounts} writePrompt={writePrompt} updateCounter={updateCounter} />
           </Route>
           <Route exact path="/feed">
-            <Feed counter={counter} promptById={promptById} ramificationsById={ramificationsById} ramificate={ramificate} updateCounter={updateCounter} />
+            <Feed accounts={accounts} counter={counter} promptById={promptById} ramificationsById={ramificationsById} ramificate={ramificate} updateCounter={updateCounter} />
           </Route>
           <Route exact path="/ramifications">
             <Ramifications counter={counter} promptById={promptById} ramificationsById={ramificationsById} getRamificationCid={getRamificationCid} getRamificationId={getRamificationId} />
           </Route>
           <Route exact path="/ownership">
-            <Ownership ownerOf={ownerOf} balanceOf={balanceOf} transfer={transfer} />
+            <Ownership accounts={accounts} ownerOf={ownerOf} balanceOf={balanceOf} transfer={transfer} />
           </Route>
           <Route exact path="/about">
             <About />

@@ -17303,6 +17303,12 @@
     "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
   },
   "networks": {
+    "3": {
+      "events": {},
+      "links": {},
+      "address": "0xaA4faa765204eE0eA94c037eb072653a074633eB",
+      "transactionHash": "0x22f29912fd70d89d4b8be2bb30418f1343868c0923a91b2459dd734d7a38cac8"
+    },
     "5777": {
       "events": {},
       "links": {},
@@ -17311,7 +17317,7 @@
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-08T13:24:43.738Z",
+  "updatedAt": "2021-12-09T21:52:06.730Z",
   "networkType": "ethereum",
   "devdoc": {
     "author": "Mario Mazzaferro",

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap';
 
-const Feed = ({promptById, counter, ramificationsById, ramificate, updateCounter}) => {
+const Feed = ({promptById, counter, ramificationsById, ramificate, updateCounter, accounts}) => {
   const [text, setText] = useState(undefined);
   const [ramifications, setRamifications] = useState(undefined);
   const [NFTId, setNFTId] = useState(undefined);
@@ -80,7 +80,6 @@ const Feed = ({promptById, counter, ramificationsById, ramificate, updateCounter
 
   return (
     <Container>
-      <br/>
       <Row>
         <Col>
         <Button variant="dark" onClick={() => prev()} className="font-weight-bold" style={{color: "silver"}}>Previous Prompt</Button>
@@ -105,6 +104,7 @@ const Feed = ({promptById, counter, ramificationsById, ramificate, updateCounter
         <br/>
         <p style={{color: "lightgray"}}>{`RAMIFICATIONS: ${ramifications}`}</p>
         <br/>
+        { accounts.length !== 0 &&
         <Form ref={formRef} onSubmit={(e) => submitRamification(e)}>
         <Form.Group>
         <Form.Control
@@ -114,7 +114,8 @@ const Feed = ({promptById, counter, ramificationsById, ramificate, updateCounter
         <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}>Mint Prompt $</Button>
         {loading && <div><br/><div class="spinner-border"></div></div>}
         </Form.Group>
-      </Form>
+        </Form>
+        }
         </Card.Text>
         </Card.Body>
       </Card>

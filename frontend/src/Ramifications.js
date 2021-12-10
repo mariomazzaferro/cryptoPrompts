@@ -58,7 +58,6 @@ const Ramifications = ({promptById, counter, ramificationsById, getRamificationC
 
   return (
     <Container>
-      <br/>
       <Row>
         <Col>
         <Button variant="dark" onClick={() => prev()} className="font-weight-bold" style={{color: "silver"}}>Previous Ramification</Button>
@@ -96,7 +95,7 @@ const Ramifications = ({promptById, counter, ramificationsById, getRamificationC
             <Row>
             <Col>
             <Form.Control
-              placeholder="NFT Id : )"
+              placeholder="Prompt Id : )"
               type="number"
               value={NFTId}
               onChange={e => updateNFTId(e)}
@@ -104,7 +103,7 @@ const Ramifications = ({promptById, counter, ramificationsById, getRamificationC
             </Col>
             <Col>
             <Form.Control
-              placeholder="Ramification Number : )"
+              placeholder="Ramification Number; starts at 0 : )"
               type="number"
               value={ramNumber}
               onChange={e => updateRamNumber(e)}

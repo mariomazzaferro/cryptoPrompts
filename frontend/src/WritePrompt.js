@@ -1,7 +1,8 @@
 import React, { useState, useRef } from 'react';
 import { Container, Button, Form, Card } from 'react-bootstrap';
+import metamaskLogo from './metamask.png';
 
-const WritePrompt = ({writePrompt, updateCounter}) => {
+const WritePrompt = ({writePrompt, updateCounter, accounts}) => {
   const [prompt, setPrompt] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const formRef = useRef(null);
@@ -28,9 +29,25 @@ const WritePrompt = ({writePrompt, updateCounter}) => {
     setPrompt(prompt);
   }
 
+  if(
+    accounts.length === 0
+  ) {
+    return (
+      <div className="my-5 text-center">
+        <h1>Welcome to Crypto Prompts!</h1>
+        <br/>
+        <h3>Click on FEED and enjoy the reading...</h3>
+        <br/>
+        <img src={metamaskLogo} width="200" class="mb-4" alt=""/>
+        <br/>
+        <h3>If you want to create your own Literary NFTs:</h3>
+        <h3>install <a href="https://metamask.io/">Metamask</a> + get some MATIC + be a writer!</h3>
+      </div>
+    )
+  }
+
   return (
     <Container>
-      <br/>
       <Card className="shadow-lg p-3 mb-5 bg-white rounded text-center" style={{ width: 'auto' }}>
       <Card.Text>
       <Form ref={formRef} onSubmit={(e) => submit(e)}>
