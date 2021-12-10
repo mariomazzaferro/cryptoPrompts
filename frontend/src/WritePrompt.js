@@ -41,7 +41,7 @@ const WritePrompt = ({writePrompt, updateCounter, accounts}) => {
         <img src={metamaskLogo} width="200" class="mb-4" alt=""/>
         <br/>
         <h3>If you want to create your own Literary NFTs:</h3>
-        <h3>install <a href="https://metamask.io/">Metamask</a> + get some Ropsten ETH + be a writer!</h3>
+        <h3><a href="https://metamask.io/">install Metamask</a> + <a href="https://medium.com/stakingbits/setting-up-metamask-for-polygon-matic-network-838058f6d844">connect it to Polygon</a> + get some MATIC + be a writer!</h3>
       </div>
     )
   }

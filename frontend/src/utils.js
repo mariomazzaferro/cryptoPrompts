@@ -11,16 +11,27 @@ const getWeb3 = () => {
         const web3 = new Web3(window.ethereum);
         try {
           await window.ethereum.enable();
-          resolve(web3);
+          const networkId = await web3.eth.net.getId();
+          if(networkId === 3) {
+            resolve(web3);
+          } else {
+            const infuraWeb3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ENDPOINT));
+            resolve(infuraWeb3);
+          }
         } catch (error) {
           reject(error);
         }
-        resolve(web3);
       } else if(window.web3) {
-        resolve(window.web3);
+        const networkId = await window.web3.eth.net.getId();
+        if(networkId === 3) {
+          resolve(window.web3);
+        } else {
+          const infuraWeb3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ENDPOINT));
+          resolve(infuraWeb3);
+        }
       } else {
-        const web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ENDPOINT));
-        resolve(web3);
+        const infuraWeb3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ENDPOINT));
+        resolve(infuraWeb3);
       }
     });
   });
