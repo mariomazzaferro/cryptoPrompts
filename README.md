@@ -5,11 +5,11 @@ There is a subreddit called <a href="https://www.reddit.com/r/WritingPrompts/">r
 
 ## Overview
 
-Right now, the millions of <a href="https://www.reddit.com/r/WritingPrompts/">r/WritingPrompts</a> users simply post their prompts and comments (ramifications) on reddit with no way to effectively claim authorship and profit from their creative work. They are using reddit simply as a training ground for their writing skills.
+Right now, the millions of <a href="https://www.reddit.com/r/WritingPrompts/">r/WritingPrompts</a> users post their prompts and comments (ramifications) on reddit with no way to effectively profit from their creative work. They are using reddit simply as a training ground for their writing skills.
 
 Having said that, the 2 main objectives of this dapp are:
-- to attribute ownership to content created through this type of collaboration.
-- to empower writers and wannabe-writers, by making their journey more profitable and trackable.
+- To attribute ownership to content created through this type of collaboration.
+- To empower writers and wannabe-writers, by making their journey more profitable and trackable.
 
 Crypto Prompts has no owner and seeks no profit. It is a public service, everything you pay in this platform is spent exclusively on blockchain fees. The initial proposal is inspired by Writing Prompts subreddit, with its literary appeal, but there are no rules here, you can write whatever you want, however you want it. There can be question prompts, making the ramification dynamic similar to Quora, there can be discussion prompts, tilting it more towards Twitter's dynamic. There are endless possibilities for new prompts, its impossible to guess all of them now, the best way to predict the futere is by writing it.
 
@@ -31,7 +31,7 @@ The prompt texts are stored in IPFS and only the IPFS CIDs are stored in the blo
 
 Crypto Prompt NFTs inherit from OpenZeppelin's ERC-721 standard.
 
-This is a simple dapp, its core functionality implements two mappings: "promptCids" (relates NFT Id to its IPFS CID) and "ramifications" (relates NFT Id to its list of ramifications).
+This is a simple dapp, its core functionality implements three mappings: "promptCids" (relates Prompt Id to its IPFS CID), "ramifications" (relates Prompt Id to its list of ramifications) and "parentPrompts" (relates Prompt Id to its parent Prompt Id).
 
 
 ## Directory structure

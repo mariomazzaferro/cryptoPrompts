@@ -11,11 +11,14 @@ contract Prompts is ERC721 {
     /// @notice Tracks number of minted Prompts
     uint256 public counter;
 
-    /// @notice Relates Prompt Ids and their respective IPFS CIDs
+    /// @notice Relates Prompt Ids to their respective IPFS CIDs
     mapping(uint256 => string) public promptCids;
 
-    /// @dev Relates Prompt Ids and their respective ramification lists
+    /// @dev Relates Prompt Ids to their respective ramification lists
     mapping(uint256 => uint256[]) public ramifications;
+
+    /// @dev Relates Prompt Ids to their respective parent Prompt Ids
+    mapping(uint256 => uint256) public parentPrompts;
 
     /// @notice Checks if oldId is an existing prompt
     /// @param oldId Id of the Prompt that is being ramificated
@@ -46,6 +49,7 @@ contract Prompts is ERC721 {
     function mintPrompt(string calldata newCid, uint oldId) external validOldId(oldId) {
       _mintValidPrompt(newCid);
       ramifications[oldId].push(counter);
+      parentPrompts[counter] = oldId;
     }
 
     /// @notice Returns number of ramifications for that specific promptId

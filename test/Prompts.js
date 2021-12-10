@@ -78,4 +78,17 @@ contract('Prompts', (accounts) => {
     assert.equal(ramifications1, 2, "ramifications1 is not 2!");
     assert.equal(ramifications2, 3, "ramifications2 is not 3!");
   });
+
+  // Checks if parentPrompts getter is working properly.
+  it('Should get promptParents successfully', async () => {
+    await prompts.mintPrompt("Prompt1");
+    await prompts.mintPrompt("Ramification1", 1);
+    let parent1 = await prompts.parentPrompts(2);
+
+    await prompts.mintPrompt("Ramification2", 2);
+    let parent2 = await prompts.parentPrompts(3);
+
+    assert.equal(parent1, 1, "parent1 is not 1!");
+    assert.equal(parent2, 2, "parent2 is not 2!");
+  });
 });

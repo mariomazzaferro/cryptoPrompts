@@ -74,6 +74,11 @@ function App() {
     return res.status;
   }
 
+  const approve = async (to, tokenId) => {
+    const res = await contract.methods.approve(to, tokenId).send({from: accounts[0]});
+    return res.status;
+  }
+
   const storeString = async string => {
     const blob = new Blob([string]);
     const cid = await client.storeBlob(blob);
@@ -97,6 +102,11 @@ function App() {
   const promptById = async promptId => {
     const promptCid = await contract.methods.promptCids(promptId).call();
     return promptCid;
+  };
+
+  const parentById = async promptId => {
+    const parentPrompt = await contract.methods.parentPrompts(promptId).call();
+    return parentPrompt;
   };
 
   const ramificationsById = async promptId => {
@@ -154,10 +164,10 @@ function App() {
             <Feed accounts={accounts} counter={counter} promptById={promptById} ramificationsById={ramificationsById} ramificate={ramificate} updateCounter={updateCounter} />
           </Route>
           <Route exact path="/ramifications">
-            <Ramifications counter={counter} promptById={promptById} ramificationsById={ramificationsById} getRamificationCid={getRamificationCid} getRamificationId={getRamificationId} />
+            <Ramifications parentById={parentById} counter={counter} promptById={promptById} ramificationsById={ramificationsById} getRamificationCid={getRamificationCid} getRamificationId={getRamificationId} />
           </Route>
           <Route exact path="/ownership">
-            <Ownership accounts={accounts} ownerOf={ownerOf} balanceOf={balanceOf} transfer={transfer} />
+            <Ownership accounts={accounts} ownerOf={ownerOf} balanceOf={balanceOf} transfer={transfer} approve={approve} />
           </Route>
           <Route exact path="/about">
             <About />

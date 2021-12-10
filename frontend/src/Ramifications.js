@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap';
 
-const Ramifications = ({promptById, counter, ramificationsById, getRamificationCid, getRamificationId}) => {
+const Ramifications = ({parentById, promptById, counter, ramificationsById, getRamificationCid, getRamificationId}) => {
   const [ramiId, setRamiId] = useState(undefined);
   const [text, setText] = useState(undefined);
   const [ramNumber, setRamNumber] = useState(undefined);
@@ -10,6 +10,8 @@ const Ramifications = ({promptById, counter, ramificationsById, getRamificationC
   const [ramifications, setRamifications] = useState(undefined);
   const [NFTId, setNFTId] = useState(undefined);
   const [showNFTId, setShowNFTId] = useState(undefined);
+  const [childId, setChildId] = useState(undefined);
+  const [parentId, setParentId] = useState(0);
 
   const updateRamNumber = (e) => {
     const ramNum = e.target.value;
@@ -25,6 +27,23 @@ const Ramifications = ({promptById, counter, ramificationsById, getRamificationC
     e.preventDefault();
     if(0 < NFTId && NFTId <= counter && ramNumber >= 0) {
       await getPrompt(NFTId, ramNumber);
+    }
+  }
+
+  const updateChildId = (e) => {
+    const childId = e.target.value;
+    setChildId(parseInt(childId));
+  }
+
+  const getParent = async (e) => {
+    e.preventDefault();
+    let parentId;
+    try {
+      parentId = await parentById(childId);
+      setParentId(parentId);
+      console.log(parentId);
+    } catch(err) {
+      console.log(err.message);  
     }
   }
 
@@ -116,6 +135,36 @@ const Ramifications = ({promptById, counter, ramificationsById, getRamificationC
             </Form.Group>
           </Form>
             </Card.Title>
+            </Card.Body>
+          </Card>
+
+        <Card className="shadow-lg p-3 mb-5 bg-white rounded text-center" style={{ width: 'auto', maxWidth: '32rem' }}>
+        <Card.Body>
+          <Card.Title>
+            <Form inline onSubmit={(e) => getParent(e)}>
+            <Form.Group>
+            <Row>
+            <Col>
+            <Form.Control
+              placeholder="Prompt Id : )"
+              type="number"
+              value={childId}
+              onChange={e => updateChildId(e)}
+            ></Form.Control>
+            </Col>
+            <Col>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}>Get Parent Prompt Id</Button>
+            </Col>
+            </Row>
+            </Form.Group>
+          </Form>
+            </Card.Title>
+            <Card.Text>
+            <h5>{
+              parentId != 0 &&
+              `Parent Id: ${parentId}`
+            }</h5>
+            </Card.Text>
             </Card.Body>
           </Card>
     </Container>
