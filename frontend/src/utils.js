@@ -19,10 +19,7 @@ const getWeb3 = () => {
       } else if(window.web3) {
         resolve(window.web3);
       } else {
-        console.log("before");
         const web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ENDPOINT));
-        console.log("after");
-        console.log(web3);
         resolve(web3);
       }
     });
@@ -31,7 +28,6 @@ const getWeb3 = () => {
 
 const getContract = async web3 => {
   const networkId = await web3.eth.net.getId();
-  console.log(`networkId: ${networkId}`);
   const contractDeployment = Prompts.networks[networkId];
   return new web3.eth.Contract(
     Prompts.abi,

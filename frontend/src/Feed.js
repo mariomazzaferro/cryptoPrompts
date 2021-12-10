@@ -108,7 +108,7 @@ const Feed = ({promptById, counter, ramificationsById, ramificate, updateCounter
         <Form ref={formRef} onSubmit={(e) => submitRamification(e)}>
         <Form.Group>
         <Form.Control
-          as="textarea" rows="13"  placeholder='Write your ramification...    Once minted, it will become a NFT prompt, anyone will be able to create new prompts by ramificating yours. Every prompt or ramification starts with "0x..." to sinalize different writers : )'
+          as="textarea" rows="13"  placeholder='Write your ramification...    once minted, it will become a NFT prompt, anyone will be able to create new prompts by ramificating yours. Every prompt or ramification automatically starts with the "0x..." standard to sinalize different writers : )'
           onChange={e => updateRamification(e)}
         ></Form.Control>
         <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}>Mint Prompt $</Button>

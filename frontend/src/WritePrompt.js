@@ -41,7 +41,7 @@ const WritePrompt = ({writePrompt, updateCounter, accounts}) => {
         <img src={metamaskLogo} width="200" class="mb-4" alt=""/>
         <br/>
         <h3>If you want to create your own Literary NFTs:</h3>
-        <h3>install <a href="https://metamask.io/">Metamask</a> + get some MATIC + be a writer!</h3>
+        <h3>install <a href="https://metamask.io/">Metamask</a> + get some Ropsten ETH + be a writer!</h3>
       </div>
     )
   }
@@ -54,7 +54,7 @@ const WritePrompt = ({writePrompt, updateCounter, accounts}) => {
         <Form.Group>
         <Form.Control
           as="textarea" rows="13"
-          placeholder="Write your prompt... : )"
+          placeholder='Write your prompt...   the "0x..." standard will be added automatically : )'
           onChange={e => updatePrompt(e)}
         ></Form.Control>
         <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}>Mint Prompt $</Button>

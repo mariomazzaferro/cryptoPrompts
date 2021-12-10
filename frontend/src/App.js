@@ -31,7 +31,7 @@ function App() {
       } catch(err) {
         console.log(err.message);  
       }
-      console.log(accounts);
+
       let contract;
       try {
         contract = await getContract(web3);
