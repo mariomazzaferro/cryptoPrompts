@@ -41,7 +41,6 @@ const Ramifications = ({parentById, promptById, counter, ramificationsById, getR
     try {
       parentId = await parentById(childId);
       setParentId(parentId);
-      console.log(parentId);
     } catch(err) {
       console.log(err.message);  
     }
