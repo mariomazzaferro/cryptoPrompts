@@ -17574,10 +17574,16 @@
       "links": {},
       "address": "0x8dFd3d7EA6Ff49d3449EECB7314FBD5310F57B0E",
       "transactionHash": "0x3af62d361d3e7dcd8f31ae96b22f4987925b17a9fdf561e59b9985cc1c31e5a8"
+    },
+    "80001": {
+      "events": {},
+      "links": {},
+      "address": "0xAc36F482e3A71290B4e423b1673E4774905CDdC6",
+      "transactionHash": "0xbd5a878de6939655aba00bdf255b9316b8b0250dce3c14a8122dd92185e257f7"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-10T21:47:27.498Z",
+  "updatedAt": "2021-12-12T18:40:53.371Z",
   "networkType": "ethereum",
   "devdoc": {
     "author": "Mario Mazzaferro",

@@ -11,27 +11,26 @@ const getWeb3 = () => {
         const web3 = new Web3(window.ethereum);
         try {
           await window.ethereum.enable();
-          resolve(web3);
-          // const networkId = await web3.eth.net.getId();
-          // if(networkId === 3) {
-          //   resolve(web3);
-          // } else {
-          //   const infuraWeb3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ENDPOINT));
-          //   resolve(infuraWeb3);
-          // }
+          const networkId = await web3.eth.net.getId();
+          if(networkId === 80001) {
+            resolve(web3);
+          } else {
+            const infuraWeb3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_MUMBAI_ENDPOINT));
+            resolve(infuraWeb3);
+          }
         } catch (error) {
           reject(error);
         }
       } else if(window.web3) {
         const networkId = await window.web3.eth.net.getId();
-        if(networkId === 3) {
+        if(networkId === 80001) {
           resolve(window.web3);
         } else {
-          const infuraWeb3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ENDPOINT));
+          const infuraWeb3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_MUMBAI_ENDPOINT));
           resolve(infuraWeb3);
         }
       } else {
-        const infuraWeb3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_INFURA_ENDPOINT));
+        const infuraWeb3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_MUMBAI_ENDPOINT));
         resolve(infuraWeb3);
       }
     });
