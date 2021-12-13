@@ -20,7 +20,7 @@ const About = () => {
           <h5>ERC-721 NFT STANDARD</h5>
         </Card.Title>
         <Card.Text>
-          <p>Non-Fungible Tokens are used to identify something in a unique way, and to securely manage its ownership. This type of Tokens are perfect to be used on platforms that offer collectible items or any other generic items. The ERC-721 is the main standard for NFTs in the crypto industry. The NFTs you create here are compatible with every NFT Marketplace.</p>
+          <p>Non-Fungible Tokens are used to identify something in a unique way, and to securely manage its ownership. This type of Token is perfect for platforms that offer collectible items or any other generic items. The ERC-721 is the main standard for NFTs in the crypto industry. The NFTs you create here are compatible with every NFT Marketplace.</p>
         </Card.Text>
         </Card.Body>
       </Card>
@@ -30,7 +30,8 @@ const About = () => {
           <h5>CRYPTO PROMPTS</h5>
         </Card.Title>
         <Card.Text>
-          <p>This platform is 100% decentralized, the <a href="https://github.com/mariomazzaferro/cryptoPrompts/">code</a> is open source and there are no owners, nor profit. Crypto Prompts is a public service, everything you pay here is spent exclusively on blockchain fees. The initial proposal is inspired by Writing Prompts subreddit, with its literary appeal, but there are no rules, you can write whatever you want, however you want it. There can be "question prompts", making the ramification dynamic similar to Quora. There can be "discussion prompts", tilting more towards Twitter's dynamic. There are endless possibilities for new prompts, its impossible to guess all of them now, the best way to predict the futere is by writing it.</p>
+          <p>This platform has no owner and seeks no profit. Its infrastructure is 100% decentralized (IPFS + smart contract) and the <a href="https://github.com/mariomazzaferro/cryptoPrompts/">code</a> is open source. Crypto Prompts is a public service, everything you pay is spent exclusively on blockchain fees. This project is inspired by the Writing Prompts subreddit, with its literary appeal, but there are no rules here, you can write whatever you want, however you want it. There can be "question prompts", making the ramification dynamic similar to Quora. There can be "discussion prompts", tilting more towards Twitter's dynamic. Go crazy, you can publish an entire novel if you dare. There are endless possibilities for new prompts, it's impossible to guess all of them now, the best way to predict the futere is by writing it...</p>
+          <p>As the community matures, Crypto Prompts will be used as base NFTs for more elaborate literary NFT collections.</p>
         </Card.Text>
         </Card.Body>
       </Card>

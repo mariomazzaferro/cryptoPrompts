@@ -1,6 +1,6 @@
 # Project Name: CRYPTO PROMPTS
 
-There is a subreddit called <a href="https://www.reddit.com/r/WritingPrompts/">r/WritingPrompts</a>, where millions of writers contribute to create new content. Crypto Prompts is the implementation of that idea in the blockchain. Where each prompt and ramification are ERC-721 Non-Fungible Tokens that can be bought, sold, transfered or used as a prompts for other ramifications.
+There is a subreddit called <a href="https://www.reddit.com/r/WritingPrompts/">r/WritingPrompts</a>, where millions of writers and wanna be writers contribute to create new content. Crypto Prompts is the implementation of that idea in the Polygon blockchain. Where each prompt and ramification prompt are ERC-721 Non-Fungible Tokens that can be sold, transfered or used as prompt for other ramifications.
 
 
 ## Overview
@@ -9,12 +9,12 @@ Right now, the millions of <a href="https://www.reddit.com/r/WritingPrompts/">r/
 
 Having said that, the 2 main objectives of this dapp are:
 - To attribute ownership to content created through this type of collaboration.
-- To empower writers and wannabe-writers, by making their journey more profitable and trackable.
+- To empower writers and wanna be writers, by making their journey more profitable and trackable.
 
-Crypto Prompts has no owner and seeks no profit. It is a public service, everything you pay in this platform is spent exclusively on blockchain fees. The initial proposal is inspired by Writing Prompts subreddit, with its literary appeal, but there are no rules here, you can write whatever you want, however you want it. There can be question prompts, making the ramification dynamic similar to Quora, there can be discussion prompts, tilting it more towards Twitter's dynamic. There are endless possibilities for new prompts, its impossible to guess all of them now, the best way to predict the futere is by writing it.
+Crypto Prompts has no owner and seeks no profit. It is a public service, everything you pay in this platform is spent exclusively on blockchain fees. This project is inspired by the Writing Prompts subreddit, with its literary appeal, but there are no rules here, you can write whatever you want, however you want it. There can be question prompts, making the ramification dynamic similar to Quora. There can be discussion prompts, tilting it more towards Twitter's dynamic. There are endless possibilities for new prompts, it's impossible to guess all of them now, the best way to predict the futere is by writing it...
 
-As a reader using Crypto Prompts: you will be able to read every prompt and each of its ramifications, as well as search for specific prompts and ramifications.
-As a writer using Crypto Prompts: you will be able to write new initial prompts and new ramifications for any existing prompt.
+As a reader using Crypto Prompts: you are be able to read every prompt and each of its ramifications, as well as search for specific prompts and specific ramifications.
+As a writer using Crypto Prompts: you are be able to write new initial prompts and new ramifications for any existing prompt.
 
 
 ## User Workflow
@@ -27,7 +27,7 @@ As a writer using Crypto Prompts: you will be able to write new initial prompts 
 
 ## Development
 
-The prompt texts are stored in IPFS and only the IPFS CIDs are stored in the blockchain. The backend is 100% decentralized (IPFS + smart contract).
+The prompt texts are stored in IPFS and only the IPFS CIDs are stored in the smart contract. The backend is 100% decentralized (IPFS + smart contract).
 
 Crypto Prompt NFTs inherit from OpenZeppelin's ERC-721 standard.
 
