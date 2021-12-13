@@ -164,7 +164,7 @@ function App() {
             <Feed accounts={accounts} counter={counter} promptById={promptById} ramificationsById={ramificationsById} ramificate={ramificate} updateCounter={updateCounter} />
           </Route>
           <Route exact path="/ramifications">
-            <Ramifications parentById={parentById} counter={counter} promptById={promptById} ramificationsById={ramificationsById} getRamificationCid={getRamificationCid} getRamificationId={getRamificationId} />
+            <Ramifications parentById={parentById} counter={counter} ramificationsById={ramificationsById} getRamificationCid={getRamificationCid} getRamificationId={getRamificationId} />
           </Route>
           <Route exact path="/ownership">
             <Ownership accounts={accounts} ownerOf={ownerOf} balanceOf={balanceOf} transfer={transfer} approve={approve} />

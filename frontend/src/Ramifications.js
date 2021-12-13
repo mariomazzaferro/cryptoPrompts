@@ -2,19 +2,20 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap';
 
-const Ramifications = ({parentById, promptById, counter, ramificationsById, getRamificationCid, getRamificationId}) => {
+const Ramifications = ({parentById, counter, ramificationsById, getRamificationCid, getRamificationId}) => {
   const [ramiId, setRamiId] = useState(undefined);
   const [text, setText] = useState(undefined);
   const [ramNumber, setRamNumber] = useState(undefined);
   const [showRamNumber, setShowRamNumber] = useState(undefined);
   const [ramifications, setRamifications] = useState(undefined);
+  const [childRams, setChildRams] = useState(undefined);
   const [NFTId, setNFTId] = useState(undefined);
   const [showNFTId, setShowNFTId] = useState(undefined);
   const [childId, setChildId] = useState(undefined);
   const [parentId, setParentId] = useState(0);
 
   const updateRamNumber = (e) => {
-    const ramNum = e.target.value;
+    let ramNum = e.target.value;
     setRamNumber(parseInt(ramNum));
   }
 
@@ -25,7 +26,7 @@ const Ramifications = ({parentById, promptById, counter, ramificationsById, getR
 
   const getNFT = async (e) => {
     e.preventDefault();
-    if(0 < NFTId && NFTId <= counter && ramNumber >= 0) {
+    if(0 < NFTId && NFTId <= counter && ramNumber > 0) {
       await getPrompt(NFTId, ramNumber);
     }
   }
@@ -46,7 +47,8 @@ const Ramifications = ({parentById, promptById, counter, ramificationsById, getR
     }
   }
 
-  const getPrompt = async (promptId, ramificationNumber) => {
+  const getPrompt = async (promptId, ramifiNumber) => {
+    const ramificationNumber = ramifiNumber - 1;
     const cid = await getRamificationCid(promptId, ramificationNumber);
     const ramiId = await getRamificationId(promptId, ramificationNumber);
     setRamiId(ramiId);
@@ -54,12 +56,15 @@ const Ramifications = ({parentById, promptById, counter, ramificationsById, getR
     setText(blob.data);
     const rams = await ramificationsById(promptId);
     setRamifications(rams);
+    const childRams = await ramificationsById(ramiId);
+    setChildRams(childRams);
     setShowNFTId(promptId);
-    setShowRamNumber(ramificationNumber);
+    const showRamificationNumber = ramificationNumber + 1;
+    setShowRamNumber(showRamificationNumber);
   }
 
   const next = async () => {
-    if(ramNumber + 1 < ramifications) {
+    if(ramNumber + 1 <= ramifications) {
       const c = ramNumber + 1;
       setRamNumber(c);
       await getPrompt(NFTId, c);
@@ -67,7 +72,7 @@ const Ramifications = ({parentById, promptById, counter, ramificationsById, getR
   }
 
   const prev = async () => {
-    if(ramNumber >= 1) {
+    if(ramNumber > 1) {
       const c = ramNumber - 1;
       setRamNumber(c);
       await getPrompt(NFTId, c);
@@ -92,14 +97,21 @@ const Ramifications = ({parentById, promptById, counter, ramificationsById, getR
         <Card className="shadow-lg p-3 mb-5 bg-white rounded text-center" style={{ width: 'auto' }}>
         <Card.Body>
         <Card.Title>
-          <h5 style={{color: "lightgray"}}>{`PROMPT ID: ${showNFTId}`}</h5>
-          <h5 style={{color: "lightgray"}}>{`RAMIFICATION: ${showNFTId}.${showRamNumber} (RAMIFICATION PROMPT ID: ${ramiId})`}</h5>
+          <Row>
+          <Col>
+          <p style={{color: "lightgray"}}>{`PARENT PROMPT ID: ${showNFTId}`}</p>
+          </Col>
+          <Col>
+          <p style={{color: "lightgray"}}>{`RAMIFICATION: ${showRamNumber}/${ramifications}`}</p>
+          </Col>
+          </Row>
+          <h5 style={{color: "lightgray"}}>{`PROMPT ID: ${ramiId}`}</h5>
         </Card.Title>
         <Card.Text>
         <br/>
         <h5 style={{whiteSpace: "pre-wrap"}}>{text && `${text}`}</h5>
         <br/>
-        <p style={{color: "lightgray"}}>{`RAMIFICATIONS: ${ramifications}`}</p>
+        <p style={{color: "lightgray"}}>{`RAMIFICATIONS: ${childRams}`}</p>
         </Card.Text>
         </Card.Body>
       </Card>
@@ -113,7 +125,7 @@ const Ramifications = ({parentById, promptById, counter, ramificationsById, getR
             <Row>
             <Col>
             <Form.Control
-              placeholder="Prompt Id : )"
+              placeholder="Parent Prompt Id : )"
               type="number"
               value={NFTId}
               onChange={e => updateNFTId(e)}
@@ -121,7 +133,7 @@ const Ramifications = ({parentById, promptById, counter, ramificationsById, getR
             </Col>
             <Col>
             <Form.Control
-              placeholder="Ramification Number; starts at 0 : )"
+              placeholder="Ramification Number : )"
               type="number"
               value={ramNumber}
               onChange={e => updateRamNumber(e)}
