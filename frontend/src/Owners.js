@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap';
 
-const Ownership = ({ownerOf, balanceOf, transfer, approve, accounts}) => {
+const Owners = ({ownerOf, balanceOf, transfer, approve, accounts}) => {
   const [NFTId, setNFTId] = useState(undefined);
   const [ownerById, setOwnerById] = useState(undefined);
   const [owner, setOwner] = useState(undefined);
@@ -128,7 +128,7 @@ const Ownership = ({ownerOf, balanceOf, transfer, approve, accounts}) => {
             ></Form.Control>
             </Col>
             <Col>
-            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}>Get Owner Address by Prompt Id</Button>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Owner Address by Prompt Id</i></Button>
             </Col>
             </Row>
             </Form.Group>
@@ -157,7 +157,7 @@ const Ownership = ({ownerOf, balanceOf, transfer, approve, accounts}) => {
             ></Form.Control>
             </Col>
             <Col>
-            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}>Get Prompt balance by Owner Address</Button>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Prompt balance by Owner Address</i></Button>
             </Col>
             </Row>
             </Form.Group>
@@ -202,7 +202,7 @@ const Ownership = ({ownerOf, balanceOf, transfer, approve, accounts}) => {
             ></Form.Control>
             </Col>
             <Col>
-            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}>Transfer Prompt $</Button>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Transfer Prompt $</i></Button>
             {loading1 && <div class="spinner-border"></div>}
             </Col>
             </Row>
@@ -235,7 +235,7 @@ const Ownership = ({ownerOf, balanceOf, transfer, approve, accounts}) => {
               ></Form.Control>
               </Col>
               <Col>
-              <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}>Approve to Transfer $</Button>
+              <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Approve to Transfer $</i></Button>
               {loading2 && <div class="spinner-border"></div>}
               </Col>
               </Row>
@@ -252,4 +252,4 @@ const Ownership = ({ownerOf, balanceOf, transfer, approve, accounts}) => {
   );
 }
 
-export default Ownership;
+export default Owners;

@@ -2,21 +2,21 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap';
 
-const Ramifications = ({parentById, counter, ramificationsById, getRamificationCid, getRamificationId}) => {
-  const [ramiId, setRamiId] = useState(undefined);
+const Branches = ({parentById, counter, branchesById, getBranchCid, getBranchId}) => {
+  const [branchId, setBranchId] = useState(undefined);
   const [text, setText] = useState(undefined);
-  const [ramNumber, setRamNumber] = useState(undefined);
-  const [showRamNumber, setShowRamNumber] = useState(undefined);
-  const [ramifications, setRamifications] = useState(undefined);
-  const [childRams, setChildRams] = useState(undefined);
+  const [branchNumber, setBranchNumber] = useState(undefined);
+  const [showBranchNumber, setShowBranchNumber] = useState(undefined);
+  const [branches, setBranches] = useState(undefined);
+  const [childBranches, setChildBranches] = useState(undefined);
   const [NFTId, setNFTId] = useState(undefined);
   const [showNFTId, setShowNFTId] = useState(undefined);
   const [childId, setChildId] = useState(undefined);
   const [parentId, setParentId] = useState(0);
 
-  const updateRamNumber = (e) => {
-    let ramNum = e.target.value;
-    setRamNumber(parseInt(ramNum));
+  const updateBranchNumber = (e) => {
+    let branchNum = e.target.value;
+    setBranchNumber(parseInt(branchNum));
   }
 
   const updateNFTId = (e) => {
@@ -26,8 +26,8 @@ const Ramifications = ({parentById, counter, ramificationsById, getRamificationC
 
   const getNFT = async (e) => {
     e.preventDefault();
-    if(0 < NFTId && NFTId <= counter && ramNumber > 0) {
-      await getPrompt(NFTId, ramNumber);
+    if(0 < NFTId && NFTId <= counter && branchNumber > 0) {
+      await getPrompt(NFTId, branchNumber);
     }
   }
 
@@ -47,34 +47,34 @@ const Ramifications = ({parentById, counter, ramificationsById, getRamificationC
     }
   }
 
-  const getPrompt = async (promptId, ramifiNumber) => {
-    const ramificationNumber = ramifiNumber - 1;
-    const cid = await getRamificationCid(promptId, ramificationNumber);
-    const ramiId = await getRamificationId(promptId, ramificationNumber);
-    setRamiId(ramiId);
+  const getPrompt = async (promptId, branchNumberPlus) => {
+    const branchNumber = branchNumberPlus - 1;
+    const cid = await getBranchCid(promptId, branchNumber);
+    const branchId = await getBranchId(promptId, branchNumber);
+    setBranchId(branchId);
     const blob = await axios.get(`https://ipfs.io/ipfs/${cid}`);
     setText(blob.data);
-    const rams = await ramificationsById(promptId);
-    setRamifications(rams);
-    const childRams = await ramificationsById(ramiId);
-    setChildRams(childRams);
+    const branches = await branchesById(promptId);
+    setBranches(branches);
+    const childBranches = await branchesById(branchId);
+    setChildBranches(childBranches);
     setShowNFTId(promptId);
-    const showRamificationNumber = ramificationNumber + 1;
-    setShowRamNumber(showRamificationNumber);
+    const showBranchNumber = branchNumber + 1;
+    setShowBranchNumber(showBranchNumber);
   }
 
   const next = async () => {
-    if(ramNumber + 1 <= ramifications) {
-      const c = ramNumber + 1;
-      setRamNumber(c);
+    if(branchNumber + 1 <= branches) {
+      const c = branchNumber + 1;
+      setBranchNumber(c);
       await getPrompt(NFTId, c);
     }
   }
 
   const prev = async () => {
-    if(ramNumber > 1) {
-      const c = ramNumber - 1;
-      setRamNumber(c);
+    if(branchNumber > 1) {
+      const c = branchNumber - 1;
+      setBranchNumber(c);
       await getPrompt(NFTId, c);
     }
   }
@@ -83,12 +83,12 @@ const Ramifications = ({parentById, counter, ramificationsById, getRamificationC
     <Container>
       <Row>
         <Col>
-        <Button variant="dark" onClick={() => prev()} className="font-weight-bold" style={{color: "silver"}}>Previous Ramification</Button>
+        <Button variant="dark" onClick={() => prev()} className="font-weight-bold" style={{color: "silver"}}><i>Previous Branch</i></Button>
         </Col>
         <Col></Col>
         <Col></Col>
         <Col>
-        <Button variant="dark" onClick={() => next()} className="font-weight-bold" style={{color: "silver"}}>Next Ramification</Button>
+        <Button variant="dark" onClick={() => next()} className="font-weight-bold" style={{color: "silver"}}><i>Next Branch</i></Button>
         </Col>
       </Row>
       <br/>
@@ -102,16 +102,16 @@ const Ramifications = ({parentById, counter, ramificationsById, getRamificationC
           <p style={{color: "lightgray"}}>{`PARENT PROMPT ID: ${showNFTId}`}</p>
           </Col>
           <Col>
-          <p style={{color: "lightgray"}}>{`RAMIFICATION: ${showRamNumber}/${ramifications}`}</p>
+          <p style={{color: "lightgray"}}>{`BRANCH: ${showBranchNumber}/${branches}`}</p>
           </Col>
           </Row>
-          <h5 style={{color: "lightgray"}}>{`PROMPT ID: ${ramiId}`}</h5>
+          <h5 style={{color: "lightgray"}}>{`PROMPT ID: ${branchId}`}</h5>
         </Card.Title>
         <Card.Text>
         <br/>
         <h5 style={{whiteSpace: "pre-wrap"}}>{text && `${text}`}</h5>
         <br/>
-        <p style={{color: "lightgray"}}>{`RAMIFICATIONS: ${childRams}`}</p>
+        <p style={{color: "lightgray"}}>{`BRANCHES: ${childBranches}`}</p>
         </Card.Text>
         </Card.Body>
       </Card>
@@ -133,14 +133,14 @@ const Ramifications = ({parentById, counter, ramificationsById, getRamificationC
             </Col>
             <Col>
             <Form.Control
-              placeholder="Ramification Number : )"
+              placeholder="Branch Number : )"
               type="number"
-              value={ramNumber}
-              onChange={e => updateRamNumber(e)}
+              value={branchNumber}
+              onChange={e => updateBranchNumber(e)}
             ></Form.Control>
             </Col>
             <Col>
-            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}>Get Ramification</Button>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Branch</i></Button>
             </Col>
             </Row>
             </Form.Group>
@@ -164,7 +164,7 @@ const Ramifications = ({parentById, counter, ramificationsById, getRamificationC
             ></Form.Control>
             </Col>
             <Col>
-            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}>Get Parent Prompt Id</Button>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Parent Prompt Id</i></Button>
             </Col>
             </Row>
             </Form.Group>
@@ -182,4 +182,4 @@ const Ramifications = ({parentById, counter, ramificationsById, getRamificationC
   );
 }
 
-export default Ramifications;
+export default Branches;

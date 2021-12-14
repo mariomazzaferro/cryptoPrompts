@@ -9,12 +9,26 @@ import {
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { getWeb3, getContract, client } from './utils.js';
-import WritePrompt from './WritePrompt.js';
+import Home from './Home.js';
+import New from './New.js';
 import Feed from './Feed.js';
-import Ramifications from './Ramifications.js';
-import Ownership from './Ownership.js';
+import Branches from './Branches.js';
+import Owners from './Owners.js';
 import About from './About.js';
-import metamaskLogo from './metamask.png';
+
+const ModelViewer = require('@metamask/logo');
+const viewer = ModelViewer({
+  // Dictates whether width & height are px or multiplied
+  pxNotRatio: false,
+  width: 0,
+  height: 0.3,
+
+  // To make the face follow the mouse.
+  followMouse: true,
+
+  // head should slowly drift (overrides lookAt)
+  slowDrift: false,
+});
 
 function App() {
   const [web3, setWeb3] = useState(undefined);
@@ -97,7 +111,7 @@ function App() {
     return cid;
   };
 
-  const ramificate = async (newString, oldString, oldId) => {
+  const branchify = async (newString, oldString, oldId) => {
     let formatedString = `${oldString}\n0x...${newString}`;
     const cid = await storeString(formatedString);
     const res = await contract.methods.mintPrompt(cid, oldId).send({from: accounts[0] });
@@ -121,30 +135,28 @@ function App() {
     return parentPrompt;
   };
 
-  const ramificationsById = async promptId => {
-    const ramifications = await contract.methods.promptRamifications(promptId).call();
-    return ramifications;
+  const branchesById = async promptId => {
+    const branches = await contract.methods.promptRamifications(promptId).call();
+    return branches;
   };
 
-  const getRamificationCid = async (promptId, ramificationId) => {
-    const ramiPromptId = await contract.methods.ramifications(promptId, ramificationId).call();
-    const ramificationCid = await contract.methods.promptCids(ramiPromptId).call();
-    return ramificationCid;
+  const getBranchCid = async (promptId, branchId) => {
+    const branchPromptId = await contract.methods.ramifications(promptId, branchId).call();
+    const branchCid = await contract.methods.promptCids(branchPromptId).call();
+    return branchCid;
   }
 
-  const getRamificationId = async (promptId, ramificationId) => {
-    const ramiPromptId = await contract.methods.ramifications(promptId, ramificationId).call();
-    return ramiPromptId;
+  const getBranchId = async (promptId, branchId) => {
+    const branchPromptId = await contract.methods.ramifications(promptId, branchId).call();
+    return branchPromptId;
   }
 
   if(
     typeof web3 === 'undefined'
   ) {
     return (
-      <div className="my-5 text-center">
-        <div class="spinner-border"></div>
-        <img src={metamaskLogo} width="200" class="mb-4" alt=""/>
-        <div class="spinner-border"></div>
+      <div className="my-5 p-5 mb-5 text-center">
+        <div class="spinner-border" style={{ width: '12rem', height: '12rem'}}></div>
       </div>
     )
   }
@@ -152,44 +164,64 @@ function App() {
   return (
     <Router>
       <Navbar bg="dark" variant="dark" expand="lg">
+        {
+          noMetamask ?
         <Container>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto font-weight-bold">
-          <Nav.Link className="px-4" bg="dark" as={Link} to={"/"}><h5>CRYPT0x...PROMPTS</h5></Nav.Link>
-          <Nav.Link className="px-4" as={Link} to={"/feed"}>FEED</Nav.Link>
-          <Nav.Link className="px-4" as={Link} to={"/branches"}>BRANCHES</Nav.Link>
-          <Nav.Link className="px-4" as={Link} to={"/owners"}>OWNERS</Nav.Link>
-          <Nav.Link className="px-4" as={Link} to={"/about"}>ABOUT</Nav.Link>
-          {
-            noMetamask ?
-            <Nav.Link className="px-4" onClick={() => connectMetamask()}>CONNECT METAMASK</Nav.Link> :
-            <Nav.Link className="px-3" onClick={() => disconnectMetamask()}>DISCONNECT METAMASK</Nav.Link>
-          }
+          
+          <Nav.Link className="px-4" bg="dark" as={Link} to={"/"}><h5><i>CRYPT0x...PROMPTS</i></h5></Nav.Link>
+          <Nav.Link className="px-5" as={Link} to={"/feed"}><i>FEED</i></Nav.Link>
+          <Nav.Link className="px-5" as={Link} to={"/branches"}><i>BRANCHES</i></Nav.Link>
+          <Nav.Link className="px-5" as={Link} to={"/owners"}><i>OWNERS</i></Nav.Link>
+          <Nav.Link className="px-5" as={Link} to={"/about"}><i>ABOUT</i></Nav.Link>
+          <Nav.Link className="px-4" onClick={() => connectMetamask()}><i>CONNECT METAMASK</i></Nav.Link>
           </Nav>
           </Navbar.Collapse>
         </Container>
+          :
+        <Container>
+          <Navbar.Toggle aria-controls="basic-navbar-nav" />
+          <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="me-auto font-weight-bold">
+          
+          <Nav.Link className="px-4" bg="dark" as={Link} to={"/"}><h5><i>CRYPT0x...PROMPTS</i></h5></Nav.Link>
+          <Nav.Link className="px-5" as={Link} to={"/new"}><i>NEW</i></Nav.Link>
+          <Nav.Link className="px-4" as={Link} to={"/feed"}><i>FEED</i></Nav.Link>
+          <Nav.Link className="px-5" as={Link} to={"/branches"}><i>BRANCHES</i></Nav.Link>
+          <Nav.Link className="px-4" as={Link} to={"/owners"}><i>OWNERS</i></Nav.Link>
+          <Nav.Link className="px-5" as={Link} to={"/about"}><i>ABOUT</i></Nav.Link>
+          <Nav.Link className="px-2" onClick={() => disconnectMetamask()}><i>DISCONNECT METAMASK</i></Nav.Link>
+          </Nav>
+          </Navbar.Collapse>
+        </Container>
+        }
       </Navbar>
       <br/>
       {accounts.length !== 0 && <p style={{color: "silver", textAlign: "center"}}>{`Active Account: ${accounts[0]}`}</p>
       }
       <Switch>
           <Route exact path="/">
-            <WritePrompt accounts={accounts} writePrompt={writePrompt} updateCounter={updateCounter} />
+            <Home accounts={accounts} writePrompt={writePrompt} updateCounter={updateCounter} connectMetamask={connectMetamask} />
+          </Route>
+          <Route exact path="/new">
+            <New writePrompt={writePrompt} updateCounter={updateCounter} />
           </Route>
           <Route exact path="/feed">
-            <Feed accounts={accounts} counter={counter} promptById={promptById} ramificationsById={ramificationsById} ramificate={ramificate} updateCounter={updateCounter} />
+            <Feed accounts={accounts} counter={counter} promptById={promptById} branchesById={branchesById} branchify={branchify} updateCounter={updateCounter} />
           </Route>
           <Route exact path="/branches">
-            <Ramifications parentById={parentById} counter={counter} ramificationsById={ramificationsById} getRamificationCid={getRamificationCid} getRamificationId={getRamificationId} />
+            <Branches parentById={parentById} counter={counter} branchesById={branchesById} getBranchCid={getBranchCid} getBranchId={getBranchId} />
           </Route>
           <Route exact path="/owners">
-            <Ownership accounts={accounts} ownerOf={ownerOf} balanceOf={balanceOf} transfer={transfer} approve={approve} />
+            <Owners accounts={accounts} ownerOf={ownerOf} balanceOf={balanceOf} transfer={transfer} approve={approve} />
           </Route>
           <Route exact path="/about">
             <About />
           </Route>
         </Switch>
+        <Container className="center">{viewer.container[0]}</Container>
     </Router>
   );
 }

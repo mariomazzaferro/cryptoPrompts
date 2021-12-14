@@ -2,42 +2,42 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap';
 
-const Feed = ({promptById, counter, ramificationsById, ramificate, updateCounter, accounts}) => {
+const Feed = ({promptById, counter, branchesById, branchify, updateCounter, accounts}) => {
   const [text, setText] = useState(undefined);
-  const [ramifications, setRamifications] = useState(undefined);
+  const [branches, setBranches] = useState(undefined);
   const [NFTId, setNFTId] = useState(undefined);
   const [showId, setShowId] = useState(undefined);
-  const [ramiText, setRamiText] = useState(undefined);
+  const [branchText, setBranchText] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const formRef = useRef(null);
 
   useEffect(() => {
     setNFTId(parseInt(counter)+1);
     setText('0x...The next prompt is the youngest, then they get older.');
-    setRamifications(0);
+    setBranches(0);
     setShowId(0);
   }, [counter]);
 
-  const updateRamification = (e) => {
-    const rami = e.target.value;
-    setRamiText(rami);
+  const updateBranch = (e) => {
+    const branchText = e.target.value;
+    setBranchText(branchText);
   }
 
-  const submitRamification = async (e) => {
+  const submitBranch = async (e) => {
     e.preventDefault();
     let resStatus;
-    if(ramiText && text && NFTId <= counter) {
+    if(branchText && text && NFTId <= counter) {
       setLoading(true);
-      resStatus = await ramificate(ramiText, text, NFTId);
+      resStatus = await branchify(branchText, text, NFTId);
     }
-    setRamiText(undefined);
+    setBranchText(undefined);
     formRef.current.reset();
     setLoading(false);
     if(resStatus) {
-      alert("Ramification Prompt minted successfully");
+      alert("Branch Prompt minted successfully");
       await updateCounter();
     } else {
-      alert("Ramification failed");
+      alert("Branch failed");
     }
   }
 
@@ -57,8 +57,8 @@ const Feed = ({promptById, counter, ramificationsById, ramificate, updateCounter
     const cid = await promptById(id);
     const blob = await axios.get(`https://ipfs.io/ipfs/${cid}`);
     setText(blob.data);
-    const ramifications = await ramificationsById(id);
-    setRamifications(ramifications);
+    const branches = await branchesById(id);
+    setBranches(branches);
     setShowId(id);
   }
 
@@ -82,12 +82,12 @@ const Feed = ({promptById, counter, ramificationsById, ramificate, updateCounter
     <Container>
       <Row>
         <Col>
-        <Button variant="dark" onClick={() => prev()} className="font-weight-bold" style={{color: "silver"}}>Previous Prompt</Button>
+        <Button variant="dark" onClick={() => prev()} className="font-weight-bold" style={{color: "silver"}}><i>Previous Prompt</i></Button>
         </Col>
         <Col></Col>
         <Col></Col>
         <Col>
-        <Button variant="dark" onClick={() => next()} className="font-weight-bold" style={{color: "silver"}}>Next Prompt</Button>
+        <Button variant="dark" onClick={() => next()} className="font-weight-bold" style={{color: "silver"}}><i>Next Prompt</i></Button>
         </Col>
       </Row>
       <br/>
@@ -102,16 +102,16 @@ const Feed = ({promptById, counter, ramificationsById, ramificate, updateCounter
         <br/>
         <h5 style={{whiteSpace: "pre-wrap"}}>{text && `${text}`}</h5>
         <br/>
-        <p style={{color: "lightgray"}}>{`RAMIFICATIONS: ${ramifications}`}</p>
+        <p style={{color: "lightgray"}}>{`BRANCHES: ${branches}`}</p>
         <br/>
         { accounts.length !== 0 &&
-        <Form ref={formRef} onSubmit={(e) => submitRamification(e)}>
+        <Form ref={formRef} onSubmit={(e) => submitBranch(e)}>
         <Form.Group>
         <Form.Control
-          as="textarea" rows="13"  placeholder='Write your ramification...    once minted, it will become a NFT prompt, anyone will be able to create new prompts by ramificating yours. Every prompt or ramification automatically starts with the "0x..." standard : )'
-          onChange={e => updateRamification(e)}
+          as="textarea" rows="13"  placeholder='Write your branch...    once minted, it will become a NFT prompt, anyone will be able to create new prompts by branching yours. Every prompt automatically starts with the "0x..." standard : )'
+          onChange={e => updateBranch(e)}
         ></Form.Control>
-        <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}>Mint Prompt $</Button>
+        <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Mint Prompt $</i></Button>
         {loading && <div><br/><div class="spinner-border"></div></div>}
         </Form.Group>
         </Form>
@@ -129,13 +129,13 @@ const Feed = ({promptById, counter, ramificationsById, ramificate, updateCounter
             <Row>
             <Col>
             <Form.Control
-              placeholder="NFT Id : )"
+              placeholder="Prompt Id : )"
               type="number"
               onChange={e => updateNFTId(e)}
             ></Form.Control>
             </Col>
             <Col>
-            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}>Get Prompt by Id</Button>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Prompt by Id</i></Button>
             </Col>
             </Row>
             </Form.Group>

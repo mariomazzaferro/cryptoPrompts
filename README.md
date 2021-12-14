@@ -1,28 +1,28 @@
 # Project Name: CRYPTO PROMPTS
 
-There is a subreddit called <a href="https://www.reddit.com/r/WritingPrompts/">r/WritingPrompts</a>, where millions of writers and wanna be writers contribute to create new content. Crypto Prompts is the implementation of that idea in the Polygon blockchain. Where each prompt and ramification prompt are ERC-721 Non-Fungible Tokens that can be sold, transfered or used as prompt for other ramifications.
+There is a subreddit called <a href="https://www.reddit.com/r/WritingPrompts/">r/WritingPrompts</a>, where millions of writers and wanna be writers contribute to create new content. Crypto Prompts is the implementation of that idea in the Polygon blockchain. Where prompts and branches are ERC-721 Non-Fungible Tokens that can be sold, transfered or used as prompt for other branches. Notice that every branch is also a prompt, but initial prompts are not branches.
 
 
 ## Overview
 
-Right now, the millions of <a href="https://www.reddit.com/r/WritingPrompts/">r/WritingPrompts</a> users post their prompts and comments (ramifications) on reddit with no way to effectively profit from their creative work. They are using reddit simply as a training ground for their writing skills.
+Right now, the millions of <a href="https://www.reddit.com/r/WritingPrompts/">r/WritingPrompts</a> users post their prompts and comments (branches) on reddit with no way to effectively profit from their creative work. They are using reddit simply as a training ground for their writing skills.
 
 Having said that, the 2 main objectives of this dapp are:
 - To attribute ownership to content created through this type of collaboration.
 - To empower writers and wanna be writers, by making their journey more profitable and trackable.
 
-Crypto Prompts has no owner and seeks no profit. It is a public service, everything you pay in this platform is spent exclusively on blockchain fees. This project is inspired by the Writing Prompts subreddit, with its literary appeal, but there are no rules here, you can write whatever you want, however you want it. There can be question prompts, making the ramification dynamic similar to Quora. There can be discussion prompts, tilting it more towards Twitter's dynamic. There are endless possibilities for new prompts, it's impossible to guess all of them now, the best way to predict the futere is by writing it...
+Crypto Prompts seeks no profit, everything you pay in this platform is spent exclusively on blockchain fees. This project is inspired by the Writing Prompts subreddit, with its literary appeal, but there are no rules here, you can write whatever you want. There can be question prompts, making the branching dynamic similar to Quora. There can be discussion prompts, tilting it more towards Twitter's dynamic. There are endless possibilities for new prompts, it's impossible to guess all of them now, the best way to predict the futere is by writing it...
 
-As a reader using Crypto Prompts: you are be able to read every prompt and each of its ramifications, as well as search for specific prompts and specific ramifications.
-As a writer using Crypto Prompts: you are be able to write new initial prompts and new ramifications for any existing prompt.
+As a reader using Crypto Prompts: you are be able to read every prompt and each of its branches.
+As a writer using Crypto Prompts: you are be able to write new initial prompts and new branches for any existing prompt.
 
 
 ## User Workflow
 
 1- User registers on the site (using metamask).<br/>
-2- User writes an initial prompt or a ramification prompt and mints it (signed transaction).<br/>
-3- User can read other people's prompts and write ramifications of them.<br/>
-4- User can read other people's prompts and each of its ramifications.<br/>
+2- User writes an initial prompt or a branch and mints it (signed transaction).<br/>
+3- User can read other people's prompts and write branches of them.<br/>
+4- User can read other people's prompts and each of its branches.<br/>
 
 
 ## Development
@@ -31,7 +31,7 @@ The prompt texts are stored in IPFS and only the IPFS CIDs are stored in the sma
 
 Crypto Prompt NFTs inherit from OpenZeppelin's ERC-721 standard.
 
-This is a simple dapp, its core functionality implements three mappings: "promptCids" (relates Prompt Id to its IPFS CID), "ramifications" (relates Prompt Id to its list of ramifications) and "parentPrompts" (relates Prompt Id to its parent Prompt Id).
+This is a simple dapp, its core functionality implements three mappings: "promptCids" (relates Prompt Id to its IPFS CID), "branches" (relates Prompt Id to its list of branches) and "parentPrompts" (relates Prompt Id to its parent Prompt Id).
 
 
 ## Directory structure
