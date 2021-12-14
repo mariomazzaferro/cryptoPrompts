@@ -1,32 +1,7 @@
-import React, { useState, useRef } from 'react';
-import { Container, Button, Form, Card } from 'react-bootstrap';
+import React from 'react';
+import { Container, Card } from 'react-bootstrap';
 
-const Home = ({writePrompt, updateCounter, accounts, connectMetamask}) => {
-  const [prompt, setPrompt] = useState(undefined);
-  const [loading, setLoading] = useState(false);
-  const formRef = useRef(null);
-
-  const submit = async (e) => {
-    e.preventDefault();
-    if(prompt && prompt !== "") {
-      setLoading(true);
-      const resStatus = await writePrompt(prompt);
-      setPrompt(undefined);
-      formRef.current.reset();
-      setLoading(false);
-      if(resStatus) {
-        alert("Prompt minted successfully");
-        await updateCounter();
-      } else {
-        alert("Prompt failed");
-      }
-    }
-  }
-
-  const updatePrompt = (e) => {
-    const prompt = e.target.value;
-    setPrompt(prompt);
-  }
+const Home = ({accounts, connectMetamask}) => {
 
     return (
       <Container className="text-center">

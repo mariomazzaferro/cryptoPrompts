@@ -61,7 +61,7 @@ function App() {
       setCounter(counter);
     };
     init();
-  }, []);
+  }, [accounts]);
 
   const connectMetamask = async () => {
     const metamaskWeb3 = await getWeb3();
