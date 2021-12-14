@@ -136,18 +136,18 @@ function App() {
   };
 
   const branchesById = async promptId => {
-    const branches = await contract.methods.promptRamifications(promptId).call();
+    const branches = await contract.methods.promptBranches(promptId).call();
     return branches;
   };
 
   const getBranchCid = async (promptId, branchId) => {
-    const branchPromptId = await contract.methods.ramifications(promptId, branchId).call();
+    const branchPromptId = await contract.methods.branches(promptId, branchId).call();
     const branchCid = await contract.methods.promptCids(branchPromptId).call();
     return branchCid;
   }
 
   const getBranchId = async (promptId, branchId) => {
-    const branchPromptId = await contract.methods.ramifications(promptId, branchId).call();
+    const branchPromptId = await contract.methods.branches(promptId, branchId).call();
     return branchPromptId;
   }
 

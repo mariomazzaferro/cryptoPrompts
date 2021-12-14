@@ -48,7 +48,6 @@ const Home = ({writePrompt, updateCounter, accounts, connectMetamask}) => {
             <br/>
             <h4>Click on <i>FEED</i> and enjoy the reading. Don't mind Marcus, he is a good boy, doesn't bite...</h4>
             <br/>
-            <h4>If you want to create your own Literary NFTs:</h4>
             <h4>Click on <i>NEW</i> and create a prompt from scratch OR branch an existing prompt on <i>FEED</i>...</h4>
             <br/>
             <h2><i>"What we write in life, echoes in eternity."</i></h2><h5>- Marcus de Fox</h5>

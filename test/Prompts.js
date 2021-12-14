@@ -11,7 +11,7 @@ contract('Prompts', (accounts) => {
     let counter0 = await prompts.counter();
     await prompts.mintPrompt("Prompt1");
     let counter1 = await prompts.counter();
-    await prompts.mintPrompt("Comment1", 1);
+    await prompts.mintPrompt("Branch1", 1);
     let counter2 = await prompts.counter();
     assert.equal(counter0, 0, "counter0 is not 0!");
     assert.equal(counter1, 1, "counter1 is not 1!");
@@ -25,7 +25,7 @@ contract('Prompts', (accounts) => {
     await prompts.mintPrompt("Prompt1");
     let counter1 = await prompts.counter();
     try {
-      await prompts.mintPrompt("Comment1", 2);  //Should pass test
+      await prompts.mintPrompt("Branch1", 2);  //Should pass test
       //await prompts.mintPrompt("Comment1", 1); //Should fail test with counter2 = 2
     } catch(err) {
       console.log(err.message);
@@ -37,18 +37,18 @@ contract('Prompts', (accounts) => {
     assert.equal(counter2, 1, "counter2 is not 1!");
   });
 
-  // Checks if promptRamifications() is working while minting ramifications.
-  it('Should promptRamifications() successfully', async () => {
+  // Checks if promptBranches() is working while minting branches.
+  it('Should promptBranches() successfully', async () => {
     await prompts.mintPrompt("Prompt1");
-    let ramifications0 = await prompts.promptRamifications(1);
-    await prompts.mintPrompt("Ramification1", 1);
-    let ramifications1 = await prompts.promptRamifications(1);
-    await prompts.mintPrompt("Ramification2", 1);
-    let ramifications2 = await prompts.promptRamifications(1);
+    let branches0 = await prompts.promptBranches(1);
+    await prompts.mintPrompt("Branch1", 1);
+    let branches1 = await prompts.promptBranches(1);
+    await prompts.mintPrompt("Branch2", 1);
+    let branches2 = await prompts.promptBranches(1);
 
-    assert.equal(ramifications0, 0, "ramifications0 is not 0!");
-    assert.equal(ramifications1, 1, "ramifications1 is not 1!");
-    assert.equal(ramifications2, 2, "ramifications2 is not 2!");
+    assert.equal(branches0, 0, "branches0 is not 0!");
+    assert.equal(branches1, 1, "branches1 is not 1!");
+    assert.equal(branches2, 2, "branches2 is not 2!");
   });
 
   // Checks if promptCids getter is working properly.
@@ -67,25 +67,25 @@ contract('Prompts', (accounts) => {
     assert.equal(prompt3, "Prompt3", "prompt3 is not 'Prompt3'!");
   });
 
-  // Checks if ramifications getter is working properly.
-  it('Should return ramification successfully', async () => {
+  // Checks if branches getter is working properly.
+  it('Should return branch successfully', async () => {
     await prompts.mintPrompt("Prompt1");
-    await prompts.mintPrompt("Ramification1", 1);
-    let ramifications1 = await prompts.ramifications(1, 0);
-    await prompts.mintPrompt("Ramification2", 1);
-    let ramifications2 = await prompts.ramifications(1, 1);
+    await prompts.mintPrompt("Branch1", 1);
+    let branches1 = await prompts.branches(1, 0);
+    await prompts.mintPrompt("Branch2", 1);
+    let branches2 = await prompts.branches(1, 1);
 
-    assert.equal(ramifications1, 2, "ramifications1 is not 2!");
-    assert.equal(ramifications2, 3, "ramifications2 is not 3!");
+    assert.equal(branches1, 2, "branches1 is not 2!");
+    assert.equal(branches2, 3, "branches2 is not 3!");
   });
 
   // Checks if parentPrompts getter is working properly.
   it('Should get promptParents successfully', async () => {
     await prompts.mintPrompt("Prompt1");
-    await prompts.mintPrompt("Ramification1", 1);
+    await prompts.mintPrompt("Branch1", 1);
     let parent1 = await prompts.parentPrompts(2);
 
-    await prompts.mintPrompt("Ramification2", 2);
+    await prompts.mintPrompt("Branch2", 2);
     let parent2 = await prompts.parentPrompts(3);
 
     assert.equal(parent1, 1, "parent1 is not 1!");

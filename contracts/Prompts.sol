@@ -5,7 +5,7 @@ import "../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
 /// @title Contract for minting Prompt NFTs 
 /// @author Mario Mazzaferro
-/// @notice Allows users to mint Prompt NFTs and manage their IPFS CIDs and ramifications
+/// @notice Allows users to mint Prompt NFTs and manage their IPFS CIDs and branches
 contract Prompts is ERC721 {
 
     /// @notice Tracks number of minted Prompts
@@ -14,14 +14,14 @@ contract Prompts is ERC721 {
     /// @notice Relates Prompt Ids to their respective IPFS CIDs
     mapping(uint256 => string) public promptCids;
 
-    /// @dev Relates Prompt Ids to their respective ramification lists
-    mapping(uint256 => uint256[]) public ramifications;
+    /// @dev Relates Prompt Ids to their respective branch lists
+    mapping(uint256 => uint256[]) public branches;
 
     /// @dev Relates Prompt Ids to their respective parent Prompt Ids
     mapping(uint256 => uint256) public parentPrompts;
 
     /// @notice Checks if oldId is an existing prompt
-    /// @param oldId Id of the Prompt that is being ramificated
+    /// @param oldId Id of the Prompt that is being branched
     modifier validOldId(uint oldId) {
       require(oldId <= counter);
       _;
@@ -44,17 +44,17 @@ contract Prompts is ERC721 {
       _mintValidPrompt(newCid);
     }
 
-    /// @notice Mints ramification prompt
+    /// @notice Mints branch prompt
     /// @param newCid IPFS CID of the Prompt that is being minted
     function mintPrompt(string calldata newCid, uint oldId) external validOldId(oldId) {
       _mintValidPrompt(newCid);
-      ramifications[oldId].push(counter);
+      branches[oldId].push(counter);
       parentPrompts[counter] = oldId;
     }
 
-    /// @notice Returns number of ramifications for that specific promptId
+    /// @notice Returns number of branches for that specific promptId
     /// @param promptId Id of the specific Prompt
-    function promptRamifications(uint promptId) external view validOldId(promptId) returns(uint) {
-      return ramifications[promptId].length;
+    function promptBranches(uint promptId) external view validOldId(promptId) returns(uint) {
+      return branches[promptId].length;
     }
 }

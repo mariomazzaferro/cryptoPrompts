@@ -2143,12 +2143,12 @@
     "80001": {
       "events": {},
       "links": {},
-      "address": "0x9e3578f97Fb42338c477bE6875f528B6f276099D",
-      "transactionHash": "0x6d76d7eb0c67568f9f170e68e2d1f54a40c6dde2eed3d476d9c437d1b9593a25"
+      "address": "0x3a58EF651c6377Fb91B334E37ab2524cda29a587",
+      "transactionHash": "0xe0a5fff3d04b6e4db5aef796957508444c463a83ea5e3ec61f23e8d335f9321b"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-12T18:40:53.379Z",
+  "updatedAt": "2021-12-14T22:45:39.303Z",
   "networkType": "ethereum",
   "devdoc": {
     "kind": "dev",
