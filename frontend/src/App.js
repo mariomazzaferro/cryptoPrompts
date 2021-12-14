@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import Web3 from 'web3';
 import { Navbar, Nav, Container } from 'react-bootstrap';
 import {
   BrowserRouter as Router,
@@ -20,18 +21,12 @@ function App() {
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState(undefined);
   const [counter, setCounter] = useState(undefined);
+  const [noMetamask, setNoMetamask] = useState(true);
 
   useEffect(() => {
     const init = async () => {
-      const web3 = await getWeb3();
+      const web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_MUMBAI_ENDPOINT));
       
-      let accounts;
-      try {
-        accounts = await web3.eth.getAccounts();
-      } catch(err) {
-        console.log(err.message);  
-      }
-
       let contract;
       try {
         contract = await getContract(web3);
@@ -53,6 +48,23 @@ function App() {
     };
     init();
   }, []);
+
+  const connectMetamask = async () => {
+    const metamaskWeb3 = await getWeb3();
+    let accounts
+    if(metamaskWeb3) {
+      accounts = await metamaskWeb3.eth.getAccounts();
+      setAccounts(accounts);
+      setNoMetamask(false);
+    } else {
+      alert("Metamask connection failed. Make sure you have Metamask installed and connected to Polygon Mainnet.")
+    }
+  }
+
+  const disconnectMetamask = async () => {
+    setAccounts([]);
+    setNoMetamask(true);
+  }
 
   const updateCounter = async () => {
     const c = await contract.methods.counter().call();
@@ -144,11 +156,16 @@ function App() {
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto font-weight-bold">
-          <Nav.Link className="px-5" bg="dark" as={Link} to={"/"}><h5>CRYPT0x...PROMPTS</h5></Nav.Link>
-          <Nav.Link className="px-5" as={Link} to={"/feed"}>FEED</Nav.Link>
-          <Nav.Link className="px-5" as={Link} to={"/ramifications"}>RAMIFICATIONS</Nav.Link>
-          <Nav.Link className="px-5" as={Link} to={"/ownership"}>OWNERSHIP</Nav.Link>
-          <Nav.Link className="px-5" as={Link} to={"/about"}>ABOUT</Nav.Link>
+          <Nav.Link className="px-4" bg="dark" as={Link} to={"/"}><h5>CRYPT0x...PROMPTS</h5></Nav.Link>
+          <Nav.Link className="px-4" as={Link} to={"/feed"}>FEED</Nav.Link>
+          <Nav.Link className="px-4" as={Link} to={"/branches"}>BRANCHES</Nav.Link>
+          <Nav.Link className="px-4" as={Link} to={"/owners"}>OWNERS</Nav.Link>
+          <Nav.Link className="px-4" as={Link} to={"/about"}>ABOUT</Nav.Link>
+          {
+            noMetamask ?
+            <Nav.Link className="px-4" onClick={() => connectMetamask()}>CONNECT METAMASK</Nav.Link> :
+            <Nav.Link className="px-3" onClick={() => disconnectMetamask()}>DISCONNECT METAMASK</Nav.Link>
+          }
           </Nav>
           </Navbar.Collapse>
         </Container>
@@ -163,10 +180,10 @@ function App() {
           <Route exact path="/feed">
             <Feed accounts={accounts} counter={counter} promptById={promptById} ramificationsById={ramificationsById} ramificate={ramificate} updateCounter={updateCounter} />
           </Route>
-          <Route exact path="/ramifications">
+          <Route exact path="/branches">
             <Ramifications parentById={parentById} counter={counter} ramificationsById={ramificationsById} getRamificationCid={getRamificationCid} getRamificationId={getRamificationId} />
           </Route>
-          <Route exact path="/ownership">
+          <Route exact path="/owners">
             <Ownership accounts={accounts} ownerOf={ownerOf} balanceOf={balanceOf} transfer={transfer} approve={approve} />
           </Route>
           <Route exact path="/about">

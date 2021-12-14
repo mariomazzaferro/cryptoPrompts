@@ -37,11 +37,11 @@ const WritePrompt = ({writePrompt, updateCounter, accounts}) => {
         <h1>Welcome to Crypto Prompts!</h1>
         <br/>
         <h3>Click on FEED and enjoy the reading...</h3>
-        <br/>
-        <img src={metamaskLogo} width="200" class="mb-4" alt=""/>
-        <br/>
+        <img src={metamaskLogo} width="150" class="mb-4" alt=""/>
         <h3>If you want to create your own Literary NFTs:</h3>
-        <h3><a href="https://metamask.io/">install Metamask</a> + <a href="https://medium.com/stakingbits/setting-up-metamask-for-polygon-matic-network-838058f6d844">connect it to Polygon</a> + get some MATIC + be a writer!</h3>
+        <h3><a href="https://metamask.io/">install Metamask</a> + <a href="https://medium.com/stakingbits/setting-up-metamask-for-polygon-matic-network-838058f6d844">connect it to Polygon</a> + get some MATIC token + be a writer!</h3>
+        <br/>
+        <h3>0x...What we write in Crypto Prompts, echoes in eternity.</h3>
       </div>
     )
   }
