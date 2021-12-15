@@ -10,7 +10,7 @@ const About = () => {
           <h5>WRITING PROMPTS</h5>
         </Card.Title>
         <Card.Text>
-          <p>There is a subreddit called <a href="https://www.reddit.com/r/WritingPrompts/">r/WritingPrompts</a>, where millions of writers contribute to create new content. Crypto Prompts is the implementation of that content creation dynamic in the Polygon Blockchain. Here, prompts and branches are ERC-721 Non-Fungible Tokens that can be sold, transfered or used as prompts for other branches. Notice that every branch is also a prompt, but initial prompts are not branches.</p>
+          <p>There is a subreddit called <a href="https://www.reddit.com/r/WritingPrompts/">Writing Prompts</a>, where millions of writers contribute to create new content. Crypto Prompts is the implementation of that content creation dynamic in the Polygon Blockchain. Here, prompts and branches are ERC-721 Non-Fungible Tokens that can be sold, transfered or used as prompts for other branches. Notice that every branch is also a prompt, but initial prompts are not branches.</p>
         </Card.Text>
         </Card.Body>
       </Card>

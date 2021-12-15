@@ -18,15 +18,10 @@ import About from './About.js';
 
 const ModelViewer = require('@metamask/logo');
 const viewer = ModelViewer({
-  // Dictates whether width & height are px or multiplied
   pxNotRatio: false,
   width: 0,
   height: 0.3,
-
-  // To make the face follow the mouse.
   followMouse: true,
-
-  // head should slowly drift (overrides lookAt)
   slowDrift: false,
 });
 
@@ -39,8 +34,7 @@ function App() {
 
   useEffect(() => {
     const init = async () => {
-      const web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_MUMBAI_ENDPOINT));
-      
+      const web3 = await getWeb3();
       let contract;
       try {
         contract = await getContract(web3);
@@ -61,13 +55,12 @@ function App() {
       setCounter(counter);
     };
     init();
-  }, [accounts]);
+  }, []);
 
   const connectMetamask = async () => {
     const metamaskWeb3 = await getWeb3();
-    let accounts
-    if(metamaskWeb3) {
-      accounts = await metamaskWeb3.eth.getAccounts();
+    let accounts = await metamaskWeb3.eth.getAccounts();
+    if(accounts.length !== 0) {
       setAccounts(accounts);
       setNoMetamask(false);
     } else {
@@ -205,9 +198,12 @@ function App() {
           <Route exact path="/">
             <Home accounts={accounts} writePrompt={writePrompt} updateCounter={updateCounter} connectMetamask={connectMetamask} />
           </Route>
-          <Route exact path="/new">
-            <New writePrompt={writePrompt} updateCounter={updateCounter} />
-          </Route>
+          {
+            !noMetamask &&
+            <Route exact path="/new">
+              <New writePrompt={writePrompt} updateCounter={updateCounter} />
+            </Route>
+          }
           <Route exact path="/feed">
             <Feed accounts={accounts} counter={counter} promptById={promptById} branchesById={branchesById} branchify={branchify} updateCounter={updateCounter} />
           </Route>

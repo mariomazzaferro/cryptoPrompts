@@ -16,7 +16,7 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
     setText('0x...The next prompt is the youngest, then they get older.');
     setBranches(0);
     setShowId(0);
-  }, [counter]);
+  }, []);
 
   const updateBranch = (e) => {
     const branchText = e.target.value;
@@ -39,6 +39,8 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
     } else {
       alert("Branch failed");
     }
+    const branches = await branchesById(NFTId);
+    setBranches(branches);
   }
 
   const updateNFTId = (e) => {
@@ -104,7 +106,7 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
         <br/>
         <p style={{color: "lightgray"}}>{`BRANCHES: ${branches}`}</p>
         <br/>
-        { accounts.length !== 0 &&
+        { (accounts.length !== 0 && showId !== 0) &&
         <Form ref={formRef} onSubmit={(e) => submitBranch(e)}>
         <Form.Group>
         <Form.Control
