@@ -16,7 +16,7 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
     setText('0x...The next one is the youngest, then they get older.');
     setBranches(0);
     setShowId(0);
-  }, []);
+  }, [counter]);
 
   const updateBranch = (e) => {
     const branchText = e.target.value;
