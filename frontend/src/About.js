@@ -31,8 +31,9 @@ const About = () => {
         </Card.Title>
         <Card.Text>
           <p>This platform is 100% decentralized (IPFS + smart contract) and its <a href="https://github.com/mariomazzaferro/cryptoPrompts/">code</a> is open source. Crypto Prompts seeks no profit, everything you pay is spent exclusively on blockchain fees. This project is inspired by the Writing Prompts subreddit, with its literary appeal, but there are no rules here, you can write whatever you want. There can be "question prompts", making the branching dynamic similar to Quora. There can be "discussion prompts", tilting more towards Twitter's dynamic. Go crazy, you can publish an entire novel if you dare. There are endless possibilities for new prompts, it's impossible to guess all of them now, the best way to predict the futere is by writing it...</p>
-          <p>As the community matures, Crypto Prompts will be used as base NFTs for more elaborate literary NFT collections.</p>
           <p>Notice that the fee for minting prompts and branches does NOT depend on the size of the text. Minting a short poem will cost you the same as minting an entire novel. We can thank the <a href="https://en.wikipedia.org/wiki/InterPlanetary_File_System">InterPlanetary File System (IPFS)</a> for that.</p>
+          <p>As the community matures, Crypto Prompts will be used as input data for generative art NFT collections.</p>
+          <p>Get in touch - <a href="mailto:mario@cryptoprompts.art">mario@cryptoprompts.art</a></p>
         </Card.Text>
         </Card.Body>
       </Card>

@@ -13,7 +13,7 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
 
   useEffect(() => {
     setNFTId(parseInt(counter)+1);
-    setText('0x...The next prompt is the youngest, then they get older.');
+    setText('0x...The next one is the youngest, then they get older.');
     setBranches(0);
     setShowId(0);
   }, []);
