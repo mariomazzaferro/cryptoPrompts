@@ -20,7 +20,7 @@ const ModelViewer = require('@metamask/logo');
 const viewer = ModelViewer({
   pxNotRatio: false,
   width: 0.5,
-  height: 0.2,
+  height: 0.3,
   followMouse: true,
   slowDrift: false,
 });

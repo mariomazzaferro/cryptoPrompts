@@ -28,8 +28,6 @@ const Home = ({accounts, connectMetamask}) => {
             <h2><i>"What we write in life, echoes in eternity."</i></h2><h5>- Marcus Foxelius</h5>
           </Card>
         }
-        <br/>
-        <br/>
       </Container>
     )
 };
