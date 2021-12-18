@@ -19,8 +19,8 @@ import About from './About.js';
 const ModelViewer = require('@metamask/logo');
 const viewer = ModelViewer({
   pxNotRatio: false,
-  width: 0,
-  height: 0.3,
+  width: 0.5,
+  height: 0.2,
   followMouse: true,
   slowDrift: false,
 });
