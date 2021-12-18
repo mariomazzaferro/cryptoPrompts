@@ -34,7 +34,7 @@ function App() {
 
   useEffect(() => {
     const init = async () => {
-      const web3 = await getWeb3();
+      const web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_MUMBAI_ENDPOINT));
       let contract;
       try {
         contract = await getContract(web3);

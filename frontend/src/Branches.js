@@ -140,7 +140,7 @@ const Branches = ({parentById, counter, branchesById, getBranchCid, getBranchId}
             ></Form.Control>
             </Col>
             <Col>
-            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get specific Branch</i></Button>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Specific Branch</i></Button>
             </Col>
             </Row>
             </Form.Group>

@@ -123,7 +123,7 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
       </Card>
       }
 
-      <Card className="shadow-lg p-3 mb-5 bg-white rounded" style={{ width: 'auto', maxWidth: '30rem' }}>
+      <Card className="shadow-lg p-3 mb-5 bg-white rounded" style={{ width: 'auto', maxWidth: '25rem' }}>
         <Card.Body>
           <Card.Title>
             <Form inline onSubmit={(e) => getNFT(e)}>
@@ -137,7 +137,7 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
             ></Form.Control>
             </Col>
             <Col>
-            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Prompt by Id</i></Button>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Prompt</i></Button>
             </Col>
             </Row>
             </Form.Group>
