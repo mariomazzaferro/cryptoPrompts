@@ -18293,12 +18293,12 @@
         }
       },
       "links": {},
-      "address": "0x211229Ea9a3BD151046585e3f53Bca882c96FfC7",
-      "transactionHash": "0x8fcc4d1deb86177f331dd3783a63fbb6e5839a160ad7a62335aa8f2d20083136"
+      "address": "0xAD2b8804C6BcD711C40822c70729aC86847FfD39",
+      "transactionHash": "0xe17390258da3464b917c54940ca4e62497e28b7cccda925b7ef741d276872172"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-12-20T14:40:04.553Z",
+  "updatedAt": "2021-12-21T13:52:25.663Z",
   "networkType": "ethereum",
   "devdoc": {
     "author": "Mario Mazzaferro",

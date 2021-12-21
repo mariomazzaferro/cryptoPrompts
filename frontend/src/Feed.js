@@ -6,7 +6,7 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
   const [text, setText] = useState(undefined);
   const [title, setTitle] = useState(undefined);
   const [writer, setWriter] = useState(undefined);
-  const [parent, setParent] = useState(undefined);
+  const [root, setRoot] = useState(undefined);
   const [branches, setBranches] = useState(undefined);
   const [NFTId, setNFTId] = useState(undefined);
   const [showId, setShowId] = useState(undefined);
@@ -17,11 +17,12 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
 
   useEffect(() => {
     setNFTId(parseInt(counter)+1);
-    setTitle('Unworthy Riddle');
-    setText('The next one is the youngest, then they get older.\nNot all of them are branches.\nNot all of them are worthy.\nSpot the branches with your eyes.\nSpot the worthy with your heart.');
-    setWriter("CRYPT0x...PROMPTS");
-    setBranches(0);
-    setShowId(0);
+    setTitle(undefined);
+    setWriter(undefined);
+    setRoot(undefined);
+    setBranches(undefined);
+    setShowId(undefined);
+    setText('The next one is the youngest, then they get older.\nNot all of them are branches.\nNot all of them are roots.\nRoots have growing branches.\nSome branches become roots.');
   }, [counter]);
 
   const updateBranch = (e) => {
@@ -36,20 +37,30 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
 
   const submitBranch = async (e) => {
     e.preventDefault();
-    let res;
-    if(branchText && text && NFTId <= counter) {
+    if(branchText && text && branchTitle && NFTId <= counter) {
       setLoading(true);
-      res = await branchify(branchTitle, branchText, text, NFTId);
-    }
-    setBranchText(undefined);
-    formRef.current.reset();
-    setLoading(false);
-    if(res.status) {
-      const newId = res.events.Transfer.returnValues[2];
-      alert(`Prompt Id ${newId} minted successfully`);
-      await updateCounter();
+      let res;
+      try {
+        res = await branchify(branchTitle, branchText, text, NFTId);
+      } catch(err) {
+        console.log(err.message);  
+      }
+      setBranchText(undefined);
+      formRef.current.reset();
+      setLoading(false);
+      if(res) {
+        if(res.status) {
+          const newId = res.events.Transfer.returnValues[2];
+          alert(`Prompt Id ${newId} minted successfully`);
+          await updateCounter();
+        } else {
+          alert("Branching failed");
+        }
+      } else {
+        alert("Branching failed");
+      }
     } else {
-      alert("Branching failed");
+      alert("Branching failed. Make sure your Prompt has a title and a body.");
     }
   }
 
@@ -66,14 +77,14 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
   }
 
   const getPrompt = async (id) => {
-    setParent(undefined);
+    setRoot(undefined);
     const cid = await promptById(id);
     const blob = await axios.get(`https://ipfs.io/ipfs/${cid}`);
     setText(blob.data.body);
     setTitle(blob.data.title);
     setWriter(blob.data.writer);
-    if(blob.data.parent) {
-      setParent(blob.data.parent);
+    if(blob.data.root) {
+      setRoot(blob.data.root);
     }
     const branches = await branchesById(id);
     setBranches(branches);
@@ -122,21 +133,21 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
         <Card className="shadow-lg p-3 mb-5 bg-white rounded text-center" style={{ width: 'auto' }}>
         <Card.Body>
         <Card.Title>
-          <h5 style={{color: "lightgray"}}>{`PROMPT ID: ${showId}`}</h5>
+          { showId && <h5 style={{color: "lightgray"}}>{`PROMPT ID: ${showId}`}</h5>}
           <br/>
-          <h4>{`${title}`}</h4>
+          { title && <h4>{`${title}`}</h4>}
         </Card.Title>
         <Card.Text>
         <br/>
         <h5 style={{whiteSpace: "pre-wrap"}}>{text && `${text}`}</h5>
         <br/>
-        <p style={{color: "lightgray"}}>{`by ${writer}`}</p>
-        { parent && 
-          <p style={{color: "lightgray"}}>{`PARENT PROMPT ID: ${parent}`}</p>
+        {writer && <p style={{color: "lightgray"}}>{`by ${writer}`}</p>}
+        { root && 
+          <p style={{color: "lightgray"}}>{`ROOT PROMPT ID: ${root}`}</p>
         }
-        <p style={{color: "lightgray"}}>{`BRANCHES: ${branches}`}</p>
+        { branches !== undefined && <p style={{color: "lightgray"}}>{`BRANCHES: ${branches}`}</p>}
         <br/>
-        { (accounts.length !== 0 && showId !== 0) &&
+        { (accounts.length !== 0 && showId !== undefined) &&
         <Form ref={formRef} onSubmit={(e) => submitBranch(e)}>
         <Form.Group>
         <Form.Control

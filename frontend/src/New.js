@@ -9,19 +9,31 @@ const New = ({writePrompt, updateCounter}) => {
 
   const submit = async (e) => {
     e.preventDefault();
-    if(prompt && prompt !== "") {
+    if(prompt && title) {
       setLoading(true);
-      const res = await writePrompt(title, prompt);
+      let res;
+      try {
+        res = await writePrompt(title, prompt);
+      } catch(err) {
+        console.log(err.message);  
+      }
       setPrompt(undefined);
+      setTitle(undefined);
       formRef.current.reset();
       setLoading(false);
-      if(res.status) {
-        const newId = res.events.Transfer.returnValues[2];
-        alert(`Prompt Id ${newId} minted successfully`);
-        await updateCounter();
+      if(res) {
+        if(res.status) {
+          const newId = res.events.Transfer.returnValues[2];
+          alert(`Prompt Id ${newId} minted successfully`);
+          await updateCounter();
+        } else {
+          alert("Prompt failed");
+        }
       } else {
         alert("Prompt failed");
       }
+    } else {
+      alert("Prompt failed. Make sure your Prompt has a title and a body.");
     }
   }
 

@@ -85,7 +85,7 @@ const Branches = ({counter, branchesById, getBranchCid, getBranchId}) => {
         <Card.Title>
           <Row>
           <Col>
-          <p style={{color: "lightgray"}}>{`PARENT PROMPT ID: ${showNFTId}`}</p>
+          <p style={{color: "lightgray"}}>{`ROOT PROMPT ID: ${showNFTId}`}</p>
           </Col>
           <Col>
           <p style={{color: "lightgray"}}>{`BRANCH: ${showBranchNumber}/${branches}`}</p>
@@ -115,7 +115,7 @@ const Branches = ({counter, branchesById, getBranchCid, getBranchId}) => {
             <Row>
             <Col>
             <Form.Control
-              placeholder="Parent Prompt Id : )"
+              placeholder="Root Prompt Id : )"
               type="number"
               value={NFTId}
               onChange={e => updateNFTId(e)}

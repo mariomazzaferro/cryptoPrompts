@@ -108,7 +108,7 @@ function App() {
   };
 
   const branchify = async (title, newText, oldText, oldId) => {
-    let formatedString = JSON.stringify({ title: `${title}`, body: `${oldText}\n0x...${newText}`, writer: `${accounts[0]}`, parent: oldId });
+    let formatedString = JSON.stringify({ title: `${title}`, body: `${oldText}\n0x...${newText}`, writer: `${accounts[0]}`, root: oldId });
     const cid = await storeString(formatedString);
     const res = await contract.methods.mintPrompt(cid, oldId).send({from: accounts[0] });
     return res;
