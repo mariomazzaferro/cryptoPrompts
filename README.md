@@ -5,13 +5,13 @@ There is a subreddit called <a href="https://www.reddit.com/r/WritingPrompts/">r
 
 ## Overview
 
-Right now, the millions of <a href="https://www.reddit.com/r/WritingPrompts/">r/WritingPrompts</a> users post their prompts and comments (branches) on reddit with no way to effectively profit from their creative work. They are using reddit simply as a training ground for their writing skills.
+The millions of <a href="https://www.reddit.com/r/WritingPrompts/">Writing Prompts</a> users post their prompts and comments (branches) on reddit with no effective way to profit from their creative work. They are using reddit simply as a training ground for their writing skills, a cooperative hub for feedbacks and motivation.
 
-Having said that, the 2 main objectives of this dapp are:
-- To attribute ownership to content created through this type of collaboration.
-- To empower writers and wanna be writers, by making their journey more profitable and trackable.
+With that in mind, Crypto Prompts aims to:
+- Attribute effective ownership to content created through this type of collaboration.
+- Empower writers and wanna be writers, by making their journey more profitable and trackable.
 
-Crypto Prompts seeks no profit, everything you pay in this platform is spent exclusively on blockchain fees. This project is inspired by the Writing Prompts subreddit, with its literary appeal, but there are no rules here, you can write whatever you want. There can be question prompts, making the branching dynamic similar to Quora. There can be discussion prompts, tilting it more towards Twitter's dynamic. There are endless possibilities for new prompts, it's impossible to guess all of them now, the best way to predict the futere is by writing it...
+Crypto Prompts seeks no profit, everything you pay in this platform is spent exclusively on blockchain fees. This project is inspired by the Writing Prompts subreddit, with its literary appeal, but there are no rules here, you can write whatever you want. There can be question prompts, making the branching dynamic similar to Quora. There can be discussion prompts, tilting it more towards Twitter's dynamic. There are endless possibilities for new prompts, it's impossible to guess all of them now, the best way to predict the future is by writing it.
 
 As a reader using Crypto Prompts: you are be able to read every prompt and each of its branches.
 As a writer using Crypto Prompts: you are be able to write new initial prompts and new branches for any existing prompt.
