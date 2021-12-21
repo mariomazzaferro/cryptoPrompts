@@ -13,6 +13,10 @@ contract('Prompts', (accounts) => {
     let counter1 = await prompts.counter();
     await prompts.mintPrompt("Branch1", 1);
     let counter2 = await prompts.counter();
+
+    let tokenURI = await prompts.tokenURI(1);
+    console.log(tokenURI);
+
     assert.equal(counter0, 0, "counter0 is not 0!");
     assert.equal(counter1, 1, "counter1 is not 1!");
     assert.equal(counter2, 2, "counter2 is not 2!");
@@ -77,18 +81,5 @@ contract('Prompts', (accounts) => {
 
     assert.equal(branches1, 2, "branches1 is not 2!");
     assert.equal(branches2, 3, "branches2 is not 3!");
-  });
-
-  // Checks if parentPrompts getter is working properly.
-  it('Should get promptParents successfully', async () => {
-    await prompts.mintPrompt("Prompt1");
-    await prompts.mintPrompt("Branch1", 1);
-    let parent1 = await prompts.parentPrompts(2);
-
-    await prompts.mintPrompt("Branch2", 2);
-    let parent2 = await prompts.parentPrompts(3);
-
-    assert.equal(parent1, 1, "parent1 is not 1!");
-    assert.equal(parent2, 2, "parent2 is not 2!");
   });
 });

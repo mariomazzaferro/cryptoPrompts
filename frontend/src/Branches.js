@@ -2,17 +2,17 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap';
 
-const Branches = ({parentById, counter, branchesById, getBranchCid, getBranchId}) => {
+const Branches = ({counter, branchesById, getBranchCid, getBranchId}) => {
   const [branchId, setBranchId] = useState(undefined);
   const [text, setText] = useState(undefined);
+  const [title, setTitle] = useState(undefined);
+  const [writer, setWriter] = useState(undefined);
   const [branchNumber, setBranchNumber] = useState(undefined);
   const [showBranchNumber, setShowBranchNumber] = useState(undefined);
   const [branches, setBranches] = useState(undefined);
   const [childBranches, setChildBranches] = useState(undefined);
   const [NFTId, setNFTId] = useState(undefined);
   const [showNFTId, setShowNFTId] = useState(undefined);
-  const [childId, setChildId] = useState(undefined);
-  const [parentId, setParentId] = useState(0);
 
   const updateBranchNumber = (e) => {
     let branchNum = e.target.value;
@@ -31,29 +31,15 @@ const Branches = ({parentById, counter, branchesById, getBranchCid, getBranchId}
     }
   }
 
-  const updateChildId = (e) => {
-    const childId = e.target.value;
-    setChildId(parseInt(childId));
-  }
-
-  const getParent = async (e) => {
-    e.preventDefault();
-    let parentId;
-    try {
-      parentId = await parentById(childId);
-      setParentId(parentId);
-    } catch(err) {
-      console.log(err.message);  
-    }
-  }
-
   const getPrompt = async (promptId, branchNumberPlus) => {
     const branchNumber = branchNumberPlus - 1;
     const cid = await getBranchCid(promptId, branchNumber);
     const branchId = await getBranchId(promptId, branchNumber);
     setBranchId(branchId);
     const blob = await axios.get(`https://ipfs.io/ipfs/${cid}`);
-    setText(blob.data);
+    setText(blob.data.body);
+    setTitle(blob.data.title);
+    setWriter(blob.data.writer);
     const branches = await branchesById(promptId);
     setBranches(branches);
     const childBranches = await branchesById(branchId);
@@ -106,10 +92,14 @@ const Branches = ({parentById, counter, branchesById, getBranchCid, getBranchId}
           </Col>
           </Row>
           <h5 style={{color: "lightgray"}}>{`PROMPT ID: ${branchId}`}</h5>
+          <br/>
+          <h4>{`${title}`}</h4>
         </Card.Title>
         <Card.Text>
         <br/>
         <h5 style={{whiteSpace: "pre-wrap"}}>{text && `${text}`}</h5>
+        <br/>
+        <p style={{color: "lightgray"}}>{`by ${writer}`}</p>
         <br/>
         <p style={{color: "lightgray"}}>{`BRANCHES: ${childBranches}`}</p>
         </Card.Text>
@@ -146,36 +136,6 @@ const Branches = ({parentById, counter, branchesById, getBranchCid, getBranchId}
             </Form.Group>
           </Form>
             </Card.Title>
-            </Card.Body>
-          </Card>
-
-        <Card className="shadow-lg p-3 mb-5 bg-white rounded text-center" style={{ width: 'auto', maxWidth: '32rem' }}>
-        <Card.Body>
-          <Card.Title>
-            <Form inline onSubmit={(e) => getParent(e)}>
-            <Form.Group>
-            <Row>
-            <Col>
-            <Form.Control
-              placeholder="Prompt Id : )"
-              type="number"
-              value={childId}
-              onChange={e => updateChildId(e)}
-            ></Form.Control>
-            </Col>
-            <Col>
-            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Parent Prompt Id</i></Button>
-            </Col>
-            </Row>
-            </Form.Group>
-          </Form>
-            </Card.Title>
-            <Card.Text>
-            <h5>{
-              parentId != 0 &&
-              `Parent Id: ${parentId}`
-            }</h5>
-            </Card.Text>
             </Card.Body>
           </Card>
     </Container>

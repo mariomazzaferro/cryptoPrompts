@@ -34,24 +34,25 @@ function App() {
 
   useEffect(() => {
     const init = async () => {
-      const web3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_MUMBAI_ENDPOINT));
-      let contract;
+      let endpointWeb3 = new Web3(new Web3.providers.HttpProvider(process.env.REACT_APP_MUMBAI_ENDPOINT));
+
+      let endpointContract;
       try {
-        contract = await getContract(web3);
+        endpointContract = await getContract(endpointWeb3);
       } catch(err) {
         console.log(err.message);  
       }
 
       let counter;
       try {
-        counter = await contract.methods.counter().call();
+        counter = await endpointContract.methods.counter().call();
       } catch(err) {
         console.log(err.message);  
       }
 
-      setWeb3(web3);
+      setWeb3(endpointWeb3);
       setAccounts(accounts);
-      setContract(contract);
+      setContract(endpointContract);
       setCounter(counter);
     };
     init();
@@ -60,8 +61,10 @@ function App() {
   const connectMetamask = async () => {
     const metamaskWeb3 = await getWeb3();
     let accounts = await metamaskWeb3.eth.getAccounts();
+    let contract = await getContract(metamaskWeb3);
     if(accounts.length !== 0) {
       setAccounts(accounts);
+      setContract(contract);
       setNoMetamask(false);
     } else {
       alert("Metamask connection failed. Make sure you have Metamask installed and connected to Polygon Mainnet.")
@@ -104,28 +107,23 @@ function App() {
     return cid;
   };
 
-  const branchify = async (newString, oldString, oldId) => {
-    let formatedString = `${oldString}\n0x...${newString}`;
+  const branchify = async (title, newText, oldText, oldId) => {
+    let formatedString = JSON.stringify({ title: `${title}`, body: `${oldText}\n0x...${newText}`, writer: `${accounts[0]}`, parent: oldId });
     const cid = await storeString(formatedString);
     const res = await contract.methods.mintPrompt(cid, oldId).send({from: accounts[0] });
-    return res.status;
+    return res;
   };
 
-  const writePrompt = async string => {
-    let formatedString = `0x...${string}`;
-    const cid = await storeString(formatedString);
+  const writePrompt = async (title, text) => {
+    let formatedJSON = JSON.stringify({ title: `${title}`, body: `${text}`, writer: `${accounts[0]}` });
+    const cid = await storeString(formatedJSON);
     const res = await contract.methods.mintPrompt(cid).send({from: accounts[0] });
-    return res.status;
+    return res;
   };
 
   const promptById = async promptId => {
     const promptCid = await contract.methods.promptCids(promptId).call();
     return promptCid;
-  };
-
-  const parentById = async promptId => {
-    const parentPrompt = await contract.methods.parentPrompts(promptId).call();
-    return parentPrompt;
   };
 
   const branchesById = async promptId => {
@@ -208,7 +206,7 @@ function App() {
             <Feed accounts={accounts} counter={counter} promptById={promptById} branchesById={branchesById} branchify={branchify} updateCounter={updateCounter} />
           </Route>
           <Route exact path="/branches">
-            <Branches parentById={parentById} counter={counter} branchesById={branchesById} getBranchCid={getBranchCid} getBranchId={getBranchId} />
+            <Branches counter={counter} branchesById={branchesById} getBranchCid={getBranchCid} getBranchId={getBranchId} />
           </Route>
           <Route exact path="/owners">
             <Owners accounts={accounts} ownerOf={ownerOf} balanceOf={balanceOf} transfer={transfer} approve={approve} />

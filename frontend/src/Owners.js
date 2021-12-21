@@ -128,7 +128,7 @@ const Owners = ({ownerOf, balanceOf, transfer, approve, accounts}) => {
             ></Form.Control>
             </Col>
             <Col>
-            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Owner Address</i></Button>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Owner's Address</i></Button>
             </Col>
             </Row>
             </Form.Group>

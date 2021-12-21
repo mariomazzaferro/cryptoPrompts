@@ -3,6 +3,7 @@ import { Container, Button, Form, Card } from 'react-bootstrap';
 
 const New = ({writePrompt, updateCounter}) => {
   const [prompt, setPrompt] = useState(undefined);
+  const [title, setTitle] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const formRef = useRef(null);
 
@@ -10,17 +11,23 @@ const New = ({writePrompt, updateCounter}) => {
     e.preventDefault();
     if(prompt && prompt !== "") {
       setLoading(true);
-      const resStatus = await writePrompt(prompt);
+      const res = await writePrompt(title, prompt);
       setPrompt(undefined);
       formRef.current.reset();
       setLoading(false);
-      if(resStatus) {
-        alert("Prompt minted successfully");
+      if(res.status) {
+        const newId = res.events.Transfer.returnValues[2];
+        alert(`Prompt Id ${newId} minted successfully`);
         await updateCounter();
       } else {
         alert("Prompt failed");
       }
     }
+  }
+
+  const updateTitle = (e) => {
+    const title = e.target.value;
+    setTitle(title);
   }
 
   const updatePrompt = (e) => {
@@ -35,8 +42,16 @@ const New = ({writePrompt, updateCounter}) => {
       <Form ref={formRef} onSubmit={(e) => submit(e)}>
         <Form.Group>
         <Form.Control
+          style={{ textAlign: 'center' }}
+          as="textarea" rows="1"
+          placeholder='Title : )'
+          onChange={e => updateTitle(e)}
+        ></Form.Control>
+        <br/>
+        <Form.Control
+          style={{ textAlign: 'center' }}
           as="textarea" rows="15"
-          placeholder='Write your prompt...   the "0x..." standard will be added automatically : )'
+          placeholder='Write your Prompt... : )'
           onChange={e => updatePrompt(e)}
         ></Form.Control>
         <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Mint Prompt $</i></Button>

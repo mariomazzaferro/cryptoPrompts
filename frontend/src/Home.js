@@ -23,7 +23,7 @@ const Home = ({accounts, connectMetamask}) => {
             <br/>
             <h4>Click on <i>FEED</i> and enjoy the reading. Don't mind the fox, he is a good boy, doesn't bite...</h4>
             <br/>
-            <h4>Click on <i>NEW</i> and create a prompt from scratch OR branch an existing prompt on <i>FEED</i>...</h4>
+            <h4>Click on <i>NEW</i> and create a Prompt from scratch OR branch an existing Prompt on <i>FEED</i>...</h4>
             <br/>
             <h2><i>"What we write in life, echoes in eternity."</i></h2><h5>- Marcus Foxelius</h5>
           </Card>

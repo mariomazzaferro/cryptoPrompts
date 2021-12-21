@@ -31,7 +31,7 @@ The prompt texts are stored in IPFS and only the IPFS CIDs are stored in the sma
 
 Crypto Prompt NFTs inherit from OpenZeppelin's ERC-721 standard.
 
-This is a simple dapp, its core functionality implements three mappings: "promptCids" (relates Prompt Id to its IPFS CID), "branches" (relates Prompt Id to its list of branches) and "parentPrompts" (relates Prompt Id to its parent Prompt Id).
+This is a simple dapp, its core functionality implements two mappings: "promptCids" (relates Prompt Id to its IPFS CID) and "branches" (relates Prompt Id to its list of branches).
 
 
 ## Directory structure

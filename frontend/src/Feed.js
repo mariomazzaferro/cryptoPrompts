@@ -4,16 +4,22 @@ import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap';
 
 const Feed = ({promptById, counter, branchesById, branchify, updateCounter, accounts}) => {
   const [text, setText] = useState(undefined);
+  const [title, setTitle] = useState(undefined);
+  const [writer, setWriter] = useState(undefined);
+  const [parent, setParent] = useState(undefined);
   const [branches, setBranches] = useState(undefined);
   const [NFTId, setNFTId] = useState(undefined);
   const [showId, setShowId] = useState(undefined);
   const [branchText, setBranchText] = useState(undefined);
+  const [branchTitle, setBranchTitle] = useState(undefined);
   const [loading, setLoading] = useState(false);
   const formRef = useRef(null);
 
   useEffect(() => {
     setNFTId(parseInt(counter)+1);
-    setText('0x...The next one is the youngest, then they get older.');
+    setTitle('Unworthy Riddle');
+    setText('The next one is the youngest, then they get older.\nNot all of them are branches.\nNot all of them are worthy.\nSpot the branches with your eyes.\nSpot the worthy with your heart.');
+    setWriter("CRYPT0x...PROMPTS");
     setBranches(0);
     setShowId(0);
   }, [counter]);
@@ -23,24 +29,28 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
     setBranchText(branchText);
   }
 
+  const updateBranchTitle = (e) => {
+    const branchTitle = e.target.value;
+    setBranchTitle(branchTitle);
+  }
+
   const submitBranch = async (e) => {
     e.preventDefault();
-    let resStatus;
+    let res;
     if(branchText && text && NFTId <= counter) {
       setLoading(true);
-      resStatus = await branchify(branchText, text, NFTId);
+      res = await branchify(branchTitle, branchText, text, NFTId);
     }
     setBranchText(undefined);
     formRef.current.reset();
     setLoading(false);
-    if(resStatus) {
-      alert("Branch Prompt minted successfully");
+    if(res.status) {
+      const newId = res.events.Transfer.returnValues[2];
+      alert(`Prompt Id ${newId} minted successfully`);
       await updateCounter();
     } else {
-      alert("Branch failed");
+      alert("Branching failed");
     }
-    const branches = await branchesById(NFTId);
-    setBranches(branches);
   }
 
   const updateNFTId = (e) => {
@@ -56,19 +66,30 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
   }
 
   const getPrompt = async (id) => {
+    setParent(undefined);
     const cid = await promptById(id);
     const blob = await axios.get(`https://ipfs.io/ipfs/${cid}`);
-    setText(blob.data);
+    setText(blob.data.body);
+    setTitle(blob.data.title);
+    setWriter(blob.data.writer);
+    if(blob.data.parent) {
+      setParent(blob.data.parent);
+    }
     const branches = await branchesById(id);
     setBranches(branches);
     setShowId(id);
   }
+
+  
 
   const next = async () => {
     if(1 < NFTId) {
       const c = NFTId - 1;
       setNFTId(c);
       await getPrompt(c);
+    } else {
+      setNFTId(counter);
+      await getPrompt(counter);
     }
   }
 
@@ -76,7 +97,10 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
     if(NFTId < counter) {
       const c = NFTId + 1;
       setNFTId(c);
-      getPrompt(c);
+      await getPrompt(c);
+    } else {
+      setNFTId(1);
+      await getPrompt(1);
     }
   }
 
@@ -99,18 +123,31 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
         <Card.Body>
         <Card.Title>
           <h5 style={{color: "lightgray"}}>{`PROMPT ID: ${showId}`}</h5>
+          <br/>
+          <h4>{`${title}`}</h4>
         </Card.Title>
         <Card.Text>
         <br/>
         <h5 style={{whiteSpace: "pre-wrap"}}>{text && `${text}`}</h5>
         <br/>
+        <p style={{color: "lightgray"}}>{`by ${writer}`}</p>
+        { parent && 
+          <p style={{color: "lightgray"}}>{`PARENT PROMPT ID: ${parent}`}</p>
+        }
         <p style={{color: "lightgray"}}>{`BRANCHES: ${branches}`}</p>
         <br/>
         { (accounts.length !== 0 && showId !== 0) &&
         <Form ref={formRef} onSubmit={(e) => submitBranch(e)}>
         <Form.Group>
         <Form.Control
-          as="textarea" rows="13"  placeholder='Write your branch...    once minted, it will become a NFT prompt, anyone will be able to create new prompts by branching yours. Every prompt automatically starts with the "0x..." standard : )'
+          style={{ textAlign: 'center' }}
+          as="textarea" rows="1"  placeholder='Title : )'
+          onChange={e => updateBranchTitle(e)}
+        ></Form.Control>
+        <br/>
+        <Form.Control
+          style={{ textAlign: 'center' }}
+          as="textarea" rows="13"  placeholder='Write your Branch...    once minted, it will become a Prompt, anyone will be able to create new Prompts by branching yours. Every branch contribution automatically starts with the "0x..." standard : )'
           onChange={e => updateBranch(e)}
         ></Form.Control>
         <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Mint Prompt $</i></Button>

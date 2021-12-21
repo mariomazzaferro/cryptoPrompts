@@ -17,9 +17,6 @@ contract Prompts is ERC721 {
     /// @dev Relates Prompt Ids to their respective branch lists
     mapping(uint256 => uint256[]) public branches;
 
-    /// @dev Relates Prompt Ids to their respective parent Prompt Ids
-    mapping(uint256 => uint256) public parentPrompts;
-
     /// @notice Checks if oldId is an existing prompt
     /// @param oldId Id of the Prompt that is being branched
     modifier validOldId(uint oldId) {
@@ -34,8 +31,8 @@ contract Prompts is ERC721 {
     /// @param newCid IPFS CID of the Prompt that is being minted
     function _mintValidPrompt(string calldata newCid) private {
       counter++;
-      promptCids[counter] = newCid;
       _safeMint(msg.sender, counter);
+      promptCids[counter] = newCid;
     }
 
     /// @notice Mints prompt
@@ -49,12 +46,18 @@ contract Prompts is ERC721 {
     function mintPrompt(string calldata newCid, uint oldId) external validOldId(oldId) {
       _mintValidPrompt(newCid);
       branches[oldId].push(counter);
-      parentPrompts[counter] = oldId;
     }
 
     /// @notice Returns number of branches for that specific promptId
     /// @param promptId Id of the specific Prompt
     function promptBranches(uint promptId) external view validOldId(promptId) returns(uint) {
       return branches[promptId].length;
+    }
+
+    /// @notice Returns MetadataURI for that specific tokenId
+    /// @param tokenId Id of the specific Prompt
+    function tokenURI(uint256 tokenId) public view override returns (string memory) {
+        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
+        return string(abi.encodePacked("https://ipfs.io/ipfs/", promptCids[tokenId]));
     }
 }
