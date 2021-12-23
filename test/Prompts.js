@@ -14,12 +14,19 @@ contract('Prompts', (accounts) => {
     await prompts.mintPrompt("Branch1", 1);
     let counter2 = await prompts.counter();
 
+    let writerCollection = await prompts.writerCollection(accounts[0]);
+    console.log(writerCollection);
+
+    let writerPrompt2 = await prompts.collections(accounts[0], 1)
+
     let tokenURI = await prompts.tokenURI(1);
     console.log(tokenURI);
 
     assert.equal(counter0, 0, "counter0 is not 0!");
     assert.equal(counter1, 1, "counter1 is not 1!");
     assert.equal(counter2, 2, "counter2 is not 2!");
+
+    assert.equal(writerPrompt2, 2, "writerPrompt2 is not 2!");
   });
 
   // Checks the value of the counter variable while calling mintPrompt() function
@@ -81,5 +88,17 @@ contract('Prompts', (accounts) => {
 
     assert.equal(branches1, 2, "branches1 is not 2!");
     assert.equal(branches2, 3, "branches2 is not 3!");
+  });
+
+  // Checks if addSale() and removeSale() are working properly.
+  it('Should addSale successfully', async () => {
+    await prompts.mintPrompt("Prompt1");
+    await prompts.mintPrompt("Prompt2");
+    
+    await prompts.addSale(1, 1000);
+
+    let price = await prompts.price(1);
+
+    assert.equal(price, 1000, "price is not 1000!");
   });
 });

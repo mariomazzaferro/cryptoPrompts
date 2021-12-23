@@ -1,0 +1,160 @@
+{
+  "contractName": "PromptsMarketplace",
+  "abi": [],
+  "metadata": "{\"compiler\":{\"version\":\"0.8.0+commit.c7dfd78e\"},\"language\":\"Solidity\",\"output\":{\"abi\":[],\"devdoc\":{\"author\":\"Mario Mazzaferro\",\"kind\":\"dev\",\"methods\":{},\"title\":\"Contract for buying/selling Prompt NFTs \",\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"notice\":\"Allows users to buy/sell Prompt NFTs\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"project:/contracts/PromptsMarketplace.sol\":\"PromptsMarketplace\"},\"evmVersion\":\"istanbul\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"project:/contracts/PromptsMarketplace.sol\":{\"keccak256\":\"0x43af09ce3a4d1dd726630efd62915b4e3b75c41fce094240761e1778d8a48ca0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://fba1349b9a15d4a0420b0cb477c120ee8b3ff0e93749ffd655f5ecc64397113d\",\"dweb:/ipfs/QmeBMwi5CGaiccQmz83jghZXmk8uVbPeYQK3YD912nVD3Z\"]},\"project:/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol\":{\"keccak256\":\"0xf101e8720213560fab41104d53b3cc7ba0456ef3a98455aa7f022391783144a0\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://3e7820bcf567e6892d937c3cb10db263a4042e446799bca602535868d822384e\",\"dweb:/ipfs/QmPG2oeDjKncqsEeyYGjAN7CwAJmMgHterXGGnpzhha4z7\"]},\"project:/node_modules/@openzeppelin/contracts/utils/introspection/IERC165.sol\":{\"keccak256\":\"0xa28007762d9da9db878dd421960c8cb9a10471f47ab5c1b3309bfe48e9e79ff4\",\"license\":\"MIT\",\"urls\":[\"bzz-raw://796ab6e88af7bf0e78def0f059310c903af6a312b565344e0ff524a0f26e81c6\",\"dweb:/ipfs/QmcsVgLgzWdor3UnAztUkXKNGcysm1MPneWksF72AvnwBx\"]}},\"version\":1}",
+  "bytecode": "0x6080604052348015600f57600080fd5b50603f80601d6000396000f3fe6080604052600080fdfea2646970667358221220d4881ff26366f83ba8ee8e7ae9d202a73bcbd4c230eec09bf84c9a357735b9c964736f6c63430008000033",
+  "deployedBytecode": "0x6080604052600080fdfea2646970667358221220d4881ff26366f83ba8ee8e7ae9d202a73bcbd4c230eec09bf84c9a357735b9c964736f6c63430008000033",
+  "immutableReferences": {},
+  "generatedSources": [],
+  "deployedGeneratedSources": [],
+  "sourceMap": "262:32:1:-:0;;;;;;;;;;;;;;;;;;;",
+  "deployedSourceMap": "262:32:1:-:0;;;;;",
+  "source": "// SPDX-License-Identifier: MIT\npragma solidity 0.8.0;\n\nimport \"../node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol\";\n\n/// @title Contract for buying/selling Prompt NFTs \n/// @author Mario Mazzaferro\n/// @notice Allows users to buy/sell Prompt NFTs\ncontract PromptsMarketplace {\n\n}",
+  "sourcePath": "/home/mariomazzaferro/projects/cryptoPrompts/contracts/PromptsMarketplace.sol",
+  "ast": {
+    "absolutePath": "project:/contracts/PromptsMarketplace.sol",
+    "exportedSymbols": {
+      "IERC165": [
+        1711
+      ],
+      "IERC721": [
+        1108
+      ],
+      "PromptsMarketplace": [
+        176
+      ]
+    },
+    "id": 177,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 173,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:22:1"
+      },
+      {
+        "absolutePath": "project:/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
+        "file": "../node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
+        "id": 174,
+        "nodeType": "ImportDirective",
+        "scope": 177,
+        "sourceUnit": 1109,
+        "src": "56:74:1",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 175,
+          "nodeType": "StructuredDocumentation",
+          "src": "132:130:1",
+          "text": "@title Contract for buying/selling Prompt NFTs \n @author Mario Mazzaferro\n @notice Allows users to buy/sell Prompt NFTs"
+        },
+        "fullyImplemented": true,
+        "id": 176,
+        "linearizedBaseContracts": [
+          176
+        ],
+        "name": "PromptsMarketplace",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 177,
+        "src": "262:32:1"
+      }
+    ],
+    "src": "32:262:1"
+  },
+  "legacyAST": {
+    "absolutePath": "project:/contracts/PromptsMarketplace.sol",
+    "exportedSymbols": {
+      "IERC165": [
+        1711
+      ],
+      "IERC721": [
+        1108
+      ],
+      "PromptsMarketplace": [
+        176
+      ]
+    },
+    "id": 177,
+    "license": "MIT",
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 173,
+        "literals": [
+          "solidity",
+          "0.8",
+          ".0"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "32:22:1"
+      },
+      {
+        "absolutePath": "project:/node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
+        "file": "../node_modules/@openzeppelin/contracts/token/ERC721/IERC721.sol",
+        "id": 174,
+        "nodeType": "ImportDirective",
+        "scope": 177,
+        "sourceUnit": 1109,
+        "src": "56:74:1",
+        "symbolAliases": [],
+        "unitAlias": ""
+      },
+      {
+        "abstract": false,
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": {
+          "id": 175,
+          "nodeType": "StructuredDocumentation",
+          "src": "132:130:1",
+          "text": "@title Contract for buying/selling Prompt NFTs \n @author Mario Mazzaferro\n @notice Allows users to buy/sell Prompt NFTs"
+        },
+        "fullyImplemented": true,
+        "id": 176,
+        "linearizedBaseContracts": [
+          176
+        ],
+        "name": "PromptsMarketplace",
+        "nodeType": "ContractDefinition",
+        "nodes": [],
+        "scope": 177,
+        "src": "262:32:1"
+      }
+    ],
+    "src": "32:262:1"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.8.0+commit.c7dfd78e.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.4.1",
+  "updatedAt": "2021-12-22T14:15:17.803Z",
+  "devdoc": {
+    "author": "Mario Mazzaferro",
+    "kind": "dev",
+    "methods": {},
+    "title": "Contract for buying/selling Prompt NFTs ",
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "notice": "Allows users to buy/sell Prompt NFTs",
+    "version": 1
+  }
+}

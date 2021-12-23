@@ -81,12 +81,17 @@ function App() {
     setCounter(c);
   }
 
-  const ownerOf = async (nftId) => {
+  const collectionList = async writer => {
+    const list = await contract.methods.writerCollection(writer).call();
+    return list;
+  }
+
+  const ownerOf = async nftId => {
     const owner = await contract.methods.ownerOf(nftId).call();
     return owner;
   }
 
-  const balanceOf = async (owner) => {
+  const balanceOf = async owner => {
     const balance = await contract.methods.balanceOf(owner).call();
     return balance;
   }
@@ -203,7 +208,7 @@ function App() {
             </Route>
           }
           <Route exact path="/feed">
-            <Feed accounts={accounts} counter={counter} promptById={promptById} branchesById={branchesById} branchify={branchify} updateCounter={updateCounter} />
+            <Feed accounts={accounts} counter={counter} promptById={promptById} branchesById={branchesById} branchify={branchify} updateCounter={updateCounter} collectionList={collectionList} />
           </Route>
           <Route exact path="/branches">
             <Branches counter={counter} branchesById={branchesById} getBranchCid={getBranchCid} getBranchId={getBranchId} />

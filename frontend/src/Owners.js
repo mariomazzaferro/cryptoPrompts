@@ -166,7 +166,7 @@ const Owners = ({ownerOf, balanceOf, transfer, approve, accounts}) => {
             <Card.Text>
             <h5>{
               (owner && balance) &&
-              `NFT Balance: ${balance}`
+              `Prompt Balance: ${balance}`
             }</h5>
             </Card.Text>
             </Card.Body>

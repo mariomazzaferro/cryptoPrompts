@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap';
 
-const Feed = ({promptById, counter, branchesById, branchify, updateCounter, accounts}) => {
+const Feed = ({promptById, counter, branchesById, branchify, updateCounter, accounts, collectionList}) => {
   const [text, setText] = useState(undefined);
   const [title, setTitle] = useState(undefined);
   const [writer, setWriter] = useState(undefined);
@@ -13,6 +13,8 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
   const [branchText, setBranchText] = useState(undefined);
   const [branchTitle, setBranchTitle] = useState(undefined);
   const [loading, setLoading] = useState(false);
+  const [collWriter, setCollWriter] = useState(false);
+  const [list, setList] = useState(false);
   const formRef = useRef(null);
 
   useEffect(() => {
@@ -62,6 +64,23 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
     } else {
       alert("Branching failed. Make sure your Prompt has a title and a body.");
     }
+  }
+
+  const updateCollWriter = (e) => {
+    const collWriter = e.target.value;
+    setCollWriter(collWriter);
+    setList(undefined);
+  }
+
+  const getCollection = async (e) => {
+    e.preventDefault();
+    let list;
+    try {
+      list = await collectionList(collWriter);
+    } catch(err) {
+      console.log(err.message);  
+    }
+    setList(list);
   }
 
   const updateNFTId = (e) => {
@@ -170,8 +189,37 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
         </Card.Body>
       </Card>
       }
+      <Row>
+      <Card className="shadow-lg p-3 mb-5 ml-3 mr-5 bg-white rounded" style={{ width: 'auto' }}>
+        <Card.Body>
+          <Card.Title>
+            <Form inline onSubmit={(e) => getCollection(e)}>
+            <Form.Group>
+            <Row>
+            <Col>
+            <Form.Control
+              placeholder="Writer's address : )"
+              type="string"
+              onChange={e => updateCollWriter(e)}
+            ></Form.Control>
+            </Col>
+            <Col>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Writer's Collection</i></Button>
+            </Col>
+            </Row>
+            </Form.Group>
+          </Form>
+          </Card.Title>
+          <Card.Text>
+            <h5>{
+              list &&
+              `Collection: ${list}`
+            }</h5>
+          </Card.Text>
+        </Card.Body>
+      </Card>
 
-      <Card className="shadow-lg p-3 mb-5 bg-white rounded" style={{ width: 'auto', maxWidth: '25rem' }}>
+      <Card className="shadow-lg p-3 mb-5 ml-3 bg-white rounded" style={{ width: 'auto', maxWidth: '25rem', maxHeight: '7.7rem' }}>
         <Card.Body>
           <Card.Title>
             <Form inline onSubmit={(e) => getNFT(e)}>
@@ -185,14 +233,15 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
             ></Form.Control>
             </Col>
             <Col>
-            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Prompt</i></Button>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>View Prompt</i></Button>
             </Col>
             </Row>
             </Form.Group>
           </Form>
-            </Card.Title>
-            </Card.Body>
-          </Card>
+          </Card.Title>
+          </Card.Body>
+        </Card>
+      </Row>
     </Container>
   );
 }
