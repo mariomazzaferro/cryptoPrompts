@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap';
 
@@ -13,6 +13,16 @@ const Branches = ({counter, branchesById, getBranchCid, getBranchId}) => {
   const [childBranches, setChildBranches] = useState(undefined);
   const [NFTId, setNFTId] = useState(undefined);
   const [showNFTId, setShowNFTId] = useState(undefined);
+  const [spinner, setSpinner] = useState(false);
+
+  useEffect(() => {
+    setTitle(undefined);
+    setWriter(undefined);
+    setBranches(undefined);
+    setShowNFTId(undefined);
+    setText('The next one is the oldest, then they get younger.\nAll of them are branches.\nNot all of them are roots.\nRoots have growing branches.\nSome branches become roots.');
+    setSpinner(true);
+  }, []);
 
   const updateBranchNumber = (e) => {
     let branchNum = e.target.value;
@@ -32,12 +42,12 @@ const Branches = ({counter, branchesById, getBranchCid, getBranchId}) => {
   }
 
   const getPrompt = async (promptId, branchNumberPlus) => {
+    setText(undefined);
     const branchNumber = branchNumberPlus - 1;
     const cid = await getBranchCid(promptId, branchNumber);
     const branchId = await getBranchId(promptId, branchNumber);
     setBranchId(branchId);
     const blob = await axios.get(`https://ipfs.io/ipfs/${cid}`);
-    setText(blob.data.body);
     setTitle(blob.data.title);
     setWriter(blob.data.writer);
     const branches = await branchesById(promptId);
@@ -47,6 +57,7 @@ const Branches = ({counter, branchesById, getBranchCid, getBranchId}) => {
     setShowNFTId(promptId);
     const showBranchNumber = branchNumber + 1;
     setShowBranchNumber(showBranchNumber);
+    setText(blob.data.body);
   }
 
   const next = async () => {
@@ -79,7 +90,7 @@ const Branches = ({counter, branchesById, getBranchCid, getBranchId}) => {
       </Row>
       <br/>
       {
-        text && 
+        text && title ? 
         <Card className="shadow-lg p-3 mb-5 bg-white rounded text-center" style={{ width: 'auto' }}>
         <Card.Body>
         <Card.Title>
@@ -102,6 +113,17 @@ const Branches = ({counter, branchesById, getBranchCid, getBranchId}) => {
         <p style={{color: "lightgray"}}>{`by ${writer}`}</p>
         <br/>
         <p style={{color: "lightgray"}}>{`BRANCHES: ${childBranches}`}</p>
+        </Card.Text>
+        </Card.Body>
+      </Card>
+        :
+      <Card className="shadow-lg p-3 mb-5 bg-white rounded text-center" style={{ width: 'auto', minHeight: '15.5rem' }}>
+        <Card.Body>
+        <Card.Text>
+        <br/>
+        <h5 style={{whiteSpace: "pre-wrap"}}>{text && `${text}`}</h5>
+        { (!text && spinner) &&  <div><br/><div class="spinner-border"></div></div>}
+        <br/>
         </Card.Text>
         </Card.Body>
       </Card>

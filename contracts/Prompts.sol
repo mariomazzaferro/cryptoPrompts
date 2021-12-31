@@ -20,21 +20,22 @@ contract Prompts is ERC721 {
     /// @dev Relates Writers' Addresses to their respective Prompt Collections
     mapping(address => uint256[]) public collections;
 
-
+    /// @dev Relates Prompt Ids to their respective price
     mapping (uint256 => uint256) public price;
 
+    /// @notice Checks if tokenId is an existing Prompt
     modifier OnlyPromptOwner(uint256 tokenId){
         require(ownerOf(tokenId) == msg.sender);
         _;
     }
 
-    modifier IsForSale(uint256 tokenId){
-        require(price[tokenId] > 0, "Item is not for sale");
+    /// @notice Checks if tokenId is for sale
+    modifier HasPrice(uint256 tokenId){
+        require(price[tokenId] > 0);
         _;
     }
 
-    /// @notice Checks if oldId is an existing prompt
-    /// @param oldId Id of the Prompt that is being branched
+    /// @notice Checks if oldId is an existing Prompt
     modifier validOldId(uint256 oldId) {
       require(oldId <= counter);
       _;
@@ -43,7 +44,7 @@ contract Prompts is ERC721 {
     /// @dev Sets initial values for the ERC-721 standard
     constructor() ERC721("Prompts", "PRP") {}
 
-    /// @dev Effectively mints prompt
+    /// @dev Effectively mints Prompt
     /// @param newCid IPFS CID of the Prompt that is being minted
     function _mintValidPrompt(string calldata newCid) private {
       counter++;
@@ -52,13 +53,13 @@ contract Prompts is ERC721 {
       collections[msg.sender].push(counter);
     }
 
-    /// @notice Mints prompt
+    /// @notice Mints Prompt
     /// @param newCid IPFS CID of the Prompt that is being minted
     function mintPrompt(string calldata newCid) external {
       _mintValidPrompt(newCid);
     }
 
-    /// @notice Mints branch prompt
+    /// @notice Mints branch Prompt
     /// @param newCid IPFS CID of the Prompt that is being minted
     function mintPrompt(string calldata newCid, uint256 oldId) external validOldId(oldId) {
       _mintValidPrompt(newCid);
@@ -71,29 +72,43 @@ contract Prompts is ERC721 {
       return branches[promptId].length;
     }
 
-    /// @notice Returns list of prompts written by a specific address
+    /// @notice Returns list of Prompts written by a specific address
     /// @param writerAddress Address of the specific writer
     function writerCollection(address writerAddress) external view returns(uint256[] memory) {
       return collections[writerAddress];
     }
 
-    function addSale(uint256 tokenId, uint256 askPrice) OnlyPromptOwner(tokenId) external {
-      require(price[tokenId] == 0);
+    /// @notice Puts Prompt up for sale
+    /// @param tokenId Id of the Prompt
+    /// @param askPrice Asking Price
+    function addSale(uint256 tokenId, uint256 askPrice) external OnlyPromptOwner(tokenId) {
       approve(address(this), tokenId);
       price[tokenId] = askPrice;
     }
 
-    function removeSale(uint256 tokenId) OnlyPromptOwner(tokenId) IsForSale(tokenId) external {
+    /// @notice Removes Prompt from sale
+    /// @param tokenId Id of the Prompt
+    function removeSale(uint256 tokenId) external OnlyPromptOwner(tokenId) HasPrice(tokenId) {
+      approve(address(0), tokenId);
       price[tokenId] = 0;
     }
 
-    function buy(uint256 tokenId) payable external IsForSale(tokenId) {
+    /// @notice Buys Prompt
+    /// @param tokenId Id of the Prompt    
+    function buy(uint256 tokenId) payable external HasPrice(tokenId) {
         require(msg.value >= price[tokenId], "Not enough funds sent");
         require(msg.sender != ownerOf(tokenId));
 
-        safeTransferFrom(payable(ownerOf(tokenId)), msg.sender, tokenId);
+        safeTransferFrom(ownerOf(tokenId), msg.sender, tokenId);
         payable(ownerOf(tokenId)).transfer(msg.value);
         price[tokenId] = 0;
+    }
+
+    /// @notice Returns Prompt's price if its up for sale
+    /// @param tokenId Id of the Prompt
+    function validPrice(uint256 tokenId) external view HasPrice(tokenId) returns (uint256) {
+      require(getApproved(tokenId) == address(this));
+      return price[tokenId];
     }
 
     /// @notice Returns MetadataURI for that specific tokenId

@@ -95,10 +95,12 @@ contract('Prompts', (accounts) => {
     await prompts.mintPrompt("Prompt1");
     await prompts.mintPrompt("Prompt2");
     
-    await prompts.addSale(1, 1000);
+    await prompts.addSale(1, web3.utils.toWei("0.001","ether"));
 
-    let price = await prompts.price(1);
+    let priceBN = await prompts.price(1);
+    let price = web3.utils.fromWei(priceBN.toString());
+    console.log(price);
 
-    assert.equal(price, 1000, "price is not 1000!");
+    assert.equal(price, 0.001, "price is not 0.001!");
   });
 });

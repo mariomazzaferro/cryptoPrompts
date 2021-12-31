@@ -15,6 +15,7 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
   const [loading, setLoading] = useState(false);
   const [collWriter, setCollWriter] = useState(false);
   const [list, setList] = useState(false);
+  const [spinner, setSpinner] = useState(false);
   const formRef = useRef(null);
 
   useEffect(() => {
@@ -25,6 +26,7 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
     setBranches(undefined);
     setShowId(undefined);
     setText('The next one is the youngest, then they get older.\nNot all of them are branches.\nNot all of them are roots.\nRoots have growing branches.\nSome branches become roots.');
+    setSpinner(true);
   }, [counter]);
 
   const updateBranch = (e) => {
@@ -96,10 +98,10 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
   }
 
   const getPrompt = async (id) => {
+    setText(undefined);
     setRoot(undefined);
     const cid = await promptById(id);
     const blob = await axios.get(`https://ipfs.io/ipfs/${cid}`);
-    setText(blob.data.body);
     setTitle(blob.data.title);
     setWriter(blob.data.writer);
     if(blob.data.root) {
@@ -108,9 +110,8 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
     const branches = await branchesById(id);
     setBranches(branches);
     setShowId(id);
+    setText(blob.data.body);
   }
-
-  
 
   const next = async () => {
     if(1 < NFTId) {
@@ -148,23 +149,23 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
       </Row>
       <br/>
       {
-        text && 
+        text && title ? 
         <Card className="shadow-lg p-3 mb-5 bg-white rounded text-center" style={{ width: 'auto' }}>
         <Card.Body>
         <Card.Title>
-          { showId && <h5 style={{color: "lightgray"}}>{`PROMPT ID: ${showId}`}</h5>}
+          <h5 style={{color: "lightgray"}}>{`PROMPT ID: ${showId}`}</h5>
           <br/>
-          { title && <h4>{`${title}`}</h4>}
+          <h4>{`${title}`}</h4>
         </Card.Title>
         <Card.Text>
         <br/>
         <h5 style={{whiteSpace: "pre-wrap"}}>{text && `${text}`}</h5>
         <br/>
-        {writer && <p style={{color: "lightgray"}}>{`by ${writer}`}</p>}
+        <p style={{color: "lightgray"}}>{`by ${writer}`}</p>
         { root && 
           <p style={{color: "lightgray"}}>{`ROOT PROMPT ID: ${root}`}</p>
         }
-        { branches !== undefined && <p style={{color: "lightgray"}}>{`BRANCHES: ${branches}`}</p>}
+        <p style={{color: "lightgray"}}>{`BRANCHES: ${branches}`}</p>
         <br/>
         { (accounts.length !== 0 && showId !== undefined) &&
         <Form ref={formRef} onSubmit={(e) => submitBranch(e)}>
@@ -177,7 +178,7 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
         <br/>
         <Form.Control
           style={{ textAlign: 'center' }}
-          as="textarea" rows="13"  placeholder='Write your Branch...    once minted, it will become a Prompt, anyone will be able to create new Prompts by branching yours. Every branch contribution automatically starts with the "0x..." standard : )'
+          as="textarea" rows="13"  placeholder='Write your Branch Prompt... : )'
           onChange={e => updateBranch(e)}
         ></Form.Control>
         <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Mint Prompt $</i></Button>
@@ -188,6 +189,17 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
         </Card.Text>
         </Card.Body>
       </Card>
+        :
+      <Card className="shadow-lg p-3 mb-5 bg-white rounded text-center" style={{ width: 'auto', minHeight: '15.5rem' }}>
+        <Card.Body>
+        <Card.Text>
+        <br/>
+        <h5 style={{whiteSpace: "pre-wrap"}}>{text && `${text}`}</h5>
+        { (!text && spinner) &&  <div><br/><div class="spinner-border"></div></div>}
+        <br/>
+        </Card.Text>
+        </Card.Body>
+      </Card>  
       }
       <Row>
       <Card className="shadow-lg p-3 mb-5 ml-3 mr-5 bg-white rounded" style={{ width: 'auto' }}>

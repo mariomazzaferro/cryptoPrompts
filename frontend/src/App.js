@@ -113,7 +113,7 @@ function App() {
   };
 
   const branchify = async (title, newText, oldText, oldId) => {
-    let formatedString = JSON.stringify({ title: `${title}`, body: `${oldText}\n0x...${newText}`, writer: `${accounts[0]}`, root: oldId });
+    let formatedString = JSON.stringify({ title: `${title}`, body: `${oldText}\nΛ${newText}`, writer: `${accounts[0]}`, root: oldId });
     const cid = await storeString(formatedString);
     const res = await contract.methods.mintPrompt(cid, oldId).send({from: accounts[0] });
     return res;
@@ -167,7 +167,7 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto font-weight-bold">
           
-          <Nav.Link className="px-4" bg="dark" as={Link} to={"/"}><h5><i>CRYPT0x...PROMPTS</i></h5></Nav.Link>
+          <Nav.Link className="px-4" bg="dark" as={Link} to={"/"}><h5><i>CRYPTOΛPROMPTS</i></h5></Nav.Link>
           <Nav.Link className="px-5" as={Link} to={"/feed"}><i>FEED</i></Nav.Link>
           <Nav.Link className="px-5" as={Link} to={"/branches"}><i>BRANCHES</i></Nav.Link>
           <Nav.Link className="px-5" as={Link} to={"/owners"}><i>OWNERS</i></Nav.Link>
@@ -182,7 +182,7 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto font-weight-bold">
           
-          <Nav.Link className="px-4" bg="dark" as={Link} to={"/"}><h5><i>CRYPT0x...PROMPTS</i></h5></Nav.Link>
+          <Nav.Link className="px-4" bg="dark" as={Link} to={"/"}><h5><i>CRYPTOΛPROMPTS</i></h5></Nav.Link>
           <Nav.Link className="px-5" as={Link} to={"/new"}><i>NEW</i></Nav.Link>
           <Nav.Link className="px-4" as={Link} to={"/feed"}><i>FEED</i></Nav.Link>
           <Nav.Link className="px-5" as={Link} to={"/branches"}><i>BRANCHES</i></Nav.Link>
