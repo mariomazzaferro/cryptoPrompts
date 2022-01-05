@@ -47,4 +47,10 @@ const getContract = async web3 => {
   );
 };
 
-export { getContract, getWeb3, client };
+const getContractAddress = async web3 => {
+  const networkId = await web3.eth.net.getId();
+  const contractDeployment = Prompts.networks[networkId];
+  return contractDeployment.address;
+}
+
+export { getContractAddress, getContract, getWeb3, client };

@@ -25,19 +25,19 @@ contract Prompts is ERC721 {
 
     /// @notice Checks if tokenId is an existing Prompt
     modifier OnlyPromptOwner(uint256 tokenId){
-        require(ownerOf(tokenId) == msg.sender);
+        require(ownerOf(tokenId) == msg.sender, "You don't own this Prompt");
         _;
     }
 
     /// @notice Checks if tokenId is for sale
     modifier HasPrice(uint256 tokenId){
-        require(price[tokenId] > 0);
+        require(price[tokenId] > 0, "This Prompt is not for sale");
         _;
     }
 
     /// @notice Checks if oldId is an existing Prompt
     modifier validOldId(uint256 oldId) {
-      require(oldId <= counter);
+      require(oldId <= counter, "Invalid Root Prompt");
       _;
     }
 
@@ -97,10 +97,9 @@ contract Prompts is ERC721 {
     /// @param tokenId Id of the Prompt    
     function buy(uint256 tokenId) payable external HasPrice(tokenId) {
         require(msg.value >= price[tokenId], "Not enough funds sent");
-        require(msg.sender != ownerOf(tokenId));
-
-        safeTransferFrom(ownerOf(tokenId), msg.sender, tokenId);
+        require(msg.sender != ownerOf(tokenId), "You already own this Prompt");
         payable(ownerOf(tokenId)).transfer(msg.value);
+        IERC721(address(this)).safeTransferFrom(ownerOf(tokenId), msg.sender, tokenId);
         price[tokenId] = 0;
     }
 

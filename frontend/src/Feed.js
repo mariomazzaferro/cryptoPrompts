@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap';
 
-const Feed = ({promptById, counter, branchesById, branchify, updateCounter, accounts, collectionList}) => {
+const Feed = ({promptById, counter, branchesById, branchify, updateCounter, accounts, collectionList, validPrice, buy}) => {
   const [text, setText] = useState(undefined);
   const [title, setTitle] = useState(undefined);
   const [writer, setWriter] = useState(undefined);
@@ -13,8 +13,10 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
   const [branchText, setBranchText] = useState(undefined);
   const [branchTitle, setBranchTitle] = useState(undefined);
   const [loading, setLoading] = useState(false);
+  const [loading2, setLoading2] = useState(false);
   const [collWriter, setCollWriter] = useState(false);
   const [list, setList] = useState(false);
+  const [price, setPrice] = useState(false);
   const [spinner, setSpinner] = useState(false);
   const formRef = useRef(null);
 
@@ -25,7 +27,7 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
     setRoot(undefined);
     setBranches(undefined);
     setShowId(undefined);
-    setText('The next one is the youngest, then they get older.\nNot all of them are branches.\nNot all of them are roots.\nRoots have growing branches.\nSome branches become roots.');
+    setText('The highest is the youngest.\nNot all of them are branches.\nNot all of them are roots.\nRoots have growing branches.\nSome branches become roots.');
     setSpinner(true);
   }, [counter]);
 
@@ -108,7 +110,9 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
       setRoot(blob.data.root);
     }
     const branches = await branchesById(id);
+    const price = await validPrice(id);
     setBranches(branches);
+    setPrice(price);
     setShowId(id);
     setText(blob.data.body);
   }
@@ -132,6 +136,26 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
     } else {
       setNFTId(1);
       await getPrompt(1);
+    }
+  }
+
+  const buyPrompt = async () => {
+    if(price && showId) {
+      setLoading2(true);
+      let resStatus;
+      try {
+        resStatus = await buy(showId, price);
+      } catch(err) {
+        console.log(err);
+      }
+      if(resStatus) {
+        setLoading2(false);
+        setPrice(undefined);
+        alert("Successful Purchase");
+      } else {
+        setLoading2(false);
+        alert("Purchase Failed");
+      }
     }
   }
 
@@ -166,10 +190,21 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
           <p style={{color: "lightgray"}}>{`ROOT PROMPT ID: ${root}`}</p>
         }
         <p style={{color: "lightgray"}}>{`BRANCHES: ${branches}`}</p>
-        <br/>
+        { price && 
+          <p style={{color: "goldenrod"}}><b><i>{`PRICE: ${price} MATIC`}</i></b></p>
+        }
+        { (accounts.length !== 0 && showId !== undefined && price) && 
+          <div>
+          <Button onClick={() => buyPrompt()} variant="dark" className="font-weight-bold" style={{color: "silver"}}><i>Buy $$</i></Button>
+          {loading2 && <div><br/><div class="spinner-border"></div></div>}
+          <br/>
+          <br/>
+          </div>
+        }
         { (accounts.length !== 0 && showId !== undefined) &&
         <Form ref={formRef} onSubmit={(e) => submitBranch(e)}>
         <Form.Group>
+        <br/>
         <Form.Control
           style={{ textAlign: 'center' }}
           as="textarea" rows="1"  placeholder='Title : )'

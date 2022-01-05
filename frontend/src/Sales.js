@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap';
 
-const Owners = ({ownerOf, balanceOf, transfer, approve, accounts}) => {
+const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, removeSale}) => {
   const [NFTId, setNFTId] = useState(undefined);
   const [ownerById, setOwnerById] = useState(undefined);
   const [owner, setOwner] = useState(undefined);
@@ -13,8 +13,15 @@ const Owners = ({ownerOf, balanceOf, transfer, approve, accounts}) => {
   const [approveId, setApproveId] = useState(undefined);
   const [loading1, setLoading1] = useState(false);
   const [loading2, setLoading2] = useState(false);
+  const [loading3, setLoading3] = useState(false);
+  const [loading4, setLoading4] = useState(false);
+  const [addId, setAddId] = useState(undefined);
+  const [price, setPrice] = useState(undefined);
+  const [removeId, setRemoveId] = useState(undefined);
   const formRef1 = useRef(null);
   const formRef2 = useRef(null);
+  const formRef3 = useRef(null);
+  const formRef4 = useRef(null);
 
   const updateFrom = (e) => {
     const from = e.target.value;
@@ -112,8 +119,119 @@ const Owners = ({ownerOf, balanceOf, transfer, approve, accounts}) => {
     }
   }
 
+  const updateAddId = (e) => {
+    const addId = e.target.value;
+    setAddId(addId);
+  }
+
+  const updatePrice = (e) => {
+    const price = e.target.value;
+    setPrice(price);
+  }
+
+  const putForSale = async (e) => {
+    e.preventDefault();
+    if(addId && price) {
+      setLoading3(true);
+      try {
+        const resStatus = await addSale(addId, price);
+        if(resStatus) {
+          alert("Sale added successfully");
+          setAddId(undefined);
+          setPrice(undefined);
+          formRef3.current.reset();
+        } else {
+          alert("Sale update failed");
+        }
+      } catch(err){
+        console.log(err.message);
+      }
+      setLoading3(false);
+    }
+  }
+
+  const updateRemoveId = (e) => {
+    const removeId = e.target.value;
+    setRemoveId(removeId);
+  }
+
+  const removeFromSale = async (e) => {
+    e.preventDefault();
+    if(removeId) {
+      setLoading4(true);
+      try {
+        const resStatus = await removeSale(removeId);
+        if(resStatus) {
+          alert("Sale removed successfully");
+          setRemoveId(undefined);
+          formRef4.current.reset();
+        } else {
+          alert("Sale update failed");
+        }
+      } catch(err){
+        console.log(err.message);
+      }
+      setLoading4(false);
+    }
+  }
+
   return (
     <Container>
+      { accounts.length !== 0 &&
+      <div>
+      <Card className="shadow-lg p-3 mb-5 bg-white rounded" style={{ width: 'auto', maxWidth: '57rem'}}>
+        <Card.Body>
+            <Form inline ref={formRef3} onSubmit={(e) => putForSale(e)}>
+              <Form.Group>
+              <Row>
+              <Col>
+              <Form.Control
+                placeholder="Prompt Id : )"
+                type="number"
+                onChange={e => updateAddId(e)}
+              ></Form.Control>
+              </Col>
+              <Col>
+              <Form.Control
+                placeholder="Sale Price (MATIC) : )"
+                type="string"
+                onChange={e => updatePrice(e)}
+              ></Form.Control>
+              </Col>
+              <Col>
+              <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Put up for Sale $</i></Button>
+              {loading3 && <div class="spinner-border"></div>}
+              </Col>
+              </Row>
+              </Form.Group>
+            </Form>
+          </Card.Body>
+        </Card>
+
+        <Card className="shadow-lg p-3 mb-5 bg-white rounded" style={{ width: 'auto', maxWidth: '57rem' }}>
+        <Card.Body>
+          <Form inline ref={formRef4} onSubmit={(e) => removeFromSale(e)}>
+            <Form.Group>
+            <Row>
+            <Col>
+            <Form.Control
+              placeholder="Prompt Id : )"
+              type="number"
+              onChange={e => updateRemoveId(e)}
+            ></Form.Control>
+            </Col>
+            <Col>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Remove from Sale $</i></Button>
+            {loading4 && <div class="spinner-border"></div>}
+            </Col>
+            </Row>
+            </Form.Group>
+          </Form>
+        </Card.Body>
+      </Card>
+      </div>
+      }
+
       <Card className="shadow-lg p-3 mb-5 bg-white rounded" style={{ width: 'auto', maxWidth: '57rem' }}>
         <Card.Body>
           <Card.Title>
@@ -252,4 +370,4 @@ const Owners = ({ownerOf, balanceOf, transfer, approve, accounts}) => {
   );
 }
 
-export default Owners;
+export default Sales;

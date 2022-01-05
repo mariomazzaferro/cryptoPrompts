@@ -8,12 +8,12 @@ import {
   Link
 } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { getWeb3, getContract, client } from './utils.js';
+import { getWeb3, getContract, getContractAddress, client } from './utils.js';
 import Home from './Home.js';
 import New from './New.js';
 import Feed from './Feed.js';
 import Branches from './Branches.js';
-import Owners from './Owners.js';
+import Sales from './Sales.js';
 import About from './About.js';
 
 const ModelViewer = require('@metamask/logo');
@@ -29,6 +29,7 @@ function App() {
   const [web3, setWeb3] = useState(undefined);
   const [accounts, setAccounts] = useState([]);
   const [contract, setContract] = useState(undefined);
+  const [contractAddress, setContractAddress] = useState(undefined);
   const [counter, setCounter] = useState(undefined);
   const [noMetamask, setNoMetamask] = useState(true);
 
@@ -43,6 +44,13 @@ function App() {
         console.log(err.message);  
       }
 
+      let contractAddress;
+      try {
+        contractAddress = await getContractAddress(endpointWeb3);
+      } catch(err) {
+        console.log(err.message);  
+      }
+
       let counter;
       try {
         counter = await endpointContract.methods.counter().call();
@@ -53,6 +61,7 @@ function App() {
       setWeb3(endpointWeb3);
       setAccounts(accounts);
       setContract(endpointContract);
+      setContractAddress(contractAddress);
       setCounter(counter);
     };
     init();
@@ -147,6 +156,32 @@ function App() {
     return branchPromptId;
   }
 
+  const addSale = async (promptId, askPrice) => {
+    await approve(contractAddress, promptId);
+    const res = await contract.methods.addSale(promptId, web3.utils.toWei(`${askPrice}`,"ether")).send({from: accounts[0] });
+    return res.status;
+  }
+
+  const removeSale = async (promptId) => {
+    const res = await contract.methods.removeSale(promptId).send({from: accounts[0] });
+    return res.status;
+  }
+
+  const validPrice = async (promptId) => {
+    let price;
+    try {
+      const validPrice = await contract.methods.validPrice(promptId).call();
+      price = web3.utils.fromWei(`${validPrice}`,"ether");
+    } catch(err) {}
+    return price;
+  }
+
+  const buy = async (promptId, price) => {
+    const res = await contract.methods.buy(promptId).send({from: accounts[0], value: web3.utils.toWei(`${price}`,"ether") });
+    console.log(res);
+    return res.status;
+  }
+
   if(
     typeof web3 === 'undefined'
   ) {
@@ -170,7 +205,7 @@ function App() {
           <Nav.Link className="px-4" bg="dark" as={Link} to={"/"}><h5><i>CRYPTOΛPROMPTS</i></h5></Nav.Link>
           <Nav.Link className="px-5" as={Link} to={"/feed"}><i>FEED</i></Nav.Link>
           <Nav.Link className="px-5" as={Link} to={"/branches"}><i>BRANCHES</i></Nav.Link>
-          <Nav.Link className="px-5" as={Link} to={"/owners"}><i>OWNERS</i></Nav.Link>
+          <Nav.Link className="px-4" as={Link} to={"/sales"}><i>SALES</i></Nav.Link>
           <Nav.Link className="px-5" as={Link} to={"/about"}><i>ABOUT</i></Nav.Link>
           <Nav.Link className="px-4" onClick={() => connectMetamask()}><i>CONNECT METAMASK</i></Nav.Link>
           </Nav>
@@ -186,7 +221,7 @@ function App() {
           <Nav.Link className="px-5" as={Link} to={"/new"}><i>NEW</i></Nav.Link>
           <Nav.Link className="px-4" as={Link} to={"/feed"}><i>FEED</i></Nav.Link>
           <Nav.Link className="px-5" as={Link} to={"/branches"}><i>BRANCHES</i></Nav.Link>
-          <Nav.Link className="px-4" as={Link} to={"/owners"}><i>OWNERS</i></Nav.Link>
+          <Nav.Link className="px-4" as={Link} to={"/sales"}><i>SALES</i></Nav.Link>
           <Nav.Link className="px-5" as={Link} to={"/about"}><i>ABOUT</i></Nav.Link>
           <Nav.Link className="px-2" onClick={() => disconnectMetamask()}><i>DISCONNECT METAMASK</i></Nav.Link>
           </Nav>
@@ -208,13 +243,13 @@ function App() {
             </Route>
           }
           <Route exact path="/feed">
-            <Feed accounts={accounts} counter={counter} promptById={promptById} branchesById={branchesById} branchify={branchify} updateCounter={updateCounter} collectionList={collectionList} />
+            <Feed accounts={accounts} counter={counter} promptById={promptById} branchesById={branchesById} branchify={branchify} updateCounter={updateCounter} collectionList={collectionList} validPrice={validPrice} buy={buy} />
           </Route>
           <Route exact path="/branches">
             <Branches counter={counter} branchesById={branchesById} getBranchCid={getBranchCid} getBranchId={getBranchId} />
           </Route>
-          <Route exact path="/owners">
-            <Owners accounts={accounts} ownerOf={ownerOf} balanceOf={balanceOf} transfer={transfer} approve={approve} />
+          <Route exact path="/sales">
+            <Sales accounts={accounts} ownerOf={ownerOf} balanceOf={balanceOf} transfer={transfer} approve={approve} addSale={addSale} removeSale={removeSale} />
           </Route>
           <Route exact path="/about">
             <About />
