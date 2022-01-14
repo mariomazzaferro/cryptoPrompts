@@ -31,6 +31,7 @@ function App() {
   const [contract, setContract] = useState(undefined);
   const [contractAddress, setContractAddress] = useState(undefined);
   const [counter, setCounter] = useState(undefined);
+  const [auLength, setAuLength] = useState(undefined);
   const [noMetamask, setNoMetamask] = useState(true);
 
   useEffect(() => {
@@ -58,11 +59,19 @@ function App() {
         console.log(err.message);  
       }
 
+      let auLength;
+      try {
+        auLength = await endpointContract.methods.auctionsLenght().call();
+      } catch(err) {
+        console.log(err.message);  
+      }
+
       setWeb3(endpointWeb3);
       setAccounts(accounts);
       setContract(endpointContract);
       setContractAddress(contractAddress);
       setCounter(counter);
+      setAuLength(auLength);
     };
     init();
   }, []);
@@ -90,9 +99,9 @@ function App() {
     setCounter(c);
   }
 
-  const collectionList = async writer => {
-    const list = await contract.methods.writerCollection(writer).call();
-    return list;
+  const updateAuctionLength = async () => {
+    const auLength = await contract.methods.auctionsLenght().call();
+    setAuLength(auLength);
   }
 
   const ownerOf = async nftId => {
@@ -156,6 +165,11 @@ function App() {
     return branchPromptId;
   }
 
+  const collectionList = async writer => {
+    const list = await contract.methods.writerCollection(writer).call();
+    return list;
+  }
+
   const addSale = async (promptId, askPrice) => {
     await approve(contractAddress, promptId);
     const res = await contract.methods.addSale(promptId, web3.utils.toWei(`${askPrice}`,"ether")).send({from: accounts[0] });
@@ -178,7 +192,80 @@ function App() {
 
   const buy = async (promptId, price) => {
     const res = await contract.methods.buy(promptId).send({from: accounts[0], value: web3.utils.toWei(`${price}`,"ether") });
-    console.log(res);
+    return res.status;
+  }
+
+  const startAuction = async (promptId, minValue, increment) => {
+    const res = await contract.methods.startAuction(promptId, minValue, increment).send({from: accounts[0] });
+    return res.status;
+  }
+
+  const promptAuctions = async (promptId) => {
+    const auctionList = await contract.methods.promptAuctionCollection(promptId).call();
+    return auctionList;
+  }
+
+  const auctionPromptId = async (auctionId) => {
+    const promptId = await contract.methods.auctionPromptId(auctionId).call();
+    return promptId;
+  }
+
+  const auctionSeller = async (auctionId) => {
+    const seller = await contract.methods.auctionSeller(auctionId).call();
+    return seller;
+  }
+
+  const auctionMinValue = async (auctionId) => {
+    const minValue = await contract.methods.auctionMinValue(auctionId).call();
+    return minValue;
+  }
+
+  const auctionIncrement = async (auctionId) => {
+    const increment = await contract.methods.auctionIncrement(auctionId).call();
+    return increment;
+  }
+
+  const auctionTimeLeft = async (auctionId) => {
+    const timeLeft = await contract.methods.auctionTimeLeft(auctionId).call();
+    return timeLeft;
+  }
+
+  const auctionTopBidder = async (auctionId) => {
+    const topBidder = await contract.methods.auctionTopBidder(auctionId).call();
+    return topBidder;
+  }
+
+  const auctionBids = async (auctionId) => {
+    const bidsWei = await contract.methods.auctionBids(auctionId).call();
+    let bids = [];
+    for(let i=0; i < bidsWei.length; i++) {
+      bids.push(web3.utils.fromWei(`${bidsWei[i]} MATIC`,"ether"));
+    }
+    return bids;
+  }
+
+  const auctionHasPrize = async (auctionId) => {
+    const hasPrize = await contract.methods.auctionHasPrize(auctionId).call();
+    return hasPrize;
+  }
+
+  const viewFunds = async (auctionId) => {
+    const fundsWei = await contract.methods.funds(auctionId, accounts[0]).call();
+    return web3.utils.fromWei(`${fundsWei}`,"ether");
+  }
+
+  const placeBid = async (auctionId, bid) => {
+    const res = await contract.methods.placeBid(auctionId).send({from: accounts[0], value: web3.utils.toWei(`${bid}`,"ether") });
+    return res.status;
+  }
+
+  const withdrawFunds = async (auctionId) => {
+    const res = await contract.methods.withdrawFunds(auctionId).send({from: accounts[0] });
+    return res.status;
+  }
+
+  const withdrawPrize = async (auctionId) => {
+    const res = await contract.methods.withdrawPrize(auctionId).send({from: accounts[0] });
     return res.status;
   }
 
@@ -249,7 +336,7 @@ function App() {
             <Branches counter={counter} branchesById={branchesById} getBranchCid={getBranchCid} getBranchId={getBranchId} />
           </Route>
           <Route exact path="/sales">
-            <Sales accounts={accounts} ownerOf={ownerOf} balanceOf={balanceOf} transfer={transfer} approve={approve} addSale={addSale} removeSale={removeSale} />
+            <Sales accounts={accounts} ownerOf={ownerOf} balanceOf={balanceOf} transfer={transfer} approve={approve} addSale={addSale} removeSale={removeSale} auLength={auLength} startAuction={startAuction} promptById={promptById} branchesById={branchesById} auctionPromptId={auctionPromptId} auctionSeller={auctionSeller} auctionMinValue={auctionMinValue} auctionIncrement={auctionIncrement} auctionTimeLeft={auctionTimeLeft} auctionTopBidder={auctionTopBidder} auctionBids={auctionBids} auctionHasPrize={auctionHasPrize} placeBid={placeBid} withdrawFunds={withdrawFunds} withdrawPrize={withdrawPrize} viewFunds={viewFunds} updateAuctionLength={updateAuctionLength} promptAuctions={promptAuctions} />
           </Route>
           <Route exact path="/about">
             <About />

@@ -8,6 +8,118 @@ import "../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
 /// @notice Allows users to mint Prompt NFTs and manage their IPFS CIDs and branches
 contract Prompts is ERC721 {
 
+    struct Auction {
+      uint256 promptId;
+      address payable seller;
+      uint256 minValue;
+      uint256 increment;
+      uint256 endBlock;
+      address topBidder;
+      uint256[] bids;
+      bool hasPrize;
+    }
+
+    mapping(uint256 => mapping(address => uint256)) public funds;
+
+    mapping(uint256 => uint256[]) public promptAuctions;
+
+    Auction[] public auctions;
+
+    modifier ActiveAuction(uint256 auctionId) {
+      require(auctions.length > auctionId);
+      require(auctions[auctionId].endBlock > block.number);
+      _;
+    }
+
+    modifier EndedAuction(uint256 auctionId) {
+      require(auctions.length > auctionId);
+      require(auctions[auctionId].endBlock < block.number);
+      _;
+    }
+
+    function promptAuctionCollection(uint256 promptId) external view returns(uint256[] memory) {
+      return promptAuctions[promptId];
+    }
+
+    function auctionsLenght() external view returns(uint256) {
+      return auctions.length;
+    }
+
+    function startAuction(uint256 promptId, uint256 minValue, uint256 increment) external OnlyPromptOwner(promptId) {
+      require(price[promptId] == 0, "Prompt is already for sale");
+      transferFrom(msg.sender, address(this), promptId);
+      uint256[] memory bids;
+      promptAuctions[promptId].push(auctions.length);
+      auctions.push(Auction(promptId, payable(msg.sender), minValue, increment, (block.number+300), address(0), bids, true));
+    }
+
+    function auctionPromptId(uint256 auctionId) external view returns(uint256) {
+      return auctions[auctionId].promptId;
+    }
+
+    function auctionSeller(uint256 auctionId) external view returns(address) {
+      return auctions[auctionId].seller;
+    }
+
+    function auctionMinValue(uint256 auctionId) external view returns(uint256) {
+      return auctions[auctionId].minValue;
+    }
+
+    function auctionIncrement(uint256 auctionId) external view returns(uint256) {
+      return auctions[auctionId].increment;
+    }
+
+    function auctionTimeLeft(uint256 auctionId) external view returns(uint256) {
+      if(auctions[auctionId].endBlock > block.number) {
+        return (auctions[auctionId].endBlock - block.number);
+      } else {
+        return 0;
+      }   
+    }
+
+    function auctionTopBidder(uint256 auctionId) external view returns(address) {
+      return auctions[auctionId].topBidder;
+    }
+
+    function auctionBids(uint256 auctionId) external view returns(uint256[] memory) {
+      return auctions[auctionId].bids;
+    }
+
+    function auctionHasPrize(uint256 auctionId) external view returns(bool) {
+      return auctions[auctionId].hasPrize;
+    }
+
+    function placeBid(uint256 auctionId) external payable ActiveAuction(auctionId) {
+      require(msg.sender != auctions[auctionId].seller);
+      require(msg.value >= auctions[auctionId].minValue);
+      require(msg.sender != auctions[auctionId].topBidder);
+      require(msg.value >= auctions[auctionId].increment + funds[auctionId][msg.sender]);
+      if(auctions[auctionId].bids.length > 0) {
+        require(msg.value + funds[auctionId][msg.sender] > auctions[auctionId].bids[auctions[auctionId].bids.length-1]);
+      }
+      funds[auctionId][msg.sender] += msg.value;
+      auctions[auctionId].topBidder = msg.sender;
+      auctions[auctionId].bids.push(funds[auctionId][msg.sender]);
+    }
+
+    function withdrawFunds(uint256 auctionId) external EndedAuction(auctionId) {
+      require(msg.sender != auctions[auctionId].topBidder);
+      require(funds[auctionId][msg.sender] > 0);
+      payable(msg.sender).transfer(funds[auctionId][msg.sender]);
+    }
+
+    function withdrawPrize(uint256 auctionId) external EndedAuction(auctionId) {
+      require(msg.sender == auctions[auctionId].seller || msg.sender == auctions[auctionId].topBidder);
+      require(auctions[auctionId].hasPrize == true);
+      if(auctions[auctionId].bids[auctions[auctionId].bids.length-1] >= auctions[auctionId].increment) {
+        IERC721(address(this)).safeTransferFrom(address(this), auctions[auctionId].topBidder, auctions[auctionId].promptId);
+        auctions[auctionId].seller.transfer(funds[auctionId][auctions[auctionId].topBidder]);
+      } else {
+        IERC721(address(this)).safeTransferFrom(address(this), auctions[auctionId].seller, auctions[auctionId].promptId);
+      }
+      auctions[auctionId].hasPrize = false;
+    }
+
     /// @notice Tracks number of minted Prompts
     uint256 public counter;
 
@@ -23,15 +135,15 @@ contract Prompts is ERC721 {
     /// @dev Relates Prompt Ids to their respective price
     mapping (uint256 => uint256) public price;
 
-    /// @notice Checks if tokenId is an existing Prompt
-    modifier OnlyPromptOwner(uint256 tokenId){
-        require(ownerOf(tokenId) == msg.sender, "You don't own this Prompt");
+    /// @notice Checks if promptId is an existing Prompt
+    modifier OnlyPromptOwner(uint256 promptId){
+        require(ownerOf(promptId) == msg.sender, "You don't own this Prompt");
         _;
     }
 
-    /// @notice Checks if tokenId is for sale
-    modifier HasPrice(uint256 tokenId){
-        require(price[tokenId] > 0, "This Prompt is not for sale");
+    /// @notice Checks if promptId is for sale
+    modifier HasPrice(uint256 promptId){
+        require(price[promptId] > 0, "This Prompt is not for sale");
         _;
     }
 
@@ -79,41 +191,41 @@ contract Prompts is ERC721 {
     }
 
     /// @notice Puts Prompt up for sale
-    /// @param tokenId Id of the Prompt
+    /// @param promptId Id of the Prompt
     /// @param askPrice Asking Price
-    function addSale(uint256 tokenId, uint256 askPrice) external OnlyPromptOwner(tokenId) {
-      approve(address(this), tokenId);
-      price[tokenId] = askPrice;
+    function addSale(uint256 promptId, uint256 askPrice) external OnlyPromptOwner(promptId) {
+      approve(address(this), promptId);
+      price[promptId] = askPrice;
     }
 
     /// @notice Removes Prompt from sale
-    /// @param tokenId Id of the Prompt
-    function removeSale(uint256 tokenId) external OnlyPromptOwner(tokenId) HasPrice(tokenId) {
-      approve(address(0), tokenId);
-      price[tokenId] = 0;
+    /// @param promptId Id of the Prompt
+    function removeSale(uint256 promptId) external OnlyPromptOwner(promptId) HasPrice(promptId) {
+      approve(address(0), promptId);
+      price[promptId] = 0;
     }
 
     /// @notice Buys Prompt
-    /// @param tokenId Id of the Prompt    
-    function buy(uint256 tokenId) payable external HasPrice(tokenId) {
-        require(msg.value >= price[tokenId], "Not enough funds sent");
-        require(msg.sender != ownerOf(tokenId), "You already own this Prompt");
-        payable(ownerOf(tokenId)).transfer(msg.value);
-        IERC721(address(this)).safeTransferFrom(ownerOf(tokenId), msg.sender, tokenId);
-        price[tokenId] = 0;
+    /// @param promptId Id of the Prompt    
+    function buy(uint256 promptId) payable external HasPrice(promptId) {
+        require(msg.value >= price[promptId], "Not enough funds sent");
+        require(msg.sender != ownerOf(promptId), "You already own this Prompt");
+        payable(ownerOf(promptId)).transfer(msg.value);
+        IERC721(address(this)).safeTransferFrom(ownerOf(promptId), msg.sender, promptId);
+        price[promptId] = 0;
     }
 
     /// @notice Returns Prompt's price if its up for sale
-    /// @param tokenId Id of the Prompt
-    function validPrice(uint256 tokenId) external view HasPrice(tokenId) returns (uint256) {
-      require(getApproved(tokenId) == address(this));
-      return price[tokenId];
+    /// @param promptId Id of the Prompt
+    function validPrice(uint256 promptId) external view HasPrice(promptId) returns (uint256) {
+      require(getApproved(promptId) == address(this));
+      return price[promptId];
     }
 
-    /// @notice Returns MetadataURI for that specific tokenId
-    /// @param tokenId Id of the specific Prompt
-    function tokenURI(uint256 tokenId) public view override returns (string memory) {
-        require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
-        return string(abi.encodePacked("https://ipfs.io/ipfs/", promptCids[tokenId]));
+    /// @notice Returns MetadataURI for that specific promptId
+    /// @param promptId Id of the specific Prompt
+    function tokenURI(uint256 promptId) public view override returns (string memory) {
+        require(_exists(promptId), "ERC721Metadata: URI query for nonexistent token");
+        return string(abi.encodePacked("https://ipfs.io/ipfs/", promptCids[promptId]));
     }
 }

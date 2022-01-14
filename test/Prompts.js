@@ -89,18 +89,4 @@ contract('Prompts', (accounts) => {
     assert.equal(branches1, 2, "branches1 is not 2!");
     assert.equal(branches2, 3, "branches2 is not 3!");
   });
-
-  // Checks if addSale() and removeSale() are working properly.
-  it('Should addSale successfully', async () => {
-    await prompts.mintPrompt("Prompt1");
-    await prompts.mintPrompt("Prompt2");
-    
-    await prompts.addSale(1, web3.utils.toWei("0.001","ether"));
-
-    let priceBN = await prompts.price(1);
-    let price = web3.utils.fromWei(priceBN.toString());
-    console.log(price);
-
-    assert.equal(price, 0.001, "price is not 0.001!");
-  });
 });
