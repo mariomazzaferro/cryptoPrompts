@@ -169,9 +169,8 @@ contract Prompts is ERC721 {
       require(msg.sender != auctions[auctionId].seller);
       require(msg.value >= auctions[auctionId].minValue);
       require(msg.sender != auctions[auctionId].topBidder);
-      require(msg.value >= auctions[auctionId].increment + funds[auctionId][msg.sender]);
       if(auctions[auctionId].bids.length > 0) {
-        require(msg.value + funds[auctionId][msg.sender] > auctions[auctionId].bids[auctions[auctionId].bids.length-1]);
+        require(msg.value + funds[auctionId][msg.sender] >= auctions[auctionId].bids[auctions[auctionId].bids.length-1] + auctions[auctionId].increment);
       }
       funds[auctionId][msg.sender] += msg.value;
       auctions[auctionId].topBidder = msg.sender;

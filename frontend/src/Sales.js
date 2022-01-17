@@ -61,7 +61,7 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
     setShowId(undefined);
     setText('The highest is the youngest.\nNot all of them are branches.\nNot all of them are roots.\nRoots have growing branches.\nSome branches become roots.');
     setSpinner(true);
-  }, [auLength]);
+  }, [auLength, accounts]);
 
   const updateFrom = (e) => {
     const from = e.target.value;
@@ -392,17 +392,20 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
   const updatePromptAu = (e) => {
     const promptAu = e.target.value;
     setPromptAu(promptAu);
+    setPromptAuctionList([]);
   }
 
   const getPromptAuctions = async (e) => {
     e.preventDefault();
-    let promptAuctionList;
-    try {
-      promptAuctionList = await promptAuctions(promptAu);
-    } catch(err) {
-      console.log(err.message);  
+    if(promptAu) {
+      let promptAuctionList;
+      try {
+        promptAuctionList = await promptAuctions(promptAu);
+      } catch(err) {
+        console.log(err.message);  
+      }
+      setPromptAuctionList(promptAuctionList);
     }
-    setPromptAuctionList(promptAuctionList);
   }
 
   return (
@@ -475,14 +478,14 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
               <Col>
               <Form.Control
                 placeholder="Minimal Value (MATIC) : )"
-                type="number"
+                type="string"
                 onChange={e => updateAuMinValue(e)}
               ></Form.Control>
               </Col>
               <Col>
               <Form.Control
                 placeholder="Increment (MATIC) : )"
-                type="number"
+                type="string"
                 onChange={e => updateAuIncrement(e)}
               ></Form.Control>
               </Col>

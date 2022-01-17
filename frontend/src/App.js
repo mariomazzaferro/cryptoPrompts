@@ -196,7 +196,7 @@ function App() {
   }
 
   const startAuction = async (promptId, minValue, increment) => {
-    const res = await contract.methods.startAuction(promptId, minValue, increment).send({from: accounts[0] });
+    const res = await contract.methods.startAuction(promptId, web3.utils.toWei(`${minValue}`,"ether"), web3.utils.toWei(`${increment}`,"ether")).send({from: accounts[0] });
     return res.status;
   }
 
@@ -217,12 +217,12 @@ function App() {
 
   const auctionMinValue = async (auctionId) => {
     const minValue = await contract.methods.auctionMinValue(auctionId).call();
-    return minValue;
+    return web3.utils.fromWei(minValue,"ether");
   }
 
   const auctionIncrement = async (auctionId) => {
     const increment = await contract.methods.auctionIncrement(auctionId).call();
-    return increment;
+    return web3.utils.fromWei(increment,"ether");
   }
 
   const auctionTimeLeft = async (auctionId) => {

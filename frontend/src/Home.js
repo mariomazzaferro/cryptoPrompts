@@ -13,8 +13,14 @@ const Home = ({accounts, connectMetamask}) => {
             <br/>
             <h4>Click on <i>FEED</i> and enjoy the reading. Don't mind the fox, he is handling security...</h4>
             <br/>
-            <h4>If you want to create your own Literary NFTs:</h4>
-            <h4><a href="https://metamask.io/">install Metamask</a> + <a href="https://medium.com/stakingbits/setting-up-metamask-for-polygon-matic-network-838058f6d844">connect it to Polygon</a> + <a href='#' onClick={() => connectMetamask()}>connect to this site</a> + write!</h4>
+            <h4>Click on BRANCHES to read parallel branches...</h4>
+            <br/>
+            <h4>Click on SALES for auctions, fixed price sales and transfers...</h4>
+            <br/>
+            <h4>Click on ABOUT to get more context...</h4>
+            <br/>
+            <h4>If you want to buy, sell or create your own Literary NFTs:</h4>
+            <h4><a href="https://metamask.io/">install Metamask</a> + <a href="https://medium.com/stakingbits/setting-up-metamask-for-polygon-matic-network-838058f6d844">connect it to Polygon</a> + <a href='#' onClick={() => connectMetamask()}>connect to this site</a>!</h4>
             <br/>
             <h2><i>"What we write in life echoes in eternity."</i></h2>
           </Card>
@@ -28,6 +34,12 @@ const Home = ({accounts, connectMetamask}) => {
             <h4>Click on <i>FEED</i> and enjoy the reading. Don't mind the fox, he is handling security...</h4>
             <br/>
             <h4>Click on <i>NEW</i> and create a Prompt from scratch OR branch an existing Prompt on <i>FEED</i>...</h4>
+            <br/>
+            <h4>Click on BRANCHES to read parallel branches...</h4>
+            <br/>
+            <h4>Click on SALES for auctions, fixed price sales and transfers...</h4>
+            <br/>
+            <h4>Click on ABOUT to get more context...</h4>
             <br/>
             <h2><i>"What we write in life echoes in eternity."</i></h2>
           </Card>
