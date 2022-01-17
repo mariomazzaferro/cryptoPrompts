@@ -8,6 +8,10 @@ import "../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
 /// @notice Allows users to mint Prompt NFTs and manage their IPFS CIDs and branches
 contract Prompts is ERC721 {
 
+    /// @notice Tracks number of minted Prompts
+    uint256 public counter;
+
+    /// @notice Stores auction's data
     struct Auction {
       uint256 promptId;
       address payable seller;
@@ -16,124 +20,28 @@ contract Prompts is ERC721 {
       uint256 endBlock;
       address topBidder;
       uint256[] bids;
-      bool hasPrize;
     }
 
-    mapping(uint256 => mapping(address => uint256)) public funds;
-
-    mapping(uint256 => uint256[]) public promptAuctions;
-
+    /// @notice List of all auctions ordered by Auction Id ascending order
     Auction[] public auctions;
-
-    modifier ActiveAuction(uint256 auctionId) {
-      require(auctions.length > auctionId);
-      require(auctions[auctionId].endBlock > block.number);
-      _;
-    }
-
-    modifier EndedAuction(uint256 auctionId) {
-      require(auctions.length > auctionId);
-      require(auctions[auctionId].endBlock < block.number);
-      _;
-    }
-
-    function promptAuctionCollection(uint256 promptId) external view returns(uint256[] memory) {
-      return promptAuctions[promptId];
-    }
-
-    function auctionsLenght() external view returns(uint256) {
-      return auctions.length;
-    }
-
-    function startAuction(uint256 promptId, uint256 minValue, uint256 increment) external OnlyPromptOwner(promptId) {
-      require(price[promptId] == 0, "Prompt is already for sale");
-      transferFrom(msg.sender, address(this), promptId);
-      uint256[] memory bids;
-      promptAuctions[promptId].push(auctions.length);
-      auctions.push(Auction(promptId, payable(msg.sender), minValue, increment, (block.number+300), address(0), bids, true));
-    }
-
-    function auctionPromptId(uint256 auctionId) external view returns(uint256) {
-      return auctions[auctionId].promptId;
-    }
-
-    function auctionSeller(uint256 auctionId) external view returns(address) {
-      return auctions[auctionId].seller;
-    }
-
-    function auctionMinValue(uint256 auctionId) external view returns(uint256) {
-      return auctions[auctionId].minValue;
-    }
-
-    function auctionIncrement(uint256 auctionId) external view returns(uint256) {
-      return auctions[auctionId].increment;
-    }
-
-    function auctionTimeLeft(uint256 auctionId) external view returns(uint256) {
-      if(auctions[auctionId].endBlock > block.number) {
-        return (auctions[auctionId].endBlock - block.number);
-      } else {
-        return 0;
-      }   
-    }
-
-    function auctionTopBidder(uint256 auctionId) external view returns(address) {
-      return auctions[auctionId].topBidder;
-    }
-
-    function auctionBids(uint256 auctionId) external view returns(uint256[] memory) {
-      return auctions[auctionId].bids;
-    }
-
-    function auctionHasPrize(uint256 auctionId) external view returns(bool) {
-      return auctions[auctionId].hasPrize;
-    }
-
-    function placeBid(uint256 auctionId) external payable ActiveAuction(auctionId) {
-      require(msg.sender != auctions[auctionId].seller);
-      require(msg.value >= auctions[auctionId].minValue);
-      require(msg.sender != auctions[auctionId].topBidder);
-      require(msg.value >= auctions[auctionId].increment + funds[auctionId][msg.sender]);
-      if(auctions[auctionId].bids.length > 0) {
-        require(msg.value + funds[auctionId][msg.sender] > auctions[auctionId].bids[auctions[auctionId].bids.length-1]);
-      }
-      funds[auctionId][msg.sender] += msg.value;
-      auctions[auctionId].topBidder = msg.sender;
-      auctions[auctionId].bids.push(funds[auctionId][msg.sender]);
-    }
-
-    function withdrawFunds(uint256 auctionId) external EndedAuction(auctionId) {
-      require(msg.sender != auctions[auctionId].topBidder);
-      require(funds[auctionId][msg.sender] > 0);
-      payable(msg.sender).transfer(funds[auctionId][msg.sender]);
-    }
-
-    function withdrawPrize(uint256 auctionId) external EndedAuction(auctionId) {
-      require(msg.sender == auctions[auctionId].seller || msg.sender == auctions[auctionId].topBidder);
-      require(auctions[auctionId].hasPrize == true);
-      if(auctions[auctionId].bids[auctions[auctionId].bids.length-1] >= auctions[auctionId].increment) {
-        IERC721(address(this)).safeTransferFrom(address(this), auctions[auctionId].topBidder, auctions[auctionId].promptId);
-        auctions[auctionId].seller.transfer(funds[auctionId][auctions[auctionId].topBidder]);
-      } else {
-        IERC721(address(this)).safeTransferFrom(address(this), auctions[auctionId].seller, auctions[auctionId].promptId);
-      }
-      auctions[auctionId].hasPrize = false;
-    }
-
-    /// @notice Tracks number of minted Prompts
-    uint256 public counter;
 
     /// @notice Relates Prompt Ids to their respective IPFS CIDs
     mapping(uint256 => string) public promptCids;
 
-    /// @dev Relates Prompt Ids to their respective branch lists
+    /// @notice Relates Prompt Ids to their respective branch lists
     mapping(uint256 => uint256[]) public branches;
 
-    /// @dev Relates Writers' Addresses to their respective Prompt Collections
+    /// @notice Relates Writers' Addresses to their respective Prompt Collections
     mapping(address => uint256[]) public collections;
 
-    /// @dev Relates Prompt Ids to their respective price
+    /// @notice Relates Prompt Ids to their respective price
     mapping (uint256 => uint256) public price;
+
+    /// @notice Relates Auction Id to it's mapping of bidders to funds
+    mapping(uint256 => mapping(address => uint256)) public funds;
+
+    /// @notice Relates Prompt Ids to their historic Auction Ids
+    mapping(uint256 => uint256[]) public promptAuctions;
 
     /// @notice Checks if promptId is an existing Prompt
     modifier OnlyPromptOwner(uint256 promptId){
@@ -153,10 +61,24 @@ contract Prompts is ERC721 {
       _;
     }
 
-    /// @dev Sets initial values for the ERC-721 standard
+    /// @notice Checks if auctionId is a valid and active Auction
+    modifier ActiveAuction(uint256 auctionId) {
+      require(auctions.length > auctionId);
+      require(auctions[auctionId].endBlock > block.number);
+      _;
+    }
+
+    /// @notice Checks if auctionId is a valid and finished Auction
+    modifier EndedAuction(uint256 auctionId) {
+      require(auctions.length > auctionId);
+      require(auctions[auctionId].endBlock < block.number);
+      _;
+    }
+
+    /// @notice Sets initial values for the ERC-721 standard
     constructor() ERC721("Prompts", "PRP") {}
 
-    /// @dev Effectively mints Prompt
+    /// @notice Effectively mints Prompt
     /// @param newCid IPFS CID of the Prompt that is being minted
     function _mintValidPrompt(string calldata newCid) private {
       counter++;
@@ -227,5 +149,114 @@ contract Prompts is ERC721 {
     function tokenURI(uint256 promptId) public view override returns (string memory) {
         require(_exists(promptId), "ERC721Metadata: URI query for nonexistent token");
         return string(abi.encodePacked("https://ipfs.io/ipfs/", promptCids[promptId]));
+    }
+
+    /// @notice Initiates auction
+    /// @param promptId Id of the Prompt being auctioned
+    /// @param minValue Minimal value accepted
+    /// @param increment Minimal increment value
+    function startAuction(uint256 promptId, uint256 minValue, uint256 increment) external OnlyPromptOwner(promptId) {
+      require(price[promptId] == 0, "Prompt is already for sale");
+      transferFrom(msg.sender, address(this), promptId);
+      uint256[] memory bids;
+      promptAuctions[promptId].push(auctions.length);
+      auctions.push(Auction(promptId, payable(msg.sender), minValue, increment, (block.number+300), address(0), bids));
+    }
+
+    /// @notice Places a bid for a specific Auction
+    /// @param auctionId Id of the specific Auction
+    function placeBid(uint256 auctionId) external payable ActiveAuction(auctionId) {
+      require(msg.sender != auctions[auctionId].seller);
+      require(msg.value >= auctions[auctionId].minValue);
+      require(msg.sender != auctions[auctionId].topBidder);
+      require(msg.value >= auctions[auctionId].increment + funds[auctionId][msg.sender]);
+      if(auctions[auctionId].bids.length > 0) {
+        require(msg.value + funds[auctionId][msg.sender] > auctions[auctionId].bids[auctions[auctionId].bids.length-1]);
+      }
+      funds[auctionId][msg.sender] += msg.value;
+      auctions[auctionId].topBidder = msg.sender;
+      auctions[auctionId].bids.push(funds[auctionId][msg.sender]);
+    }
+
+    /// @notice Withdraw Auction funds for those who are not the topBidder
+    /// @param auctionId Id of the specific Auction
+    function withdrawFunds(uint256 auctionId) external EndedAuction(auctionId) {
+      require(msg.sender != auctions[auctionId].topBidder);
+      require(funds[auctionId][msg.sender] > 0);
+      uint256 fund = funds[auctionId][msg.sender];
+      funds[auctionId][msg.sender] = 0;
+      payable(msg.sender).transfer(fund);
+    }
+
+    /// @notice Withdraw Auction assets for the topBidder and seller
+    /// @param auctionId Id of the specific Auction
+    function withdrawPrize(uint256 auctionId) external EndedAuction(auctionId) {
+      require(msg.sender == auctions[auctionId].seller || msg.sender == auctions[auctionId].topBidder);
+      if(auctions[auctionId].topBidder != address(0)) {
+        require(funds[auctionId][auctions[auctionId].topBidder] != 0);
+        uint256 fund = funds[auctionId][auctions[auctionId].topBidder];
+        funds[auctionId][auctions[auctionId].topBidder] = 0;
+        IERC721(address(this)).safeTransferFrom(address(this), auctions[auctionId].topBidder, auctions[auctionId].promptId);
+        auctions[auctionId].seller.transfer(fund);
+      } else {
+        IERC721(address(this)).safeTransferFrom(address(this), auctions[auctionId].seller, auctions[auctionId].promptId);
+      }
+    }
+
+    /// @notice Returns list of historic Auction Ids for that Prompt Id
+    /// @param promptId Id of the Prompt being queried
+    function promptAuctionCollection(uint256 promptId) external view returns(uint256[] memory) {
+      return promptAuctions[promptId];
+    }
+
+    /// @notice Returns length of auctions
+    function auctionsLenght() external view returns(uint256) {
+      return auctions.length;
+    }
+
+    /// @notice Returns Prompt Id of the auctionId
+    /// @param auctionId Id of the Auction being queried
+    function auctionPromptId(uint256 auctionId) external view returns(uint256) {
+      return auctions[auctionId].promptId;
+    }
+
+    /// @notice Returns seller's address of the auctionId
+    /// @param auctionId Id of the Auction being queried
+    function auctionSeller(uint256 auctionId) external view returns(address) {
+      return auctions[auctionId].seller;
+    }
+
+    /// @notice Returns minValue of the auctionId
+    /// @param auctionId Id of the Auction being queried
+    function auctionMinValue(uint256 auctionId) external view returns(uint256) {
+      return auctions[auctionId].minValue;
+    }
+
+    /// @notice Returns increment of the auctionId
+    /// @param auctionId Id of the Auction being queried
+    function auctionIncrement(uint256 auctionId) external view returns(uint256) {
+      return auctions[auctionId].increment;
+    }
+
+    /// @notice Returns blocks left (~time) of the auctionId
+    /// @param auctionId Id of the Auction being queried
+    function auctionTimeLeft(uint256 auctionId) external view returns(uint256) {
+      if(auctions[auctionId].endBlock > block.number) {
+        return (auctions[auctionId].endBlock - block.number);
+      } else {
+        return 0;
+      }   
+    }
+
+    /// @notice Returns topBidder's address of the auctionId
+    /// @param auctionId Id of the Auction being queried
+    function auctionTopBidder(uint256 auctionId) external view returns(address) {
+      return auctions[auctionId].topBidder;
+    }
+
+    /// @notice Returns list of bids of the auctionId
+    /// @param auctionId Id of the Auction being queried
+    function auctionBids(uint256 auctionId) external view returns(uint256[] memory) {
+      return auctions[auctionId].bids;
     }
 }

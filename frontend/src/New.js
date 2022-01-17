@@ -27,7 +27,7 @@ const New = ({writePrompt, updateCounter}) => {
           alert(`Prompt Id ${newId} minted successfully`);
           await updateCounter();
         } else {
-          alert("Prompt failed");
+          alert("Prompt failed with");
         }
       } else {
         alert("Prompt failed");

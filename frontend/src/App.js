@@ -239,14 +239,20 @@ function App() {
     const bidsWei = await contract.methods.auctionBids(auctionId).call();
     let bids = [];
     for(let i=0; i < bidsWei.length; i++) {
-      bids.push(web3.utils.fromWei(`${bidsWei[i]} MATIC`,"ether"));
+      bids.push(`\t${web3.utils.fromWei(bidsWei[i],"ether")} MATIC`);
     }
     return bids;
   }
 
   const auctionHasPrize = async (auctionId) => {
-    const hasPrize = await contract.methods.auctionHasPrize(auctionId).call();
-    return hasPrize;
+    const topBidder = await contract.methods.auctionTopBidder(auctionId).call();
+    const fundsWei = await contract.methods.funds(auctionId, topBidder).call();
+    const funds = web3.utils.fromWei(`${fundsWei}`,"ether");
+    if(funds != 0) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   const viewFunds = async (auctionId) => {

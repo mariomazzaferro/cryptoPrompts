@@ -43,7 +43,7 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
   const [bid, setBid] = useState(undefined);
   const [funds, setFunds] = useState(undefined);
   const [promptAu, setPromptAu] = useState(undefined);
-  const [promptAuctionList, setPromptAuctionList] = useState(undefined);
+  const [promptAuctionList, setPromptAuctionList] = useState([]);
   const [spinner, setSpinner] = useState(false);
   const formRef = useRef(null);
   const formRef1 = useRef(null);
@@ -90,6 +90,7 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
     const topBidder = await auctionTopBidder(auctionId);
     const bids = await auctionBids(auctionId);
     const hasPrize = await auctionHasPrize(auctionId);
+    console.log(`hasPrize: ${hasPrize}`);
     let funds;
     if(accounts.length !== 0) {
       funds = await viewFunds(auctionId);
@@ -356,23 +357,35 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
 
   const getPrize = async () => {
     setLoading6(true);
-    let resStatus = await withdrawPrize(auctionId);
+    let resStatus;
+    try {
+      resStatus = await withdrawPrize(auctionId);
+    } catch(err) {
+      console.log(err.message);  
+    }
     if(resStatus) {
       alert("Withdraw succeeded");
     } else {
       alert("Withdraw failed");
     }
+    await getAuction(auctionId);
     setLoading6(false);
   }
 
   const getFunds = async () => {
     setLoading6(true);
-    let resStatus = await withdrawFunds(auctionId);
-    if(resStatus) {
+    let resStatus;
+    try {
+      resStatus = await withdrawFunds(auctionId);
+    } catch(err) {
+      console.log(err.message);  
+    }
+    if(resStatus === true) {
       alert("Withdraw succeeded");
     } else {
       alert("Withdraw failed");
     }
+    await getAuction(auctionId);
     setLoading6(false);
   }
 
@@ -528,24 +541,25 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
         { funds && 
           <p style={{color: "lightgray"}}>{`YOUR FUNDS: ${funds} MATIC`}</p>
         }
-        { timeLeft > 0 && 
+        { timeLeft > 0 ? 
           <p style={{color: "lightgray"}}>{`TIME LEFT: ${timeLeft}`}</p>
+          :
+          <p style={{color: "lightgray"}}>{`TIME LEFT: 0`}</p>
         }
-
 
         { (timeLeft <= 0 && accounts.length !== 0 && showId !== undefined) && 
           <div>
           { accounts[0] === seller || accounts[0] === topBidder ?
             <div>
             { hasPrize === true &&
-              <Button onClick={() => getPrize()} variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Withdraw Prize $</i></Button>
+              <Button onClick={() => getPrize()} variant="dark" className="font-weight-bold" style={{color: "silver"}}><i>Withdraw Prize $</i></Button>
             }
             {loading6 && <div><br/><div class="spinner-border"></div></div>}
             </div>
             :
             <div>
-            { funds !== 0 &&
-              <Button onClick={() => getFunds()} variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Withdraw Funds $</i></Button>
+            { funds != 0  &&
+              <Button onClick={() => getFunds()} variant="dark" className="font-weight-bold" style={{color: "silver"}}><i>Withdraw Funds $</i></Button>
             }
             {loading6 && <div><br/><div class="spinner-border"></div></div>}
             </div>
