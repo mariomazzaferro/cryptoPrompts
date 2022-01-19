@@ -294,12 +294,12 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto font-weight-bold">
           
-          <Nav.Link className="px-4" bg="dark" as={Link} to={"/"}><h5><i>CRYPTOΛPROMPTS</i></h5></Nav.Link>
+          <Nav.Link className="px-4" bg="dark" as={Link} to={"/"}><h5><i>CRYPTO PROMPTS</i></h5></Nav.Link>
           <Nav.Link className="px-5" as={Link} to={"/feed"}><i>FEED</i></Nav.Link>
-          <Nav.Link className="px-5" as={Link} to={"/branches"}><i>BRANCHES</i></Nav.Link>
-          <Nav.Link className="px-4" as={Link} to={"/sales"}><i>SALES</i></Nav.Link>
-          <Nav.Link className="px-5" as={Link} to={"/about"}><i>ABOUT</i></Nav.Link>
-          <Nav.Link className="px-4" onClick={() => connectMetamask()}><i>CONNECT METAMASK</i></Nav.Link>
+          <Nav.Link className="px-5" as={Link} to={"/branches"}><i>BRΛNCHES</i></Nav.Link>
+          <Nav.Link className="px-4" as={Link} to={"/sales"}><i>SΛLES</i></Nav.Link>
+          <Nav.Link className="px-5" as={Link} to={"/about"}><i>ΛBOUT</i></Nav.Link>
+          <Nav.Link className="px-4" onClick={() => connectMetamask()}><i>CONNECT METΛMΛSK</i></Nav.Link>
           </Nav>
           </Navbar.Collapse>
         </Container>
@@ -309,20 +309,20 @@ function App() {
           <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto font-weight-bold">
           
-          <Nav.Link className="px-4" bg="dark" as={Link} to={"/"}><h5><i>CRYPTOΛPROMPTS</i></h5></Nav.Link>
+          <Nav.Link className="px-4" bg="dark" as={Link} to={"/"}><h5><i>CRYPTO PROMPTS</i></h5></Nav.Link>
           <Nav.Link className="px-5" as={Link} to={"/new"}><i>NEW</i></Nav.Link>
           <Nav.Link className="px-4" as={Link} to={"/feed"}><i>FEED</i></Nav.Link>
-          <Nav.Link className="px-5" as={Link} to={"/branches"}><i>BRANCHES</i></Nav.Link>
-          <Nav.Link className="px-4" as={Link} to={"/sales"}><i>SALES</i></Nav.Link>
-          <Nav.Link className="px-5" as={Link} to={"/about"}><i>ABOUT</i></Nav.Link>
-          <Nav.Link className="px-2" onClick={() => disconnectMetamask()}><i>DISCONNECT METAMASK</i></Nav.Link>
+          <Nav.Link className="px-5" as={Link} to={"/branches"}><i>BRΛNCHES</i></Nav.Link>
+          <Nav.Link className="px-4" as={Link} to={"/sales"}><i>SΛLES</i></Nav.Link>
+          <Nav.Link className="px-5" as={Link} to={"/about"}><i>ΛBOUT</i></Nav.Link>
+          <Nav.Link className="px-2" onClick={() => disconnectMetamask()}><i>DISCONNECT METΛMΛSK</i></Nav.Link>
           </Nav>
           </Navbar.Collapse>
         </Container>
         }
       </Navbar>
       <br/>
-      {accounts.length !== 0 && <p style={{color: "silver", textAlign: "center"}}>{`Active Account: ${accounts[0]}`}</p>
+      {accounts.length !== 0 && <p style={{color: "silver", textAlign: "center"}}>{`Λctive Λccount: ${accounts[0]}`}</p>
       }
       <Switch>
           <Route exact path="/">

@@ -428,7 +428,7 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
               </Col>
               <Col>
               <Form.Control
-                placeholder="Sale Price (MATIC) : )"
+                placeholder="Sale Price (MΛTIC) : )"
                 type="string"
                 onChange={e => updatePrice(e)}
               ></Form.Control>
@@ -479,20 +479,20 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
               </Col>
               <Col>
               <Form.Control
-                placeholder="Minimal Value (MATIC) : )"
+                placeholder="Minimal Value (MΛTIC) : )"
                 type="string"
                 onChange={e => updateAuMinValue(e)}
               ></Form.Control>
               </Col>
               <Col>
               <Form.Control
-                placeholder="Increment (MATIC) : )"
+                placeholder="Increment (MΛTIC) : )"
                 type="string"
                 onChange={e => updateAuIncrement(e)}
               ></Form.Control>
               </Col>
               <Col>
-              <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Start Auction $</i></Button>
+              <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Start Λuction $</i></Button>
               {loading5 && <div class="spinner-border"></div>}
               </Col>
               </Row>
@@ -506,12 +506,12 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
     <Container>
       <Row>
         <Col>
-        <Button onClick={() => prev()} variant="dark" className="font-weight-bold" style={{color: "silver"}}><i>Previous Auction</i></Button>
+        <Button onClick={() => prev()} variant="dark" className="font-weight-bold" style={{color: "silver"}}><i>Previous Λuction</i></Button>
         </Col>
         <Col></Col>
         <Col></Col>
         <Col>
-        <Button onClick={() => next()} variant="dark" className="font-weight-bold" style={{color: "silver"}}><i>Next Auction</i></Button>
+        <Button onClick={() => next()} variant="dark" className="font-weight-bold" style={{color: "silver"}}><i>Next Λuction</i></Button>
         </Col>
       </Row>
       <br/>
@@ -520,7 +520,7 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
         <Card className="shadow-lg p-3 mb-5 bg-white rounded text-center" style={{ width: 'auto' }}>
         <Card.Body>
         <Card.Title>
-          <h5 style={{color: "lightgray"}}>{`AUCTION ID: ${auctionId}`}</h5>
+          <h5 style={{color: "lightgray"}}>{`ΛUCTION ID: ${auctionId}`}</h5>
           <br/>
           <h5 style={{color: "lightgray"}}>{`PROMPT ID: ${showId}`}</h5>
           <br/>
@@ -534,17 +534,17 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
         { root && 
           <p style={{color: "lightgray"}}>{`ROOT PROMPT ID: ${root}`}</p>
         }
-        <p style={{color: "lightgray"}}>{`BRANCHES: ${branches}`}</p>
+        <p style={{color: "lightgray"}}>{`BRΛNCHES: ${branches}`}</p>
         <br/>
         <p style={{color: "lightgray"}}>{`SELLER: ${seller}`}</p>
-        <p style={{color: "lightgray"}}>{`MINIMAL VALUE: ${minValue} MATIC`}</p>
-        <p style={{color: "lightgray"}}>{`MINIMAL INCREMENT: ${increment} MATIC`}</p>
+        <p style={{color: "lightgray"}}>{`MINIMΛL VΛLUE: ${minValue} MΛTIC`}</p>
+        <p style={{color: "lightgray"}}>{`MINIMΛL INCREMENT: ${increment} MΛTIC`}</p>
         <p style={{color: "lightgray"}}>{`TOP BIDDER: ${topBidder}`}</p>
         { bids.length !== 0 && 
           <p style={{color: "lightgray"}}>{`BIDS: ${bids}`}</p>
         }
         { funds && 
-          <p style={{color: "lightgray"}}>{`YOUR FUNDS: ${funds} MATIC`}</p>
+          <p style={{color: "lightgray"}}>{`YOUR FUNDS: ${funds} MΛTIC`}</p>
         }
         { timeLeft > 0 ? 
           <p style={{color: "lightgray"}}>{`TIME LEFT: ${timeLeft}`}</p>
@@ -618,7 +618,7 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
             ></Form.Control>
             </Col>
             <Col>
-            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Prompt's Auctions</i></Button>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Prompt's Λuctions</i></Button>
             </Col>
             </Row>
             </Form.Group>
@@ -627,7 +627,7 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
           <Card.Text>
             <h5>{
               promptAuctionList.length !== 0 &&
-              `Prompt's Auction Ids: ${promptAuctionList}`
+              `Prompt's Λuction Ids: ${promptAuctionList}`
             }</h5>
           </Card.Text>
         </Card.Body>
@@ -641,13 +641,13 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
             <Row>
             <Col>
             <Form.Control
-              placeholder="Auction Id : )"
+              placeholder="Λuction Id : )"
               type="number"
               onChange={e => updateViewAuctionId(e)}
             ></Form.Control>
             </Col>
             <Col>
-            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>View Auction</i></Button>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>View Λuction</i></Button>
             </Col>
             </Row>
             </Form.Group>
@@ -674,7 +674,7 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
             ></Form.Control>
             </Col>
             <Col>
-            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Owner's Address</i></Button>
+            <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Get Owner's Λddress</i></Button>
             </Col>
             </Row>
             </Form.Group>
@@ -697,7 +697,7 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
             <Row>
             <Col>
             <Form.Control
-              placeholder="Address : )"
+              placeholder="Λddress : )"
               type="string"
               onChange={e => updateOwner(e)}
             ></Form.Control>
@@ -728,14 +728,14 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
             <Row>
             <Col>
             <Form.Control
-              placeholder="Address From : ("
+              placeholder="Λddress From : ("
               type="string"
               onChange={e => updateFrom(e)}
             ></Form.Control>
             </Col>
             <Col>
             <Form.Control
-              placeholder="Address To : )"
+              placeholder="Λddress To : )"
               type="string"
               onChange={e => updateTo(e)}
             ></Form.Control>
@@ -768,7 +768,7 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
               <Row>
               <Col>
               <Form.Control
-                placeholder="Address To : )"
+                placeholder="Λddress To : )"
                 type="string"
                 onChange={e => updateApproveTo(e)}
               ></Form.Control>
@@ -781,7 +781,7 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
               ></Form.Control>
               </Col>
               <Col>
-              <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Approve to Transfer $</i></Button>
+              <Button variant="dark" type="submit" className="font-weight-bold" style={{color: "silver"}}><i>Λpprove to Transfer $</i></Button>
               {loading2 && <div class="spinner-border"></div>}
               </Col>
               </Row>

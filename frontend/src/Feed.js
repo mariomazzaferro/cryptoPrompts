@@ -192,7 +192,7 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
         { root && 
           <p style={{color: "lightgray"}}>{`ROOT PROMPT ID: ${root}`}</p>
         }
-        <p style={{color: "lightgray"}}>{`BRANCHES: ${branches}`}</p>
+        <p style={{color: "lightgray"}}>{`BRΛNCHES: ${branches}`}</p>
         { price && 
           <p style={{color: "goldenrod"}}><b><i>{`PRICE: ${price} MATIC`}</i></b></p>
         }
@@ -248,7 +248,7 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
             <Row>
             <Col>
             <Form.Control
-              placeholder="Writer's address : )"
+              placeholder="Writer's Λddress : )"
               type="string"
               onChange={e => updateCollWriter(e)}
             ></Form.Control>

@@ -99,7 +99,7 @@ const Branches = ({counter, branchesById, getBranchCid, getBranchId}) => {
           <p style={{color: "lightgray"}}>{`ROOT PROMPT ID: ${showNFTId}`}</p>
           </Col>
           <Col>
-          <p style={{color: "lightgray"}}>{`BRANCH: ${showBranchNumber}/${branches}`}</p>
+          <p style={{color: "lightgray"}}>{`BRΛNCH: ${showBranchNumber}/${branches}`}</p>
           </Col>
           </Row>
           <h5 style={{color: "lightgray"}}>{`PROMPT ID: ${branchId}`}</h5>
@@ -112,7 +112,7 @@ const Branches = ({counter, branchesById, getBranchCid, getBranchId}) => {
         <br/>
         <p style={{color: "lightgray"}}>{`by ${writer}`}</p>
         <br/>
-        <p style={{color: "lightgray"}}>{`BRANCHES: ${childBranches}`}</p>
+        <p style={{color: "lightgray"}}>{`BRΛNCHES: ${childBranches}`}</p>
         </Card.Text>
         </Card.Body>
       </Card>
