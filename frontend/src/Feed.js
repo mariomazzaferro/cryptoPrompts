@@ -19,6 +19,7 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
   const [price, setPrice] = useState(false);
   const [spinner, setSpinner] = useState(false);
   const formRef = useRef(null);
+  const formRef1 = useRef(null);
 
   useEffect(() => {
     setNFTId(parseInt(counter)+1);
@@ -97,6 +98,8 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
     if(NFTId && 0 < NFTId && NFTId <= parseInt(counter)) {
       getPrompt(NFTId);
     }
+    setNFTId(undefined);
+    formRef1.current.reset();
   }
 
   const getPrompt = async (id) => {
@@ -269,7 +272,7 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
       <Card className="shadow-lg p-3 mb-5 ml-3 bg-white rounded" style={{ width: 'auto', maxWidth: '25rem', maxHeight: '7.7rem' }}>
         <Card.Body>
           <Card.Title>
-            <Form inline onSubmit={(e) => getNFT(e)}>
+            <Form ref={formRef1} inline onSubmit={(e) => getNFT(e)}>
             <Form.Group>
             <Row>
             <Col>

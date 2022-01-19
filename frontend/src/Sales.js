@@ -51,6 +51,7 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
   const formRef3 = useRef(null);
   const formRef4 = useRef(null);
   const formRef5 = useRef(null);
+  const formRef6 = useRef(null);
 
   useEffect(() => {
     setAuctionId(parseInt(auLength));
@@ -90,7 +91,6 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
     const topBidder = await auctionTopBidder(auctionId);
     const bids = await auctionBids(auctionId);
     const hasPrize = await auctionHasPrize(auctionId);
-    console.log(`hasPrize: ${hasPrize}`);
     let funds;
     if(accounts.length !== 0) {
       funds = await viewFunds(auctionId);
@@ -327,6 +327,8 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
     if(viewAuctionId && viewAuctionId < auLength) {
       await getAuction(viewAuctionId);
     }
+    setViewAuctionId(undefined);
+    formRef6.current.reset();
   }
 
   const updateBid = (e) => {
@@ -634,7 +636,7 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
       <Card className="shadow-lg p-3 mb-5 ml-3 bg-white rounded" style={{ width: 'auto', maxWidth: '25rem', maxHeight: '7.7rem' }}>
         <Card.Body>
           <Card.Title>
-            <Form inline onSubmit={(e) => viewAuction(e)}>
+            <Form ref={formRef6} inline onSubmit={(e) => viewAuction(e)}>
             <Form.Group>
             <Row>
             <Col>

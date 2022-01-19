@@ -245,10 +245,9 @@ function App() {
   }
 
   const auctionHasPrize = async (auctionId) => {
-    const topBidder = await contract.methods.auctionTopBidder(auctionId).call();
-    const fundsWei = await contract.methods.funds(auctionId, topBidder).call();
-    const funds = web3.utils.fromWei(`${fundsWei}`,"ether");
-    if(funds != 0) {
+    const promptId = await contract.methods.auctionPromptId(auctionId).call();
+    const promptOwner = await contract.methods.ownerOf(promptId).call();
+    if(promptOwner === contractAddress) {
       return true;
     } else {
       return false;
