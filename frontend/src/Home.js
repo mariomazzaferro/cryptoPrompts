@@ -52,7 +52,7 @@ const Home = ({accounts, connectMetamask}) => {
             <br/>
             <h5>Context</h5>
             <br/>
-            <p>Historically, writers have never had so many resources for creating and publishing their work like today. From papyrus to parchment and paper. From Gutenberg to Turing. Finally Web1 and Web2 made every previous step of the progression seem extremely primitive. And yet, we still face some limitations even with Web2. The more pressing ones: censorship, copyright enforcements, the burocracy and politics of the publishing industry...</p>
+            <p>Historically, writers have never had so many resources for creating and publishing their work like today. From papyrus to parchment and paper. From Gutenberg to Turing. Finally Web1 and Web2 made every previous step of the progression seem extremely primitive. Λnd yet, we still face some limitations even with Web2. The more pressing ones: censorship, copyright enforcements, the burocracy and politics of the publishing industry...</p>
             <p>Crypto Prompts is a tool that seeks to empower writers and wanna-be writers even more in the next step of the evolution: Web3.</p>
             <p>In order to give some context: there is a subreddit called <a href="https://www.reddit.com/r/WritingPrompts/">Writing Prompts</a>, where millions of writers contribute to create new content. Users publish their stories and essays in a colaborative way to practice everyone's writing skills, motivate each other and stimulate creativity. It is an awesome community. Nevertheless, users have no effective way to profit from their creative work and are subject to Reddit's censorship.
             Crypto Prompts is the implementation of Writing Prompts' content creation dynamic in the Polygon Network (Blockchain). Here, Prompts are ERC-721 Non-Fungible Tokens that can be sold, auctioned or used to create new Prompts.</p>
@@ -60,7 +60,7 @@ const Home = ({accounts, connectMetamask}) => {
             <br/>
             <h5>Mission</h5>
             <br/>
-            <p>- Attribute practical ownership and authorship to creative content.</p>
+            <p>- Λttribute practical ownership and authorship to creative content.</p>
             <p>- Empower writers by making their journey more profitable and trackable.</p>
             <p>- Secure creative content from censorship.</p>
             <p>- Stimulate colaborative writing.</p>
@@ -75,9 +75,9 @@ const Home = ({accounts, connectMetamask}) => {
             <h5>Usability</h5>
             <br/>
             <p>Readers are able to interact with the site without a crypto wallet. But in order to mint and manage your own Prompts you will need to <a href="https://metamask.io/">install Metamask</a> on your browser.</p>
-            <p>Prompts have an ever growing nature. Anyone can branch any existing Prompt into a new Prompt in the same way anyone can comment a social media post. If we are talking about a story: the initial Prompt can be branched into several paralel storylines. Each of these individual contributions becomes a new Prompt.</p>
-            <p>Whenever someone branches a Prompt into a new Prompt: the content of the Root Prompt is copied into the Branch Prompt followed by the lambda standard ("Λ") and then the new content.</p>
-            <p>There are two ways to buy/sell Prompts in this platform: (1) auctions and (2) fixed price sales. Auctions have a fixed duration of 1 week, in which buyers bid MATIC cumulatively until the week comes to an end. Once the auction is over every stakeholder can withdraw their rightful resources. If you are a Bidder but not the Top Bidder: you can simply withdraw your funds. If you are the Top Bidder or the Seller: both of you share the action to withdraw the prize, once either of you takes that action the Top Bid will be transfered to the Seller and the Prompt auctioned will be transfered to the Top Bidder.</p>
+            <p>Prompts have an ever growing nature. Λnyone can branch any existing Prompt into a new Prompt in the same way anyone can comment a social media post. If we are talking about a story: the Root Prompt can be branched into several parallel storylines. Each of these individual contributions becomes a new Prompt.</p>
+            <p>Whenever someone branches a Prompt into a new one: the content of the Root Prompt is copied into the Branch Prompt followed by the lambda standard ("Λ") and then the new content. The title of the Root Prompt does not appear in the Branch Prompt.</p>
+            <p>There are two ways to buy/sell Prompts in this platform: (1) auctions and (2) fixed price sales. Λuctions have a fixed duration of 1 week, in which buyers bid MΛTIC cumulatively until the week comes to an end. Once the auction is over every stakeholder can withdraw their rightful resources. If you are a Bidder but not the Top Bidder: you can simply withdraw your funds. If you are the Top Bidder or the Seller: both of you share the action to withdraw the prize, once either of you takes that action the Top Bid will be transfered to the Seller and the Prompt auctioned will be transfered to the Top Bidder.</p>
             <br/>
             <br/>
             <h5>Regarding Prompts</h5>

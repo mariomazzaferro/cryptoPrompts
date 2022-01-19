@@ -31,14 +31,14 @@ const About = () => {
         </Card.Title>
         <Card.Text>
           <p>The millions of <a href="https://www.reddit.com/r/WritingPrompts/">Writing Prompts</a> users post their Prompts and comments (Branches) on reddit with no effective way to profit from their creative work. They are using reddit simply as a training ground for their writing skills, a cooperative hub for feedbacks and motivation. With that in mind, Crypto Prompts aims to:</p>
-          <p>- Attribute practical ownership and authorship to creative content.</p>
+          <p>- Λttribute practical ownership and authorship to creative content.</p>
           <p>- Empower writers by making their journey more profitable and trackable.</p>
           <p>- Secure creative content from censorship.</p>
           <p>- Stimulate colaborative writing.</p>
           <p>This platform is 100% decentralized (IPFS + smart contract) and its <a href="https://github.com/mariomazzaferro/cryptoPrompts/">code</a> is open source. Crypto Prompts seeks no profit, everything you pay is spent exclusively on blockchain fees. This project is inspired by the Writing Prompts subreddit, with its literary appeal, but there are no rules here, you can write whatever you want. There can be "question Prompts", making the branching dynamic similar to Quora. There can be "discussion Prompts", tilting more towards Twitter's dynamic. Go crazy, you can mint an entire novel if you dare. There are endless possibilities for new Prompts, it's impossible to guess all of them now, the best way to predict the future is by writing it.</p>
           <p>Crypto Prompts encourages writers to also publish their Prompts into Writing Prompts subreddit, Quora, Twitter, or whatever platform is more adequate in order to get more visibility and engagement. If that is something you want.</p>
           <p>Notice that the fee for minting Prompts does NOT depend on the size of the text. Minting a short poem will cost you the same as minting an entire novel. We can thank the <a href="https://en.wikipedia.org/wiki/InterPlanetary_File_System">InterPlanetary File System (IPFS)</a> for that.</p>
-          <p>As the community matures, Crypto Prompts will be used as input data for more elaborate NFT collections.</p>
+          <p>Λs the community matures, Crypto Prompts will be used as input data for more elaborate NFT collections.</p>
           <p>Get in touch - <a href="mailto:mario@cryptoprompts.art">mario@cryptoprompts.art</a></p>
         </Card.Text>
         </Card.Body>
