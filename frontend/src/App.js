@@ -104,43 +104,23 @@ function App() {
     setAuLength(auLength);
   }
 
-  const ownerOf = async nftId => {
-    const owner = await contract.methods.ownerOf(nftId).call();
-    return owner;
-  }
-
-  const balanceOf = async owner => {
-    const balance = await contract.methods.balanceOf(owner).call();
-    return balance;
-  }
-
-  const transfer = async (from, to, tokenId) => {
-    const res = await contract.methods.safeTransferFrom(from, to, tokenId).send({from: accounts[0]});
-    return res.status;
-  }
-
-  const approve = async (to, tokenId) => {
-    const res = await contract.methods.approve(to, tokenId).send({from: accounts[0]});
-    return res.status;
-  }
-
   const storeString = async string => {
     const blob = new Blob([string]);
     const cid = await client.storeBlob(blob);
     return cid;
   };
 
-  const branchify = async (title, newText, oldText, oldId) => {
-    let formatedString = JSON.stringify({ title: `${title}`, body: `${oldText}\nΛ${newText}`, writer: `${accounts[0]}`, root: oldId });
-    const cid = await storeString(formatedString);
-    const res = await contract.methods.mintPrompt(cid, oldId).send({from: accounts[0] });
-    return res;
-  };
-
   const writePrompt = async (title, text) => {
     let formatedJSON = JSON.stringify({ title: `${title}`, body: `${text}`, writer: `${accounts[0]}` });
     const cid = await storeString(formatedJSON);
     const res = await contract.methods.mintPrompt(cid).send({from: accounts[0] });
+    return res;
+  };
+
+  const branchify = async (title, newText, oldText, oldId) => {
+    let formatedString = JSON.stringify({ title: `${title}`, body: `${oldText}\nΛ${newText}`, writer: `${accounts[0]}`, root: oldId });
+    const cid = await storeString(formatedString);
+    const res = await contract.methods.mintPrompt(cid, oldId).send({from: accounts[0] });
     return res;
   };
 
@@ -274,6 +254,26 @@ function App() {
     return res.status;
   }
 
+  const ownerOf = async nftId => {
+    const owner = await contract.methods.ownerOf(nftId).call();
+    return owner;
+  }
+
+  const balanceOf = async owner => {
+    const balance = await contract.methods.balanceOf(owner).call();
+    return balance;
+  }
+
+  const transfer = async (from, to, tokenId) => {
+    const res = await contract.methods.safeTransferFrom(from, to, tokenId).send({from: accounts[0]});
+    return res.status;
+  }
+
+  const approve = async (to, tokenId) => {
+    const res = await contract.methods.approve(to, tokenId).send({from: accounts[0]});
+    return res.status;
+  }
+
   if(
     typeof web3 === 'undefined'
   ) {
@@ -326,7 +326,7 @@ function App() {
       }
       <Switch>
           <Route exact path="/">
-            <Home accounts={accounts} writePrompt={writePrompt} updateCounter={updateCounter} connectMetamask={connectMetamask} />
+            <Home accounts={accounts} connectMetamask={connectMetamask} />
           </Route>
           {
             !noMetamask &&
@@ -341,7 +341,7 @@ function App() {
             <Branches counter={counter} branchesById={branchesById} getBranchCid={getBranchCid} getBranchId={getBranchId} />
           </Route>
           <Route exact path="/sales">
-            <Sales accounts={accounts} ownerOf={ownerOf} balanceOf={balanceOf} transfer={transfer} approve={approve} addSale={addSale} removeSale={removeSale} auLength={auLength} startAuction={startAuction} promptById={promptById} branchesById={branchesById} auctionPromptId={auctionPromptId} auctionSeller={auctionSeller} auctionMinValue={auctionMinValue} auctionIncrement={auctionIncrement} auctionTimeLeft={auctionTimeLeft} auctionTopBidder={auctionTopBidder} auctionBids={auctionBids} auctionHasPrize={auctionHasPrize} placeBid={placeBid} withdrawFunds={withdrawFunds} withdrawPrize={withdrawPrize} viewFunds={viewFunds} updateAuctionLength={updateAuctionLength} promptAuctions={promptAuctions} />
+            <Sales accounts={accounts} addSale={addSale} removeSale={removeSale} auLength={auLength} startAuction={startAuction} promptById={promptById} branchesById={branchesById} auctionPromptId={auctionPromptId} auctionSeller={auctionSeller} auctionMinValue={auctionMinValue} auctionIncrement={auctionIncrement} auctionTimeLeft={auctionTimeLeft} auctionTopBidder={auctionTopBidder} auctionBids={auctionBids} auctionHasPrize={auctionHasPrize} placeBid={placeBid} withdrawFunds={withdrawFunds} withdrawPrize={withdrawPrize} viewFunds={viewFunds} updateAuctionLength={updateAuctionLength} promptAuctions={promptAuctions} ownerOf={ownerOf} balanceOf={balanceOf} transfer={transfer} approve={approve} />
           </Route>
           <Route exact path="/about">
             <About />

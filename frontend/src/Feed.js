@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap';
 
-const Feed = ({promptById, counter, branchesById, branchify, updateCounter, accounts, collectionList, validPrice, buy}) => {
+const Feed = ({accounts, counter, promptById, branchesById, branchify, updateCounter, collectionList, validPrice, buy}) => {
   const [text, setText] = useState(undefined);
   const [title, setTitle] = useState(undefined);
   const [writer, setWriter] = useState(undefined);
@@ -28,9 +28,49 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
     setRoot(undefined);
     setBranches(undefined);
     setShowId(undefined);
-    setText('The highest is the youngest.\nNot all of them are branches.\nNot all of them are roots.\nRoots have growing branches.\nSome branches become roots.');
+    setText('The highest is the youngest,\nand the first one is a Seed.\nSome of them are Branches,\nnot all of them are Roots.\nRoots have growing Branches,\nsome Branches become Roots.');
     setSpinner(true);
   }, [counter]);
+
+  const getPrompt = async (id) => {
+    setText(undefined);
+    setRoot(undefined);
+    const cid = await promptById(id);
+    const blob = await axios.get(`https://ipfs.io/ipfs/${cid}`);
+    setTitle(blob.data.title);
+    setWriter(blob.data.writer);
+    if(blob.data.root) {
+      setRoot(blob.data.root);
+    }
+    const branches = await branchesById(id);
+    const price = await validPrice(id);
+    setBranches(branches);
+    setPrice(price);
+    setShowId(id);
+    setText(blob.data.body);
+  }
+
+  const next = async () => {
+    if(1 < NFTId) {
+      const c = NFTId - 1;
+      setNFTId(c);
+      await getPrompt(c);
+    } else {
+      setNFTId(counter);
+      await getPrompt(counter);
+    }
+  }
+
+  const prev = async () => {
+    if(NFTId < counter) {
+      const c = NFTId + 1;
+      setNFTId(c);
+      await getPrompt(c);
+    } else {
+      setNFTId(1);
+      await getPrompt(1);
+    }
+  }
 
   const updateBranch = (e) => {
     const branchText = e.target.value;
@@ -100,46 +140,6 @@ const Feed = ({promptById, counter, branchesById, branchify, updateCounter, acco
     }
     setNFTId(undefined);
     formRef1.current.reset();
-  }
-
-  const getPrompt = async (id) => {
-    setText(undefined);
-    setRoot(undefined);
-    const cid = await promptById(id);
-    const blob = await axios.get(`https://ipfs.io/ipfs/${cid}`);
-    setTitle(blob.data.title);
-    setWriter(blob.data.writer);
-    if(blob.data.root) {
-      setRoot(blob.data.root);
-    }
-    const branches = await branchesById(id);
-    const price = await validPrice(id);
-    setBranches(branches);
-    setPrice(price);
-    setShowId(id);
-    setText(blob.data.body);
-  }
-
-  const next = async () => {
-    if(1 < NFTId) {
-      const c = NFTId - 1;
-      setNFTId(c);
-      await getPrompt(c);
-    } else {
-      setNFTId(counter);
-      await getPrompt(counter);
-    }
-  }
-
-  const prev = async () => {
-    if(NFTId < counter) {
-      const c = NFTId + 1;
-      setNFTId(c);
-      await getPrompt(c);
-    } else {
-      setNFTId(1);
-      await getPrompt(1);
-    }
   }
 
   const buyPrompt = async () => {

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 
-const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, removeSale, auLength, promptById, branchesById, auctionPromptId, auctionSeller, auctionMinValue, auctionIncrement, auctionTimeLeft, auctionTopBidder, auctionBids, auctionHasPrize, startAuction, placeBid, withdrawFunds, withdrawPrize, viewFunds, updateAuctionLength, promptAuctions}) => {
+const Sales = ({accounts, addSale, removeSale, startAuction, placeBid, withdrawFunds, withdrawPrize, auLength, promptById, branchesById, auctionPromptId, auctionSeller, auctionMinValue, auctionIncrement, auctionTimeLeft, auctionTopBidder, auctionBids, auctionHasPrize, viewFunds, updateAuctionLength, promptAuctions, ownerOf, balanceOf, transfer, approve}) => {
   const [NFTId, setNFTId] = useState(undefined);
   const [ownerById, setOwnerById] = useState(undefined);
   const [owner, setOwner] = useState(undefined);
@@ -60,24 +60,9 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
     setRoot(undefined);
     setBranches(undefined);
     setShowId(undefined);
-    setText('The highest is the youngest.\nNot all of them are branches.\nNot all of them are roots.\nRoots have growing branches.\nSome branches become roots.');
+    setText('The highest is the youngest,\nand the first one is a Seed.\nSome of them are Branches,\nnot all of them are Roots.\nRoots have growing Branches,\nsome Branches become Roots.');
     setSpinner(true);
   }, [auLength, accounts]);
-
-  const updateFrom = (e) => {
-    const from = e.target.value;
-    setFrom(from);
-  }
-
-  const updateTo = (e) => {
-    const to = e.target.value;
-    setTo(to);
-  }
-
-  const updateTokenId = (e) => {
-    const tokenId = e.target.value;
-    setTokenId(tokenId);
-  }
 
   const getAuction = async (auctionId) => {
     setText(undefined);
@@ -139,87 +124,6 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
         setAuctionId(0);
         await getAuction(0);
       }
-    }
-  }
-
-  const transferToken = async (e) => {
-    e.preventDefault();
-    if(from && to && tokenId) {
-      setLoading1(true);
-      try {
-        const resStatus = await transfer(from, to, tokenId);
-        if(resStatus) {
-          alert("Token transfer successful");
-          setFrom(undefined);
-          setTo(undefined);
-          setTokenId(undefined);
-          formRef1.current.reset();
-        } else {
-          alert("Token transfer failed");
-        }
-      } catch(err){
-        console.log(err.message);
-      }
-      setLoading1(false);
-    }
-  }
-
-  const updateApproveTo = (e) => {
-    const to = e.target.value;
-    setApproveTo(to);
-  }
-
-  const updateApproveId = (e) => {
-    const tokenId = e.target.value;
-    setApproveId(tokenId);
-  }
-
-  const approveAddress = async (e) => {
-    e.preventDefault();
-    if(approveTo && approveId) {
-      setLoading2(true);
-      try {
-        const resStatus = await approve(approveTo, approveId);
-        if(resStatus) {
-          alert("Address approved successfully");
-          setApproveTo(undefined);
-          setApproveId(undefined);
-          formRef2.current.reset();
-        } else {
-          alert("Address approve failed");
-        }
-      } catch(err){
-        console.log(err.message);
-      }
-      setLoading2(false);
-    }
-  }
-
-  const updateOwner = (e) => {
-    const owner = e.target.value;
-    setOwner(owner);
-    setBalance(undefined);
-  }
-
-  const getBalance = async (e) => {
-    e.preventDefault();
-    try {
-      let balance = await balanceOf(owner);
-      setBalance(balance);
-    } catch(err){}
-  }
-
-  const updateNFTId = (e) => {
-    const NFTId = e.target.value;
-    setNFTId(NFTId);
-    setOwnerById(undefined);
-  }
-
-  const getOwner = async (e) => {
-    e.preventDefault();
-    if(NFTId) {
-      let ownerById = await ownerOf(NFTId);
-      setOwnerById(ownerById);
     }
   }
 
@@ -317,20 +221,6 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
     }
   }
 
-  const updateViewAuctionId = (e) => {
-    const viewAuctionId = e.target.value;
-    setViewAuctionId(viewAuctionId);
-  }
-
-  const viewAuction = async (e) => {
-    e.preventDefault();
-    if(viewAuctionId && viewAuctionId < auLength) {
-      await getAuction(viewAuctionId);
-    }
-    setViewAuctionId(undefined);
-    formRef6.current.reset();
-  }
-
   const updateBid = (e) => {
     const bid = e.target.value;
     setBid(bid);
@@ -407,6 +297,116 @@ const Sales = ({ownerOf, balanceOf, transfer, approve, accounts, addSale, remove
         console.log(err.message);  
       }
       setPromptAuctionList(promptAuctionList);
+    }
+  }
+
+  const updateViewAuctionId = (e) => {
+    const viewAuctionId = e.target.value;
+    setViewAuctionId(viewAuctionId);
+  }
+
+  const viewAuction = async (e) => {
+    e.preventDefault();
+    if(viewAuctionId && viewAuctionId < auLength) {
+      await getAuction(viewAuctionId);
+    }
+    setViewAuctionId(undefined);
+    formRef6.current.reset();
+  }
+
+  const updateOwner = (e) => {
+    const owner = e.target.value;
+    setOwner(owner);
+    setBalance(undefined);
+  }
+
+  const getBalance = async (e) => {
+    e.preventDefault();
+    try {
+      let balance = await balanceOf(owner);
+      setBalance(balance);
+    } catch(err){}
+  }
+
+  const updateNFTId = (e) => {
+    const NFTId = e.target.value;
+    setNFTId(NFTId);
+    setOwnerById(undefined);
+  }
+
+  const getOwner = async (e) => {
+    e.preventDefault();
+    if(NFTId) {
+      let ownerById = await ownerOf(NFTId);
+      setOwnerById(ownerById);
+    }
+  }
+
+  const updateFrom = (e) => {
+    const from = e.target.value;
+    setFrom(from);
+  }
+
+  const updateTo = (e) => {
+    const to = e.target.value;
+    setTo(to);
+  }
+
+  const updateTokenId = (e) => {
+    const tokenId = e.target.value;
+    setTokenId(tokenId);
+  }
+
+  const transferToken = async (e) => {
+    e.preventDefault();
+    if(from && to && tokenId) {
+      setLoading1(true);
+      try {
+        const resStatus = await transfer(from, to, tokenId);
+        if(resStatus) {
+          alert("Token transfer successful");
+          setFrom(undefined);
+          setTo(undefined);
+          setTokenId(undefined);
+          formRef1.current.reset();
+        } else {
+          alert("Token transfer failed");
+        }
+      } catch(err){
+        console.log(err.message);
+      }
+      setLoading1(false);
+    }
+  }
+
+  const updateApproveTo = (e) => {
+    const to = e.target.value;
+    setApproveTo(to);
+  }
+
+  const updateApproveId = (e) => {
+    const tokenId = e.target.value;
+    setApproveId(tokenId);
+  }
+
+  const approveAddress = async (e) => {
+    e.preventDefault();
+    if(approveTo && approveId) {
+      setLoading2(true);
+      try {
+        const resStatus = await approve(approveTo, approveId);
+        if(resStatus) {
+          alert("Address approved successfully");
+          setApproveTo(undefined);
+          setApproveId(undefined);
+          formRef2.current.reset();
+        } else {
+          alert("Address approve failed");
+        }
+      } catch(err){
+        console.log(err.message);
+      }
+      setLoading2(false);
     }
   }
 

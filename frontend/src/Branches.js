@@ -20,7 +20,7 @@ const Branches = ({counter, branchesById, getBranchCid, getBranchId}) => {
     setWriter(undefined);
     setBranches(undefined);
     setShowNFTId(undefined);
-    setText('The highest is the youngest.\nNot all of them are branches.\nNot all of them are roots.\nRoots have growing branches.\nSome branches become roots.');
+    setText('The highest is the youngest,\nand the first one is a Seed.\nSome of them are Branches,\nnot all of them are Roots.\nRoots have growing Branches,\nsome Branches become Roots.');
     setSpinner(true);
   }, []);
 
