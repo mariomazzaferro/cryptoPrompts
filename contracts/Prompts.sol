@@ -103,11 +103,11 @@ contract Prompts is ERC721 {
     /// @param newCid IPFS CID of the Prompt that is being published
     function _publishValidPrompt(string calldata newCid) private {
         _safeMint(msg.sender, counter);
-        tokenPrompt[counter] = counter;
+        tokenPrompt[counter] = prompts.length;
         uint256[] memory branches;
         uint256[] memory tokens;
         prompts.push(Prompt(newCid, msg.sender, branches, tokens));
-        prompts[counter].tokens.push(counter);
+        prompts[tokenPrompt[counter]].tokens.push(counter);
         collections[msg.sender].push(counter);
     }
 

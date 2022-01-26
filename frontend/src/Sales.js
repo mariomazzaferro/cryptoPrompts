@@ -597,7 +597,7 @@ const Sales = ({
             </Card.Title>
             <Card.Text>
               <h5>{infoShowTokenId && `Token Id: ${infoShowTokenId}`}</h5>
-              <h5>{infoPromptId && `Token's Prompt Id: ${infoShowTokenId}`}</h5>
+              <h5>{infoPromptId && `Token's Prompt Id: ${infoPromptId}`}</h5>
               <h5>{infoOwner && `Token's Owner: ${infoOwner}`}</h5>
               <h5>
                 {infoShowTokenId &&
