@@ -35,20 +35,20 @@ contract Prompts is ERC721 {
     /// @notice List of all auctions ordered by Auction Id ascending order
     Auction[] public auctions;
 
+    /// @notice Relates Writer's Address to its respective Prompt Collection
+    mapping(address => uint256[]) public collections;
+
     /// @notice Relates token Id to its respective Prompt
     mapping(uint256 => uint256) public tokenPrompt;
 
     /// @notice Relates token Id to its respective price
     mapping(uint256 => uint256) public price;
 
-    /// @notice Relates Writer's Address to its respective Prompt Collection
-    mapping(address => uint256[]) public collections;
+    /// @notice Relates token Ids to their historic Auction Ids
+    mapping(uint256 => uint256[]) public tokenAuctions;
 
     /// @notice Relates Auction Id to it's mapping of bidders to funds
     mapping(uint256 => mapping(address => uint256)) public funds;
-
-    /// @notice Relates token Ids to their historic Auction Ids
-    mapping(uint256 => uint256[]) public tokenAuctions;
 
     /// @notice Checks if msg.sender owns tokenId
     modifier OnlyTokenOwner(uint256 tokenId) {
@@ -70,7 +70,7 @@ contract Prompts is ERC721 {
 
     /// @notice Checks if auctionId is from a valid and ended Auction
     modifier EndedAuction(uint256 auctionId) {
-        require(auctions.length > auctionId);
+        require(auctionId < auctions.length);
         require(auctions[auctionId].endBlock < block.number);
         _;
     }

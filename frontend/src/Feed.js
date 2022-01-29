@@ -216,7 +216,7 @@ const Feed = ({
                 <img
                   alt='Creative Commons License'
                   style={{ borderWidth: 0 }}
-                  src='https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png'
+                  src='https://i.creativecommons.org/l/by-nc-sa/4.0/80x15.png'
                 />
               </a>
               <a
@@ -226,7 +226,7 @@ const Feed = ({
               >
                 <img
                   alt='Creative Commons Plus'
-                  style={{ borderWidth: 0, width: '2.6rem', height: '1.9rem' }}
+                  style={{ borderWidth: 0, width: '1.2rem', height: '0.9rem' }}
                   src={ccplus}
                 />
               </a>

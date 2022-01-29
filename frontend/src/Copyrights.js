@@ -15,7 +15,7 @@ const Copyrights = () => {
         <p>Authors automatically have copyright over their creations.</p>
         <br />
         <p>
-          Every published Prompt conforms to the
+          Every Prompt is published under the
           Λttribution-NonCommercial-ShareΛlike 4.0 International Creative
           Commons License in addition to the Creative Commons Plus Agreement
           below.
@@ -58,21 +58,21 @@ const Copyrights = () => {
         <br />
         <br />
         <p>
-          Ownership of a Seed Prompt token entitles you an
-          Λttribution-ShareΛlike 4.0 International Creative Commons License of
-          its content.
+          Ownership of a Seed Prompt token entitles you to the permissions of an
+          Λttribution-ShareΛlike 4.0 International Creative Commons License
+          towards that Seed Prompt's content.
         </p>
         <p>
-          Ownership of a Branch Prompt token entitles you to an
-          Λttribution-ShareΛlike 4.0 International Creative Commons License of
-          the Branch's exclusive content. Furthermore, ownership of a Branch
-          Prompt token entitles you to the permissions established in the
+          Ownership of a Branch Prompt token entitles you to the permissions of
+          an Λttribution-ShareΛlike 4.0 International Creative Commons License
+          towards that Branch's exclusive content. Furthermore, ownership of a
+          Branch Prompt token entitles you to the permissions established in the
           Creative Commons Plus Agreement two images above.
         </p>
         <p>
-          Since Creative Commons Licenses are not exclusive: all rights reserved
-          to the Prompt's author, including minting and selling tokens for
-          licensing, collecting or any other use.
+          Since Creative Commons Licenses are not exclusive, all rights are
+          still reserved to the Prompt's author, including minting and selling
+          tokens for licensing, collecting, or any other use.
         </p>
         <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>
           <img

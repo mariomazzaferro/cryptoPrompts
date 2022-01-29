@@ -1,7 +1,6 @@
 # Project Name: CRYPTO PROMPTS
 
-There is a subreddit called <a href="https://www.reddit.com/r/WritingPrompts/">r/WritingPrompts</a>, where millions of writers and wanna be writers contribute to create new content. Crypto Prompts is the implementation of that idea in the Polygon Network (blockchain). Here, Prompts are perpetual objects carved into the
-blockchain, allowing the author to mint Non-Fungible Token Licenses
+There is a subreddit called <a href="https://www.reddit.com/r/WritingPrompts/">r/WritingPrompts</a>, where millions of writers and wanna-be writers contribute to create new content. Crypto Prompts implements that idea in the Polygon Network (blockchain). Here, Prompts are perpetual objects carved into the blockchain, allowing the author to mint Non-Fungible Token Licenses
 that can be sold, auctioned, transferred, etc. Furthermore, users
 can branch any published Prompt creating a "Branch Prompt" with
 new content related to the "Root Prompt". Branch Prompts can be
@@ -9,7 +8,7 @@ branched as well.
 
 ## Overview
 
-The millions of <a href="https://www.reddit.com/r/WritingPrompts/">Writing Prompts</a>' users post their Prompts and comments (Branches) on reddit with no effective way to profit from their creative work. They are using reddit simply as a training ground for their writing skills, a cooperative hub for feedbacks and motivation.
+The millions of <a href="https://www.reddit.com/r/WritingPrompts/">Writing Prompts</a>' users post their Prompts and comments (Branches) on Reddit with no practical way to profit from their creative work. They are using Reddit simply as a training ground for their writing skills, a cooperative hub for feedback and motivation.
 
 With that in mind, Crypto Prompts aims to:
 
@@ -18,7 +17,7 @@ With that in mind, Crypto Prompts aims to:
 - Secure creative content from censorship.
 - Stimulate colaborative writing.
 
-Crypto Prompts seeks no profit, everything you pay in this platform is spent exclusively on blockchain fees and Prompt token trades. This project is inspired by the Writing Prompts subreddit, with its literary appeal, but there are no rules here, you can write whatever you want. There can be question prompts, making the branching dynamic similar to Quora. There can be discussion prompts, tilting it more towards Twitter's dynamic. There are endless possibilities for new prompts, it's impossible to guess all of them now, the best way to predict the future is by writing it.
+Crypto Prompts seeks no profit; everything you pay on this platform is spent exclusively on blockchain fees and Prompt token trades. This project is inspired by the Writing Prompts subreddit, with its literary appeal, but there are no rules here; you can write whatever you want. There can be question prompts, making the branching dynamic similar to Quora. There can be discussion prompts, tilting it more towards Twitter's dynamic. There are endless possibilities for new prompts, it's impossible to guess all of them now, the best way to predict the future is by writing it.
 
 ## User Workflow
 
@@ -35,7 +34,6 @@ The Prompt texts are stored in IPFS and only the IPFS CIDs are stored in the sma
 The Crypto Prompts' smart contract inherit from OpenZeppelin's ERC-721 standard.
 
 Crypto Prompts' Smart Contract Address (Polygon):
-Crypto Prompts' Smart Contract Address (Mumbai):
 
 ## Directory structure
 

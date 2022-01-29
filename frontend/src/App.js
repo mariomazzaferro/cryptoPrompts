@@ -479,7 +479,7 @@ function App() {
             withdrawPrize={withdrawPrize}
             viewFunds={viewFunds}
             updateAuctionLength={updateAuctionLength}
-            promptAuctions={tokenAuctions}
+            tokenAuctions={tokenAuctions}
             ownerOf={ownerOf}
             balanceOf={balanceOf}
             transfer={transfer}

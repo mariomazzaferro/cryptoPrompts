@@ -19,14 +19,14 @@ const About = () => {
                 Writing Prompts
               </a>
               , where millions of writers and wanna-be writers contribute to
-              create new content. Crypto Prompts is the implementation of
-              Writing Prompts' content creation dynamic in the Polygon Network
-              (Blockchain). Here, Prompts are perpetual objects carved into the
-              blockchain, allowing the author to mint Non-Fungible Token
-              Licenses that can be sold, auctioned, transferred, etc.
-              Furthermore, users can branch any published Prompt creating a
-              "Branch Prompt" with new content related to the "Root Prompt".
-              Branch Prompts can be branched as well.
+              create new content. Crypto Prompts implements Writing Prompts'
+              content creation dynamic in the Polygon Network (Blockchain).
+              Here, Prompts are perpetual objects carved into the blockchain,
+              allowing the author to mint Non-Fungible Token Licenses that can
+              be sold, auctioned, transferred, etc. Furthermore, users can
+              branch any published Prompt creating a "Branch Prompt" with new
+              content related to the "Root Prompt". Branch Prompts can be
+              branched as well.
             </p>
           </Card.Text>
         </Card.Body>
@@ -41,12 +41,12 @@ const About = () => {
           </Card.Title>
           <Card.Text>
             <p>
-              Non-Fungible Tokens are used to identify something in a unique
-              way, and to securely manage its ownership. This type of Token is
-              perfect for platforms that offer collectible items or any other
-              generic items really. The ERC-721 is the main standard for NFTs in
-              the crypto industry. The NFTs you create here are compatible with
-              every NFT Marketplace.
+              Non-Fungible Tokens are used to identify something uniquely and
+              securely manage its ownership. This type of Token is perfect for
+              platforms that offer collectible items or other generic items. The
+              ERC-721 is the primary standard for NFTs in the crypto industry.
+              The NFTs you create here are compatible with every NFT
+              Marketplace.
             </p>
           </Card.Text>
         </Card.Body>
@@ -65,10 +65,10 @@ const About = () => {
               <a href='https://www.reddit.com/r/WritingPrompts/'>
                 Writing Prompts
               </a>{' '}
-              users post their Prompts and comments (Branches) on reddit with no
-              effective way to profit from their creative work. They are using
-              reddit simply as a training ground for their writing skills, a
-              cooperative hub for feedbacks and motivation. With that in mind,
+              users post their Prompts and comments (Branches) on Reddit with no
+              practical way to profit from their creative work. They are using
+              Reddit simply as a training ground for their writing skills, a
+              cooperative hub for feedback and motivation. With that in mind,
               Crypto Prompts aims to:
             </p>
             <p>
@@ -82,15 +82,15 @@ const About = () => {
             <p>- Secure creative content from censorship.</p>
             <p>- Stimulate colaborative writing.</p>
             <p>
-              This platform is 100% decentralized (IPFS + smart contract) and
+              This platform is 100% decentralized (IPFS + smart contract), and
               its{' '}
               <a href='https://github.com/mariomazzaferro/cryptoPrompts/'>
                 code
               </a>{' '}
-              is open source. Crypto Prompts seeks no profit, everything you pay
+              is open source. Crypto Prompts seeks no profit; everything you pay
               is spent exclusively on blockchain fees and Prompt token trades.
               This project is inspired by the Writing Prompts subreddit, with
-              its literary appeal, but there are no rules here, you can write
+              its literary appeal, but there are no rules here; you can write
               whatever you want. There can be "question Prompts", making the
               branching dynamic similar to Quora. There can be "discussion
               Prompts", tilting more towards Twitter's dynamic. Go crazy, you
@@ -100,9 +100,8 @@ const About = () => {
             </p>
             <p>
               Crypto Prompts encourages writers to also publish their Prompts
-              into Writing Prompts subreddit, Quora, Twitter, or whatever
-              platform is more adequate in order to get more visibility and
-              engagement. If that is something you want.
+              into the Writing Prompts subreddit, Quora, Twitter, or whatever
+              platform is more adequate to get more visibility and engagement.
             </p>
             <p>
               Notice that the fee for publishing Prompts does NOT depend on the

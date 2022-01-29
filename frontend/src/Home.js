@@ -12,13 +12,15 @@ const Home = ({ accounts, connectMetamask }) => {
             style={{ width: 'auto' }}
           >
             <i>
-              <h2>
-                This is a License Marketplace based on CREATIVE COMMONS and
-                NFTs.
-              </h2>
+              <h3>
+                <u>
+                  Crypto Prompts is a Writing Marketplace based on CREATIVE
+                  COMMONS and NFTs.
+                </u>
+              </h3>
               <br />
               <h4>
-                Click on FEED and enjoy the reading. Don't mind the fox, he is
+                Click on FEED and enjoy the reading. Don't mind the fox; he is
                 handling security...
               </h4>
               <br />
@@ -32,8 +34,8 @@ const Home = ({ accounts, connectMetamask }) => {
               <h4>Click on ΛBOUT to get more information...</h4>
               <br />
               <h4>
-                If you are still lost but want to buy, sell or create your own
-                Licence NFTs:
+                If you are still lost but want to buy, sell or create your very
+                own Licence NFTs:
               </h4>
               <h4>
                 <a href='https://metamask.io/'>install Metamask</a> +{' '}
@@ -47,7 +49,7 @@ const Home = ({ accounts, connectMetamask }) => {
                 !
               </h4>
               <br />
-              <h2>Λnd remember, what we write in life echoes in eternity...</h2>
+              <h3>Λnd remember, what we write in life echoes in eternity...</h3>
             </i>
           </Card>
           <br />
@@ -59,10 +61,15 @@ const Home = ({ accounts, connectMetamask }) => {
             style={{ width: 'auto' }}
           >
             <i>
-              <h2>Welcome to Crypto Prompts!</h2>
+              <h3>
+                <u>
+                  Crypto Prompts is a Writing Marketplace based on CREATIVE
+                  COMMONS and NFTs.
+                </u>
+              </h3>
               <br />
               <h4>
-                Click on FEED and enjoy the reading. Don't mind the fox, he is
+                Click on FEED and enjoy the reading. Don't mind the fox; he is
                 handling security...
               </h4>
               <br />
@@ -80,7 +87,7 @@ const Home = ({ accounts, connectMetamask }) => {
               <br />
               <h4>Click on ΛBOUT to get more information...</h4>
               <br />
-              <h2>Λnd remember, what we write in life echoes in eternity...</h2>
+              <h3>Λnd remember, what we write in life echoes in eternity...</h3>
             </i>
           </Card>
           <br />
@@ -98,43 +105,42 @@ const Home = ({ accounts, connectMetamask }) => {
         <br />
         <p>
           Writers have never had so many resources for creating and publishing
-          their work like they do today. Those poor bastards, maybe now they'll
-          finally catch a break. From stone to paper. From Gutenberg to Turing.
-          Lately Web1 and Web2 made every previous step seem extremely
+          their work as they do today. From stone to paper. From Gutenberg to
+          Turing. Lately, Web1 and Web2 made every previous step seem highly
           primitive. Λnd yet, we still face some limitations, even with Web2.
-          Censorship, disenfranchised artists, the burocracy and shortcomings of
-          the publishing industry...
+          Censorship, disenfranchised artists, the bureaucracy and shortcomings
+          of the publishing industry...
         </p>
         <p>
           Crypto Prompts is a tool that seeks to empower writers and wanna-be
           writers even more in this new step called Web3.
         </p>
         <p>
-          In order to give some context: there is a subreddit called{' '}
+          To give some context: there is a subreddit called{' '}
           <a href='https://www.reddit.com/r/WritingPrompts/'>Writing Prompts</a>
           , where millions of writers and wanna-be writers contribute to create
-          new content. Users publish their stories and essays in a colaborative
-          way to practice everyone's writing skills, motivate each other and
-          stimulate creativity. It is truly an awesome community.
+          new content. Users collaboratively publish their stories and essays to
+          practice everyone's writing skills, motivate each other and stimulate
+          creativity. It is truly a fantastic community.
         </p>
         <p>
-          Nevertheless, users have no effective way to profit from their
-          creative work, are vulnerable to Reddit's censorship and accord to the
-          following agreement: "By submitting user content to reddit, you grant
-          us a royalty-free, perpetual, irrevocable, non-exclusive,
+          Nevertheless, users have no practical way to profit from their
+          creative work, are vulnerable to Reddit's censorship, and accord to
+          the following agreement: "By submitting user content to Reddit, you
+          grant us a royalty-free, perpetual, irrevocable, non-exclusive,
           unrestricted, worldwide license to reproduce, prepare derivative
           works, distribute copies, perform, or publicly display your user
           content in any medium and for any purpose, including commercial
           purposes, and to authorize others to do so".
         </p>
         <p>
-          Crypto Prompts is the implementation of Writing Prompts' content
-          creation dynamic in the Polygon Network (Blockchain). Here, Prompts
-          are perpetual objects carved into the blockchain, allowing the author
-          to mint Non-Fungible Token Licenses that can be sold, auctioned,
-          transferred, etc. Furthermore, users can branch any published Prompt
-          creating a "Branch Prompt" with new content related to the "Root
-          Prompt". Branch Prompts can be branched as well.
+          Crypto Prompts implements Writing Prompts' content creation dynamic in
+          the Polygon Network (Blockchain). Here, Prompts are perpetual objects
+          carved into the blockchain, allowing the author to mint Non-Fungible
+          Token Licenses that can be sold, auctioned, transferred, etc.
+          Furthermore, users can branch any published Prompt creating a "Branch
+          Prompt" with new content related to the "Root Prompt". Branch Prompts
+          can be branched as well.
         </p>
         <br />
         <br />
@@ -149,7 +155,7 @@ const Home = ({ accounts, connectMetamask }) => {
           trackable.
         </p>
         <p>- Secure creative content from censorship.</p>
-        <p>- Stimulate colaborative writing.</p>
+        <p>- Stimulate collaborative writing.</p>
         <br />
         <br />
         <br />
@@ -157,12 +163,12 @@ const Home = ({ accounts, connectMetamask }) => {
         <br />
         <p>
           Crypto Prompts' infrastructure is 100% decentralized (IPFS + smart
-          contract) and its{' '}
+          contract), and its{' '}
           <a href='https://github.com/mariomazzaferro/cryptoPrompts/'>code</a>{' '}
-          is open source. This Project seeks no profit, everything you pay is
+          is open source. This Project seeks no profit; everything you pay is
           spent exclusively on blockchain fees and Prompt token trades. Our
           inspiration is the Writing Prompts subreddit, with its literary
-          appeal, but there are no rules here, you can write whatever you want.
+          appeal, but there are no rules here; you can write whatever you want.
           There can be "question Prompts", making the branching dynamic similar
           to Quora. There can be "discussion Prompts", tilting more towards
           Twitter's dynamic. Go crazy, you can publish an entire novel if you
@@ -191,46 +197,46 @@ const Home = ({ accounts, connectMetamask }) => {
           your browser.
         </p>
         <p>
-          Prompts have an ever growing nature. Λnyone can branch any existing
-          Prompt into a new Prompt in the same way anyone can comment a social
-          media post. If we are talking about a story: the Root Prompt can be
-          branched into several parallel storylines. Each of these individual
-          contributions becomes a new Prompt.
+          Prompts have an ever-growing nature. Λnyone can branch any existing
+          Prompt into a new Prompt in the same way anyone can comment on a
+          social media post. If we are talking about a story: the Root Prompt
+          can be branched into several parallel storylines. Each of these
+          individual contributions becomes a new Prompt.
         </p>
         <p>
-          Whenever someone branches a Prompt into a new one: the content of the
-          Root Prompt is copied into the Branch Prompt followed by the capital
-          wavelength standard ("Λ") and then the new content. The title of the
-          Root Prompt does not appear in the Branch Prompt.
+          Whenever someone branches a Prompt into a new one, the Root Prompt's
+          content is copied into the Branch Prompt followed by the lambda
+          standard ("Λ") and then the new content. The Root Prompt's title does
+          not appear in the Branch Prompt.
         </p>
 
         <p>
-          A Prompt allows its author to mint Prompt tokens. Prompt token is a
-          NFT that grant Creative Commons License permission to its owner (see
+          A Prompt allows its author to mint Prompt tokens. A Prompt token is an
+          NFT that grants Creative Commons License permission to its owner (see
           Copyrights and Creative Commons bellow).
         </p>
 
         <p>
           There are two ways to buy/sell Prompt tokens in this platform: (1)
-          auctions and (2) fixed price sales. Λuctions have a fixed duration of
+          auctions and (2) fixed-price sales. Λuctions have a fixed duration of
           1 week, in which buyers bid MΛTIC cumulatively until the week comes to
-          an end. Once the auction is over every stakeholder can withdraw their
+          an end. Once the auction is over, every stakeholder can withdraw their
           rightful resources. If you are a Bidder but not the Top Bidder: you
           can simply withdraw your funds. If you are the Top Bidder or the
-          Seller: both of you share the action to withdraw the prize, once
-          either of you takes that action the Top Bid will be transfered to the
-          Seller and the Prompt token auctioned will be transfered to the Top
-          Bidder. The Prompt token gets "locked" during the auction. So, if
-          worst come the worst, and nobody bidded to buy your Prompt token: you,
-          the seller, still need to take the withdraw action to "unlock" your
-          crappy Prompt token.
+          Seller: both of you share the action to withdraw the prize; once
+          either of you takes that action, the Top Bid will be transferred to
+          the Seller, and the Prompt token auctioned will be transferred to the
+          Top Bidder. The Prompt token gets "locked" during the auction. So, if
+          the worst comes to the worst, and nobody bid to buy your Prompt token:
+          you, the seller, still need to take the withdraw action to "unlock"
+          your crappy Prompt token.
         </p>
         <br />
         <br />
         <br />
         <h3>Nomenclature</h3>
         <br />
-        <p>A Prompt represents a specific creative content.</p>
+        <p>A Prompt represents specific creative content.</p>
         <p>
           A Prompt token represents a Creative Commons License to the Prompt's
           content.
@@ -252,7 +258,7 @@ const Home = ({ accounts, connectMetamask }) => {
         <p>Authors automatically have copyright over their creations.</p>
         <br />
         <p>
-          Every published Prompt conforms to the
+          Every Prompt is published under the
           Λttribution-NonCommercial-ShareΛlike 4.0 International Creative
           Commons License in addition to the Creative Commons Plus Agreement
           below.
@@ -295,21 +301,21 @@ const Home = ({ accounts, connectMetamask }) => {
         <br />
         <br />
         <p>
-          Ownership of a Seed Prompt token entitles you an
-          Λttribution-ShareΛlike 4.0 International Creative Commons License of
-          its content.
+          Ownership of a Seed Prompt token entitles you to the permissions of an
+          Λttribution-ShareΛlike 4.0 International Creative Commons License
+          towards that Seed Prompt's content.
         </p>
         <p>
-          Ownership of a Branch Prompt token entitles you to an
-          Λttribution-ShareΛlike 4.0 International Creative Commons License of
-          the Branch's exclusive content. Furthermore, ownership of a Branch
-          Prompt token entitles you to the permissions established in the
+          Ownership of a Branch Prompt token entitles you to the permissions of
+          an Λttribution-ShareΛlike 4.0 International Creative Commons License
+          towards that Branch's exclusive content. Furthermore, ownership of a
+          Branch Prompt token entitles you to the permissions established in the
           Creative Commons Plus Agreement two images above.
         </p>
         <p>
-          Since Creative Commons Licenses are not exclusive: all rights reserved
-          to the Prompt's author, including minting and selling Prompt tokens
-          for licensing, collecting or any other purpose.
+          Since Creative Commons Licenses are not exclusive, all rights are
+          still reserved to the Prompt's author, including minting and selling
+          tokens for licensing, collecting, or any other use.
         </p>
         <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>
           <img
