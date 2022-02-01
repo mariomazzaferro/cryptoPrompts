@@ -99,11 +99,6 @@ const About = () => {
               them now, the best way to predict the future is by writing it.
             </p>
             <p>
-              Crypto Prompts encourages writers to also publish their Prompts
-              into the Writing Prompts subreddit, Quora, Twitter, or whatever
-              platform is more adequate to get more visibility and engagement.
-            </p>
-            <p>
               Notice that the fee for publishing Prompts does NOT depend on the
               size of the text. Publishing a short poem will cost you the same
               as publishing an entire novel. We can thank the{' '}
