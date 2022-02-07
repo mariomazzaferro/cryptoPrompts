@@ -948,8 +948,8 @@ const Sales = ({
                     alt='Creative Commons Plus'
                     style={{
                       borderWidth: 0,
-                      width: '1.2rem',
-                      height: '0.9rem',
+                      width: '1.3rem',
+                      height: '0.95rem',
                     }}
                     src={ccplus}
                   />

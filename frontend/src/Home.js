@@ -44,7 +44,7 @@ const Home = ({ accounts, connectMetamask }) => {
                 </a>{' '}
                 +{' '}
                 <a href='#' onClick={() => connectMetamask()}>
-                  connect to this site
+                  connect to this website
                 </a>
                 !
               </h4>
