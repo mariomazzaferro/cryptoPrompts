@@ -59,30 +59,30 @@ const Copyrights = () => {
         <br />
         <p>
           Ownership of a Seed Prompt token entitles you to the permissions of an
-          Λttribution-ShareΛlike 4.0 International Creative Commons License
-          towards that Seed Prompt's content.
+          Λttribution 4.0 International Creative Commons License towards that
+          Seed Prompt's content.
         </p>
         <p>
           Ownership of a Branch Prompt token entitles you to the permissions of
-          an Λttribution-ShareΛlike 4.0 International Creative Commons License
-          towards that Branch's exclusive content. Furthermore, ownership of a
-          Branch Prompt token entitles you to the permissions established in the
-          Creative Commons Plus Agreement two images above.
+          an Λttribution 4.0 International Creative Commons License towards that
+          Branch's exclusive content. Furthermore, ownership of a Branch Prompt
+          token entitles you to the permissions established in the Creative
+          Commons Plus Agreement two images above.
         </p>
         <p>
           Since Creative Commons Licenses are not exclusive, all rights are
           still reserved to the Prompt's author, including minting and selling
           tokens for licensing, collecting, or any other use.
         </p>
-        <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>
+        <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'>
           <img
             alt='Creative Commons License'
             style={{ borderWidth: 0 }}
-            src='https://i.creativecommons.org/l/by-sa/4.0/88x31.png'
+            src='https://i.creativecommons.org/l/by/4.0/88x31.png'
           />
         </a>
-        <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>
-          Creative Commons Λttribution-ShareΛlike 4.0 International License
+        <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'>
+          Creative Commons Λttribution 4.0 International License
         </a>
         <br />
         <a rel='CC+' href='https://wiki.creativecommons.org/wiki/CCPlus'>

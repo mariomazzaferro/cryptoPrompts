@@ -112,7 +112,7 @@ const Sales = ({
     setBranches(undefined)
     setShowId(undefined)
     setText(
-      'The highest is the youngest,\nand the first one is a Seed.\nSome of them are Branches,\nnot all of them are Roots.\nRoots have growing Branches,\nsome Branches become Roots.'
+      `A Prompt represents specific creative content.\nA Prompt token represents a Creative Commons License to the Prompt's content.\nPrompts that are NOT branches of other Prompts are called Seed Prompts.\nPrompts with at least one Branch earn the title of Root Prompts.\nPrompts that are branches of other Prompts are called... Branch Prompts.`
     )
     setSpinner(true)
   }, [auLength, accounts])
@@ -177,6 +177,7 @@ const Sales = ({
         setAuctionId(c)
         await getAuction(c)
       } else {
+        updateAuctionLength()
         setAuctionId(0)
         await getAuction(0)
       }
@@ -214,17 +215,24 @@ const Sales = ({
   const buyToken = async () => {
     if (accounts.length !== 0 && infoPrice && infoShowTokenId) {
       setLoading8(true)
-      let resStatus
+      let res
       try {
-        resStatus = await buy(infoShowTokenId, infoPrice)
+        res = await buy(infoShowTokenId, infoPrice)
       } catch (err) {
         console.log(err)
       }
-      if (resStatus) {
-        alert(`Successful Purchase of Token Id ${infoShowTokenId}`)
+      if (res) {
+        if (res.status) {
+          alert(`Successful Purchase of Token Id ${infoShowTokenId}`)
+        } else {
+          alert('Purchase Failed')
+        }
       } else {
-        alert('Purchase Failed')
+        alert(
+          `Token purchase is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/`
+        )
       }
+
       setLoading8(false)
       setInfoShowTokenId(undefined)
       setInfoPromptId(undefined)
@@ -273,7 +281,9 @@ const Sales = ({
           alert('Minting failed')
         }
       } else {
-        alert('Minting failed')
+        alert(
+          'Minting is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/'
+        )
       }
     }
   }
@@ -292,9 +302,14 @@ const Sales = ({
     e.preventDefault()
     if (addId && price) {
       setLoading3(true)
+      let res
       try {
-        const resStatus = await addSale(addId, price)
-        if (resStatus) {
+        res = await addSale(addId, price)
+      } catch (err) {
+        console.log(err.message)
+      }
+      if (res) {
+        if (res.status) {
           alert('Sale added successfully')
           setAddId(undefined)
           setPrice(undefined)
@@ -302,8 +317,10 @@ const Sales = ({
         } else {
           alert('Sale update failed')
         }
-      } catch (err) {
-        console.log(err.message)
+      } else {
+        alert(
+          'Sale creation is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/'
+        )
       }
       setLoading3(false)
     }
@@ -318,17 +335,24 @@ const Sales = ({
     e.preventDefault()
     if (removeId) {
       setLoading4(true)
+      let res
       try {
-        const resStatus = await removeSale(removeId)
-        if (resStatus) {
+        res = await removeSale(removeId)
+      } catch (err) {
+        console.log(err.message)
+      }
+      if (res) {
+        if (res.status) {
           alert('Sale removed successfully')
           setRemoveId(undefined)
           formRef4.current.reset()
         } else {
           alert('Sale update failed')
         }
-      } catch (err) {
-        console.log(err.message)
+      } else {
+        alert(
+          'Sale update is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/'
+        )
       }
       setLoading4(false)
     }
@@ -353,9 +377,14 @@ const Sales = ({
     e.preventDefault()
     if (auId && auMinValue && auIncrement) {
       setLoading5(true)
+      let res
       try {
-        const resStatus = await startAuction(auId, auMinValue, auIncrement)
-        if (resStatus) {
+        res = await startAuction(auId, auMinValue, auIncrement)
+      } catch (err) {
+        console.log(err.message)
+      }
+      if (res) {
+        if (res.status) {
           alert('Auction started successfully')
           setAuId(undefined)
           setAuMinValue(undefined)
@@ -364,8 +393,10 @@ const Sales = ({
         } else {
           alert('Auction failed')
         }
-      } catch (err) {
-        console.log(err.message)
+      } else {
+        alert(
+          'Auction creation is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/'
+        )
       }
       updateAuctionLength()
       setLoading5(false)
@@ -381,17 +412,24 @@ const Sales = ({
     e.preventDefault()
     if (bid) {
       setLoading(true)
+      let res
       try {
-        const resStatus = await placeBid(auctionId, bid)
-        if (resStatus) {
+        res = await placeBid(auctionId, bid)
+      } catch (err) {
+        console.log(err.message)
+      }
+      if (res) {
+        if (res.status) {
           alert('Funds transfered successfully')
           setBid(undefined)
           formRef.current.reset()
         } else {
           alert('Transfer failed')
         }
-      } catch (err) {
-        console.log(err.message)
+      } else {
+        alert(
+          'Bidding is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/'
+        )
       }
       await getAuction(auctionId)
       setLoading(false)
@@ -400,16 +438,22 @@ const Sales = ({
 
   const getPrize = async () => {
     setLoading6(true)
-    let resStatus
+    let res
     try {
-      resStatus = await withdrawPrize(auctionId)
+      res = await withdrawPrize(auctionId)
     } catch (err) {
       console.log(err.message)
     }
-    if (resStatus) {
-      alert('Withdraw succeeded')
+    if (res) {
+      if (res.status) {
+        alert('Withdraw succeeded')
+      } else {
+        alert('Withdraw failed')
+      }
     } else {
-      alert('Withdraw failed')
+      alert(
+        'Withdraw is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/'
+      )
     }
     await getAuction(auctionId)
     setLoading6(false)
@@ -417,16 +461,22 @@ const Sales = ({
 
   const getFunds = async () => {
     setLoading6(true)
-    let resStatus
+    let res
     try {
-      resStatus = await withdrawFunds(auctionId)
+      res = await withdrawFunds(auctionId)
     } catch (err) {
       console.log(err.message)
     }
-    if (resStatus === true) {
-      alert('Withdraw succeeded')
+    if (res) {
+      if (res.status) {
+        alert('Withdraw succeeded')
+      } else {
+        alert('Withdraw failed')
+      }
     } else {
-      alert('Withdraw failed')
+      alert(
+        'Withdraw is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/'
+      )
     }
     await getAuction(auctionId)
     setLoading6(false)
@@ -498,20 +548,27 @@ const Sales = ({
     e.preventDefault()
     if (from && to && tokenId) {
       setLoading1(true)
+      let res
       try {
-        const resStatus = await transfer(from, to, tokenId)
-        if (resStatus) {
-          alert('Token transfer successful')
-          setFrom(undefined)
-          setTo(undefined)
-          setTokenId(undefined)
-          formRef1.current.reset()
-        } else {
-          alert('Token transfer failed')
-        }
+        res = await transfer(from, to, tokenId)
       } catch (err) {
         console.log(err.message)
       }
+      if (res) {
+        if (res.status) {
+          alert('Token transfer successful')
+        } else {
+          alert('Token transfer failed')
+        }
+      } else {
+        alert(
+          'Transfer is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/'
+        )
+      }
+      setFrom(undefined)
+      setTo(undefined)
+      setTokenId(undefined)
+      formRef1.current.reset()
       setLoading1(false)
     }
   }
@@ -530,19 +587,26 @@ const Sales = ({
     e.preventDefault()
     if (approveTo && approveId) {
       setLoading2(true)
+      let res
       try {
-        const resStatus = await approve(approveTo, approveId)
-        if (resStatus) {
-          alert('Address approved successfully')
-          setApproveTo(undefined)
-          setApproveId(undefined)
-          formRef2.current.reset()
-        } else {
-          alert('Address approve failed')
-        }
+        res = await approve(approveTo, approveId)
       } catch (err) {
         console.log(err.message)
       }
+      if (res) {
+        if (res.status) {
+          alert('Address approved successfully')
+        } else {
+          alert('Address approve failed')
+        }
+      } else {
+        alert(
+          'Approve is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/'
+        )
+      }
+      setApproveTo(undefined)
+      setApproveId(undefined)
+      formRef2.current.reset()
       setLoading2(false)
     }
   }
@@ -644,40 +708,6 @@ const Sales = ({
             </Card.Text>
           </Card.Body>
         </Card>
-
-        <Card
-          className='shadow-lg p-3 mb-5 bg-white rounded'
-          style={{ width: 'auto', maxWidth: '57rem' }}
-        >
-          <Card.Body>
-            <Card.Title>
-              <Form ref={formRef7} inline onSubmit={(e) => mintTok(e)}>
-                <Form.Group>
-                  <Row>
-                    <Col>
-                      <Form.Control
-                        placeholder='Prompt Id : )'
-                        type='number'
-                        onChange={(e) => updateTokId(e)}
-                      ></Form.Control>
-                    </Col>
-                    <Col>
-                      <Button
-                        variant='dark'
-                        type='submit'
-                        className='font-weight-bold'
-                        style={{ color: 'silver' }}
-                      >
-                        <i>Mint New Prompt Token (License) $</i>
-                      </Button>
-                      {loading7 && <div class='spinner-border'></div>}
-                    </Col>
-                  </Row>
-                </Form.Group>
-              </Form>
-            </Card.Title>
-          </Card.Body>
-        </Card>
       </Container>
       <br />
       <br />
@@ -686,6 +716,40 @@ const Sales = ({
 
       {accounts.length !== 0 && (
         <Container>
+          <Card
+            className='shadow-lg p-3 mb-5 bg-white rounded'
+            style={{ width: 'auto', maxWidth: '57rem' }}
+          >
+            <Card.Body>
+              <Card.Title>
+                <Form ref={formRef7} inline onSubmit={(e) => mintTok(e)}>
+                  <Form.Group>
+                    <Row>
+                      <Col>
+                        <Form.Control
+                          placeholder='Prompt Id : )'
+                          type='number'
+                          onChange={(e) => updateTokId(e)}
+                        ></Form.Control>
+                      </Col>
+                      <Col>
+                        <Button
+                          variant='dark'
+                          type='submit'
+                          className='font-weight-bold'
+                          style={{ color: 'silver' }}
+                        >
+                          <i>Mint New Prompt Token (License) $</i>
+                        </Button>
+                        {loading7 && <div class='spinner-border'></div>}
+                      </Col>
+                    </Row>
+                  </Form.Group>
+                </Form>
+              </Card.Title>
+            </Card.Body>
+          </Card>
+
           <Card
             className='shadow-lg p-3 mb-5 bg-white rounded'
             style={{ width: 'auto', maxWidth: '57rem' }}
@@ -922,7 +986,7 @@ const Sales = ({
                 {timeLeft > 0 ? (
                   <h5
                     style={{ color: 'lightgray' }}
-                  >{`TIME LEFT: ${timeLeft}`}</h5>
+                  >{`TIME LEFT: ${timeLeft} minutes`}</h5>
                 ) : (
                   <h5 style={{ color: 'lightgray' }}>{`TIME LEFT: 0`}</h5>
                 )}

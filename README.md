@@ -1,4 +1,4 @@
-# Project Name: CRYPTO PROMPTS
+# Project Name: CRYPTO PROMPTS (<a href="https://www.cryptoprompts.art/">cryptoprompts.art</a>)
 
 There is a subreddit called <a href="https://www.reddit.com/r/WritingPrompts/">r/WritingPrompts</a>, where millions of writers and wanna-be writers contribute to create new content. Crypto Prompts implements that idea in the Polygon Network (blockchain). Here, Prompts are perpetual objects carved into the blockchain, allowing the author to mint Non-Fungible Token Licenses
 that can be sold, auctioned, transferred, etc. Furthermore, users

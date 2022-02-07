@@ -299,7 +299,7 @@ contract Prompts is ERC721 {
                 payable(msg.sender),
                 minValue,
                 increment,
-                (block.number + 300),
+                (block.number + 270000),
                 address(0),
                 bids
             )

@@ -21,17 +21,17 @@ const Home = ({ accounts, connectMetamask }) => {
               <br />
               <h4>
                 Click on FEED and enjoy the reading. Don't mind the fox; he is
-                handling security...
+                handling security.
               </h4>
               <br />
-              <h4>Click on BRΛNCHES to read parallel Branches...</h4>
+              <h4>Click on BRΛNCHES to read parallel Branches.</h4>
               <br />
               <h4>
                 Click on SΛLES for token (licenses) sales, auctions and
-                transfers...
+                transfers.
               </h4>
               <br />
-              <h4>Click on ΛBOUT to get more information...</h4>
+              <h4>Click on ΛBOUT to get more information.</h4>
               <br />
               <h4>
                 If you are still lost but want to buy, sell or create your very
@@ -49,7 +49,7 @@ const Home = ({ accounts, connectMetamask }) => {
                 !
               </h4>
               <br />
-              <h3>Λnd remember, what we write in life echoes in eternity...</h3>
+              <h3>Λnd remember, what we write in life echoes in eternity.</h3>
             </i>
           </Card>
           <br />
@@ -70,24 +70,24 @@ const Home = ({ accounts, connectMetamask }) => {
               <br />
               <h4>
                 Click on FEED and enjoy the reading. Don't mind the fox; he is
-                handling security...
+                handling security.
               </h4>
               <br />
               <h4>
                 Click on NEW to create a Prompt from scratch OR branch an
-                existing Prompt on FEED...
+                existing Prompt on FEED.
               </h4>
               <br />
-              <h4>Click on BRΛNCHES to read parallel Branches...</h4>
+              <h4>Click on BRΛNCHES to read parallel Branches.</h4>
               <br />
               <h4>
                 Click on SΛLES for token (licenses) sales, auctions and
-                transfers...
+                transfers.
               </h4>
               <br />
-              <h4>Click on ΛBOUT to get more information...</h4>
+              <h4>Click on ΛBOUT to get more information.</h4>
               <br />
-              <h3>Λnd remember, what we write in life echoes in eternity...</h3>
+              <h3>Λnd remember, what we write in life echoes in eternity.</h3>
             </i>
           </Card>
           <br />
@@ -100,8 +100,6 @@ const Home = ({ accounts, connectMetamask }) => {
         <h1>WHITE PΛPER</h1>
         <br />
         <br />
-        <br />
-        <h3>Context</h3>
         <br />
         <p>
           Writers have never had so many resources for creating and publishing
@@ -177,9 +175,9 @@ const Home = ({ accounts, connectMetamask }) => {
           writing it.
         </p>
         <p>
-          Notice that the fee for publishing Prompts does NOT depend on the size
-          of the text. Publishing a short poem will cost you the same as
-          publishing an entire novel. We can thank the{' '}
+          Notice that the fee for publishing Prompts (less than a penny) does
+          NOT depend on the size of the text. Publishing a short poem will cost
+          you the same as publishing an entire novel. We can thank the{' '}
           <a href='https://en.wikipedia.org/wiki/InterPlanetary_File_System'>
             InterPlanetary File System (IPFS)
           </a>{' '}
@@ -191,10 +189,10 @@ const Home = ({ accounts, connectMetamask }) => {
         <h3>Usability</h3>
         <br />
         <p>
-          Readers are able to interact with our site without a crypto wallet.
-          But in order to publish and manage your own Prompts and tokens you
-          will need to <a href='https://metamask.io/'>install Metamask</a> on
-          your browser.
+          Readers are able to interact with this website without a crypto
+          wallet. But in order to publish and manage your own Prompts and tokens
+          you will need to <a href='https://metamask.io/'>install Metamask</a>{' '}
+          on your browser.
         </p>
         <p>
           Prompts have an ever-growing nature. Λnyone can branch any existing
@@ -302,30 +300,30 @@ const Home = ({ accounts, connectMetamask }) => {
         <br />
         <p>
           Ownership of a Seed Prompt token entitles you to the permissions of an
-          Λttribution-ShareΛlike 4.0 International Creative Commons License
-          towards that Seed Prompt's content.
+          Λttribution 4.0 International Creative Commons License towards that
+          Seed Prompt's content.
         </p>
         <p>
           Ownership of a Branch Prompt token entitles you to the permissions of
-          an Λttribution-ShareΛlike 4.0 International Creative Commons License
-          towards that Branch's exclusive content. Furthermore, ownership of a
-          Branch Prompt token entitles you to the permissions established in the
-          Creative Commons Plus Agreement two images above.
+          an Λttribution 4.0 International Creative Commons License towards that
+          Branch's exclusive content. Furthermore, ownership of a Branch Prompt
+          token entitles you to the permissions established in the Creative
+          Commons Plus Agreement two images above.
         </p>
         <p>
           Since Creative Commons Licenses are not exclusive, all rights are
           still reserved to the Prompt's author, including minting and selling
           tokens for licensing, collecting, or any other use.
         </p>
-        <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>
+        <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'>
           <img
             alt='Creative Commons License'
             style={{ borderWidth: 0 }}
-            src='https://i.creativecommons.org/l/by-sa/4.0/88x31.png'
+            src='https://i.creativecommons.org/l/by/4.0/88x31.png'
           />
         </a>
-        <a rel='license' href='http://creativecommons.org/licenses/by-sa/4.0/'>
-          Creative Commons Λttribution-ShareΛlike 4.0 International License
+        <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'>
+          Creative Commons Λttribution 4.0 International License
         </a>
         <br />
         <a rel='CC+' href='https://wiki.creativecommons.org/wiki/CCPlus'>

@@ -33,7 +33,7 @@ function App() {
   useEffect(() => {
     const init = async () => {
       let endpointWeb3 = new Web3(
-        new Web3.providers.HttpProvider(process.env.REACT_APP_MUMBAI_ENDPOINT)
+        new Web3.providers.HttpProvider(process.env.REACT_APP_POLYGON_ENDPOINT)
       )
 
       let endpointContract
@@ -194,14 +194,14 @@ function App() {
     const res = await contract.methods
       .addSale(tokenId, web3.utils.toWei(`${askPrice}`, 'ether'))
       .send({ from: accounts[0] })
-    return res.status
+    return res
   }
 
   const removeSale = async (tokenId) => {
     const res = await contract.methods
       .removeSale(tokenId)
       .send({ from: accounts[0] })
-    return res.status
+    return res
   }
 
   const validPrice = async (tokenId) => {
@@ -217,7 +217,7 @@ function App() {
     const res = await contract.methods
       .buy(tokenId)
       .send({ from: accounts[0], value: web3.utils.toWei(`${price}`, 'ether') })
-    return res.status
+    return res
   }
 
   const startAuction = async (tokenId, minValue, increment) => {
@@ -228,7 +228,7 @@ function App() {
         web3.utils.toWei(`${increment}`, 'ether')
       )
       .send({ from: accounts[0] })
-    return res.status
+    return res
   }
 
   const tokenAuctions = async (promptId) => {
@@ -259,8 +259,9 @@ function App() {
   }
 
   const auctionTimeLeft = async (auctionId) => {
-    const timeLeft = await contract.methods.auctionTimeLeft(auctionId).call()
-    return timeLeft
+    const blocksLeft = await contract.methods.auctionTimeLeft(auctionId).call()
+    const timeLeft = (blocksLeft * 2.3) / 60
+    return timeLeft.toFixed(1)
   }
 
   const auctionTopBidder = async (auctionId) => {
@@ -296,21 +297,21 @@ function App() {
     const res = await contract.methods
       .placeBid(auctionId)
       .send({ from: accounts[0], value: web3.utils.toWei(`${bid}`, 'ether') })
-    return res.status
+    return res
   }
 
   const withdrawFunds = async (auctionId) => {
     const res = await contract.methods
       .withdrawFunds(auctionId)
       .send({ from: accounts[0] })
-    return res.status
+    return res
   }
 
   const withdrawPrize = async (auctionId) => {
     const res = await contract.methods
       .withdrawPrize(auctionId)
       .send({ from: accounts[0] })
-    return res.status
+    return res
   }
 
   const ownerOf = async (tokenId) => {
@@ -327,14 +328,14 @@ function App() {
     const res = await contract.methods
       .safeTransferFrom(from, to, tokenId)
       .send({ from: accounts[0] })
-    return res.status
+    return res
   }
 
   const approve = async (to, tokenId) => {
     const res = await contract.methods
       .approve(to, tokenId)
       .send({ from: accounts[0] })
-    return res.status
+    return res
   }
 
   if (typeof web3 === 'undefined') {

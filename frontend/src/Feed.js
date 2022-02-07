@@ -40,7 +40,7 @@ const Feed = ({
     setTokens(undefined)
     setShowId(undefined)
     setText(
-      'The highest is the youngest,\nand the first one is a Seed.\nSome of them are Branches,\nnot all of them are Roots.\nRoots have growing Branches,\nsome Branches become Roots.'
+      `A Prompt represents specific creative content.\nA Prompt token represents a Creative Commons License to the Prompt's content.\nPrompts that are NOT branches of other Prompts are called Seed Prompts.\nPrompts with at least one Branch earn the title of Root Prompts.\nPrompts that are branches of other Prompts are called... Branch Prompts.`
     )
     setSpinner(true)
   }, [length])
@@ -85,6 +85,7 @@ const Feed = ({
         setNFTId(c)
         await getPrompt(c)
       } else {
+        updateLength()
         setNFTId(0)
         await getPrompt(0)
       }
@@ -108,6 +109,7 @@ const Feed = ({
       let res
       try {
         res = await branchify(branchTitle, branchText, text, showId)
+        console.log(res)
       } catch (err) {
         console.log(err.message)
       }
@@ -116,14 +118,16 @@ const Feed = ({
       setLoading(false)
       if (res) {
         if (res.status) {
-          const newId = res.events.Transfer.returnValues[2]
-          alert(`Prompt Id ${newId} published successfully`)
+          alert(`Prompt published successfully`)
+
           await updateLength()
         } else {
           alert('Branching failed')
         }
       } else {
-        alert('Branching failed')
+        alert(
+          `Branching is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/`
+        )
       }
     } else {
       alert('Branching failed. Make sure your Prompt has a title and a body.')

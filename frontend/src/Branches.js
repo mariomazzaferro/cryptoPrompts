@@ -31,7 +31,7 @@ const Branches = ({
     setTokens(undefined)
     setShowNFTId(undefined)
     setText(
-      'The highest is the youngest,\nand the first one is a Seed.\nSome of them are Branches,\nnot all of them are Roots.\nRoots have growing Branches,\nsome Branches become Roots.'
+      `A Prompt represents specific creative content.\nA Prompt token represents a Creative Commons License to the Prompt's content.\nPrompts that are NOT branches of other Prompts are called Seed Prompts.\nPrompts with at least one Branch earn the title of Root Prompts.\nPrompts that are branches of other Prompts are called... Branch Prompts.`
     )
     setSpinner(true)
   }, [])

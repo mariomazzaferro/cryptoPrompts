@@ -1,6 +1,6 @@
-require('dotenv').config();
-const HDWalletProvider = require('@truffle/hdwallet-provider');
-const path = require('path');
+require('dotenv').config()
+const HDWalletProvider = require('@truffle/hdwallet-provider')
+const path = require('path')
 /**
  * Use this file to configure your truffle project. It's seeded with some
  * common settings for different networks and features like migrations,
@@ -27,8 +27,6 @@ const path = require('path');
 // const fs = require('fs');
 // const mnemonic = fs.readFileSync(".secret").toString().trim();
 
-
-
 module.exports = {
   /**
    * Networks define how you connect to your ethereum client and let you set the
@@ -40,7 +38,7 @@ module.exports = {
    * $ truffle test --network <network-name>
    */
 
-  contracts_build_directory: path.join(__dirname, "frontend/src/contracts"),
+  contracts_build_directory: path.join(__dirname, 'frontend/src/contracts'),
 
   networks: {
     // Useful for testing. The `development` name is special - truffle uses it by default
@@ -66,19 +64,38 @@ module.exports = {
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
     ropsten: {
-      provider: () => new HDWalletProvider([`${process.env.PRIVATE_KEY}`], `${process.env.INFURA_URL_ROPSTEN}`),
-      network_id: 3,       // Ropsten's id
-      gas: 8000000,        // Ropsten has a lower block limit than mainnet
-      confirmations: 2,    // # of confs to wait between deployments. (default: 0)
-      timeoutBlocks: 200,  // # of blocks before a deployment times out  (minimum/default: 50)
-      skipDryRun: true     // Skip dry run before migrations? (default: false for public nets )
+      provider: () =>
+        new HDWalletProvider(
+          [`${process.env.PRIVATE_KEY}`],
+          `${process.env.INFURA_URL_ROPSTEN}`
+        ),
+      network_id: 3, // Ropsten's id
+      gas: 8000000, // Ropsten has a lower block limit than mainnet
+      confirmations: 2, // # of confs to wait between deployments. (default: 0)
+      timeoutBlocks: 200, // # of blocks before a deployment times out  (minimum/default: 50)
+      skipDryRun: true, // Skip dry run before migrations? (default: false for public nets )
     },
     mumbai: {
-      provider: () => new HDWalletProvider([`${process.env.PRIVATE_KEY}`], `${process.env.MATICRPC_URL_MUMBAI}`),
+      provider: () =>
+        new HDWalletProvider(
+          [`${process.env.PRIVATE_KEY}`],
+          `${process.env.MATICRPC_URL_MUMBAI}`
+        ),
       network_id: 80001,
       confirmations: 2,
       timeoutBlocks: 200,
-      skipDryRun: true
+      skipDryRun: true,
+    },
+    polygon: {
+      provider: () =>
+        new HDWalletProvider(
+          [`${process.env.PRIVATE_KEY}`],
+          `${process.env.MATICRPC_URL_POLYGON}`
+        ),
+      network_id: 137,
+      confirmations: 2,
+      timeoutBlocks: 200,
+      skipDryRun: true,
     },
     // Useful for private networks
     // private: {
@@ -96,7 +113,7 @@ module.exports = {
   // Configure your compilers
   compilers: {
     solc: {
-      version: "0.8.0",    // Fetch exact version from solc-bin (default: truffle's version)
+      version: '0.8.0', // Fetch exact version from solc-bin (default: truffle's version)
       // docker: true,        // Use "0.5.1" you've installed locally with docker (default: false)
       // settings: {          // See the solidity docs for advice about optimization and evmVersion
       //  optimizer: {
@@ -105,7 +122,7 @@ module.exports = {
       //  },
       //  evmVersion: "byzantium"
       // }
-    }
+    },
   },
 
   // Truffle DB is currently disabled by default; to enable it, change enabled: false to enabled: true
@@ -115,6 +132,6 @@ module.exports = {
   // $ truffle migrate --reset --compile-all
 
   db: {
-    enabled: false
-  }
-};
+    enabled: false,
+  },
+}

@@ -23,14 +23,15 @@ const New = ({ writePrompt, updateLength }) => {
       setLoading(false)
       if (res) {
         if (res.status) {
-          const newId = res.events.Transfer.returnValues[2]
-          alert(`Prompt Id ${newId} published successfully`)
+          alert(`Prompt published successfully`)
           await updateLength()
         } else {
-          alert('Prompt failed with')
+          alert('Prompt failed')
         }
       } else {
-        alert('Prompt failed')
+        alert(
+          `Prompt creation is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/`
+        )
       }
     } else {
       alert('Prompt failed. Make sure your Prompt has a title and a body.')
