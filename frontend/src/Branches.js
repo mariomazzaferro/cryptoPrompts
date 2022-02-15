@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap'
 import ccplus from './Ccplus.jpg'
+import heart from './Heart.png'
 
 const Branches = ({
   length,
@@ -30,9 +31,7 @@ const Branches = ({
     setBranches(undefined)
     setTokens(undefined)
     setShowNFTId(undefined)
-    setText(
-      `A Prompt represents specific creative content.\nA Prompt token represents a Creative Commons License to the Prompt's content.\nPrompts that are NOT branches of other Prompts are called Seed Prompts.\nPrompts with at least one Branch earn the title of Root Prompts.\nPrompts that are branches of other Prompts are called... Branch Prompts.`
-    )
+    setText(`.`)
     setSpinner(true)
   }, [])
 
@@ -101,7 +100,7 @@ const Branches = ({
             className='font-weight-bold'
             style={{ color: 'silver' }}
           >
-            <i>Previous Branch</i>
+            <i>Previous Comment</i>
           </Button>
         </Col>
         <Col></Col>
@@ -113,7 +112,7 @@ const Branches = ({
             className='font-weight-bold'
             style={{ color: 'silver' }}
           >
-            <i>Next Branch</i>
+            <i>Next Comment</i>
           </Button>
         </Col>
       </Row>
@@ -134,7 +133,7 @@ const Branches = ({
                 <Col>
                   <h5
                     style={{ color: 'lightgray' }}
-                  >{`BRΛNCH: ${showBranchNumber}/${branches}`}</h5>
+                  >{`COMMENT: ${showBranchNumber}/${branches}`}</h5>
                 </Col>
               </Row>
               <br />
@@ -178,7 +177,7 @@ const Branches = ({
               <br />
               <h5
                 style={{ color: 'lightgray' }}
-              >{`BRΛNCHES: ${childBranches}`}</h5>
+              >{`COMMENTS: ${childBranches}`}</h5>
               <h5 style={{ color: 'lightgray' }}>{`TOKENS: ${tokens}`}</h5>
             </Card.Text>
           </Card.Body>
@@ -190,8 +189,11 @@ const Branches = ({
         >
           <Card.Body>
             <Card.Text>
-              <br />
-              <h4 style={{ whiteSpace: 'pre-wrap' }}>{text && `${text}`}</h4>
+              <img
+                alt='Creative Commons Heart Logo'
+                style={{ borderWidth: 0, width: '10rem', height: '10rem' }}
+                src={heart}
+              />
               {!text && spinner && (
                 <div>
                   <br />
@@ -223,7 +225,7 @@ const Branches = ({
                   </Col>
                   <Col>
                     <Form.Control
-                      placeholder='Branch Number : )'
+                      placeholder='Comment Number : )'
                       type='number'
                       value={branchNumber}
                       onChange={(e) => updateBranchNumber(e)}
@@ -236,7 +238,7 @@ const Branches = ({
                       className='font-weight-bold'
                       style={{ color: 'silver' }}
                     >
-                      <i>Get Branch</i>
+                      <i>View Comment</i>
                     </Button>
                   </Col>
                 </Row>

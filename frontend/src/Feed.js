@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap'
 import ccplus from './Ccplus.jpg'
+import heart from './Heart.png'
 
 const Feed = ({
   accounts,
@@ -39,9 +40,7 @@ const Feed = ({
     setBranches(undefined)
     setTokens(undefined)
     setShowId(undefined)
-    setText(
-      `A Prompt represents specific creative content.\nA Prompt token represents a Creative Commons License to the Prompt's content.\nPrompts that are NOT branches of other Prompts are called Seed Prompts.\nPrompts with at least one Branch earn the title of Root Prompts.\nPrompts that are branches of other Prompts are called... Branch Prompts.`
-    )
+    setText(`.`)
     setSpinner(true)
   }, [length])
 
@@ -241,7 +240,7 @@ const Feed = ({
                   style={{ color: 'lightgray' }}
                 >{`ROOT PROMPT ID: ${root}`}</h5>
               )}
-              <h5 style={{ color: 'lightgray' }}>{`BRΛNCHES: ${branches}`}</h5>
+              <h5 style={{ color: 'lightgray' }}>{`COMMENTS: ${branches}`}</h5>
               <h5 style={{ color: 'lightgray' }}>{`TOKENS: ${tokens}`}</h5>
               {accounts.length !== 0 && showId !== undefined && (
                 <Form ref={formRef} onSubmit={(e) => submitBranch(e)}>
@@ -259,7 +258,7 @@ const Feed = ({
                       style={{ textAlign: 'center' }}
                       as='textarea'
                       rows='13'
-                      placeholder='Write your Branch Prompt... : )'
+                      placeholder='Write your Comment... : )'
                       onChange={(e) => updateBranch(e)}
                     ></Form.Control>
                     <Button
@@ -289,8 +288,11 @@ const Feed = ({
         >
           <Card.Body>
             <Card.Text>
-              <br />
-              <h4 style={{ whiteSpace: 'pre-wrap' }}>{text && `${text}`}</h4>
+              <img
+                alt='Creative Commons Heart Logo'
+                style={{ borderWidth: 0, width: '10rem', height: '10rem' }}
+                src={heart}
+              />
               {!text && spinner && (
                 <div>
                   <br />

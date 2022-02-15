@@ -359,22 +359,22 @@ function App() {
               <Nav className='me-auto font-weight-bold'>
                 <Nav.Link className='px-4' bg='dark' as={Link} to={'/'}>
                   <h5>
-                    <i>CRYPTO PROMPTS</i>
+                    <i>WHITE PΛPER</i>
                   </h5>
                 </Nav.Link>
-                <Nav.Link className='px-5' as={Link} to={'/feed'}>
-                  <i>FEED</i>
+                <Nav.Link className='px-5' as={Link} to={'/prompts'}>
+                  <i>PROMPTS</i>
                 </Nav.Link>
-                <Nav.Link className='px-5' as={Link} to={'/branches'}>
-                  <i>BRΛNCHES</i>
+                <Nav.Link className='px-5' as={Link} to={'/comments'}>
+                  <i>COMMENTS</i>
                 </Nav.Link>
-                <Nav.Link className='px-4' as={Link} to={'/sales'}>
+                <Nav.Link className='px-5' as={Link} to={'/sales'}>
                   <i>SΛLES</i>
                 </Nav.Link>
                 <Nav.Link className='px-5' as={Link} to={'/about'}>
                   <i>ΛBOUT</i>
                 </Nav.Link>
-                <Nav.Link className='px-4' onClick={() => connectMetamask()}>
+                <Nav.Link className='px-5' onClick={() => connectMetamask()}>
                   <i>CONNECT METΛMΛSK</i>
                 </Nav.Link>
               </Nav>
@@ -387,17 +387,17 @@ function App() {
               <Nav className='me-auto font-weight-bold'>
                 <Nav.Link className='px-4' bg='dark' as={Link} to={'/'}>
                   <h5>
-                    <i>CRYPTO PROMPTS</i>
+                    <i>WHITE PΛPER</i>
                   </h5>
                 </Nav.Link>
                 <Nav.Link className='px-5' as={Link} to={'/new'}>
                   <i>NEW</i>
                 </Nav.Link>
-                <Nav.Link className='px-4' as={Link} to={'/feed'}>
-                  <i>FEED</i>
+                <Nav.Link className='px-4' as={Link} to={'/prompts'}>
+                  <i>PROMPTS</i>
                 </Nav.Link>
-                <Nav.Link className='px-5' as={Link} to={'/branches'}>
-                  <i>BRΛNCHES</i>
+                <Nav.Link className='px-5' as={Link} to={'/comments'}>
+                  <i>COMMENTS</i>
                 </Nav.Link>
                 <Nav.Link className='px-4' as={Link} to={'/sales'}>
                   <i>SΛLES</i>
@@ -428,7 +428,7 @@ function App() {
             <New writePrompt={writePrompt} updateLength={updateLength} />
           </Route>
         )}
-        <Route exact path='/feed'>
+        <Route exact path='/prompts'>
           <Feed
             accounts={accounts}
             length={length}
@@ -442,7 +442,7 @@ function App() {
             validPrice={validPrice}
           />
         </Route>
-        <Route exact path='/branches'>
+        <Route exact path='/comments'>
           <Branches
             length={length}
             authorById={authorById}

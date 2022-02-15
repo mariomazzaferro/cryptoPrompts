@@ -10,7 +10,12 @@ const Copyrights = () => {
         style={{ width: 'auto' }}
       >
         <br />
-        <h3>Copyrights and Creative Commons</h3>
+        <h3 style={{ color: 'dimgray' }}>
+          <i>
+            <b>COPYRIGHTS & CREΛTIVE COMMONS</b>
+          </i>
+        </h3>
+        <br />
         <br />
         <p>Authors automatically have copyright over their creations.</p>
         <br />
@@ -23,8 +28,8 @@ const Copyrights = () => {
         <p>
           Agreement (CC+): the only public permissions beyond the scope of the
           Λttribution-NonCommercial-ShareΛlike 4.0 International Creative
-          Commons License is the commercial use of the Prompt's content for
-          sales and pawns of its Branch Prompt tokens by the Branch Prompt
+          Commons License are the commercial use of the Prompt's content for
+          sales and pawns of its Comment Prompt tokens by the Comment Prompt
           tokens' respective owners.
         </p>
         <a
@@ -58,16 +63,14 @@ const Copyrights = () => {
         <br />
         <br />
         <p>
-          Ownership of a Seed Prompt token entitles you to the permissions of an
+          Ownership of a Prompt token entitles you to the permissions of an
           Λttribution 4.0 International Creative Commons License towards that
-          Seed Prompt's content.
+          Prompt's exclusive content.
         </p>
         <p>
-          Ownership of a Branch Prompt token entitles you to the permissions of
-          an Λttribution 4.0 International Creative Commons License towards that
-          Branch's exclusive content. Furthermore, ownership of a Branch Prompt
-          token entitles you to the permissions established in the Creative
-          Commons Plus Agreement two images above.
+          Furthermore, ownership of a Prompt token entitles you to the
+          permissions established in the Creative Commons Plus Agreement two
+          images above.
         </p>
         <p>
           Since Creative Commons Licenses are not exclusive, all rights are

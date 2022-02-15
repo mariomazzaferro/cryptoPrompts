@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react'
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import ccplus from './Ccplus.jpg'
+import heart from './Heart.png'
 
 const Sales = ({
   accounts,
@@ -111,9 +112,7 @@ const Sales = ({
     setRoot(undefined)
     setBranches(undefined)
     setShowId(undefined)
-    setText(
-      `A Prompt represents specific creative content.\nA Prompt token represents a Creative Commons License to the Prompt's content.\nPrompts that are NOT branches of other Prompts are called Seed Prompts.\nPrompts with at least one Branch earn the title of Root Prompts.\nPrompts that are branches of other Prompts are called... Branch Prompts.`
-    )
+    setText(`.`)
     setSpinner(true)
   }, [auLength, accounts])
 
@@ -963,7 +962,7 @@ const Sales = ({
                 )}
                 <h5
                   style={{ color: 'lightgray' }}
-                >{`BRΛNCHES: ${branches}`}</h5>
+                >{`COMMENTS: ${branches}`}</h5>
                 <br />
                 <h5 style={{ color: 'lightgray' }}>{`SELLER: ${seller}`}</h5>
                 <h5
@@ -1075,8 +1074,11 @@ const Sales = ({
           >
             <Card.Body>
               <Card.Text>
-                <br />
-                <h4 style={{ whiteSpace: 'pre-wrap' }}>{text && `${text}`}</h4>
+                <img
+                  alt='Creative Commons Heart Logo'
+                  style={{ borderWidth: 0, width: '10rem', height: '10rem' }}
+                  src={heart}
+                />
                 {!text && spinner && (
                   <div>
                     <br />
