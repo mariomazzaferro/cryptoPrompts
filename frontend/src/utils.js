@@ -6,9 +6,9 @@ const client = new NFTStorage({
   token: process.env.REACT_APP_NFTSTORAGE_API_KEY,
 })
 
-const endpoint = process.env.REACT_APP_POLYGON_ENDPOINT
+const endpoint = process.env.REACT_APP_MUMBAI_ENDPOINT
 
-const networkNumber = 137
+const networkNumber = 80001
 
 const getWeb3 = async () => {
   if (window.ethereum) {

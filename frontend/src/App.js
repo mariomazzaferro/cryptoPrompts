@@ -33,7 +33,7 @@ function App() {
   useEffect(() => {
     const init = async () => {
       let endpointWeb3 = new Web3(
-        new Web3.providers.HttpProvider(process.env.REACT_APP_POLYGON_ENDPOINT)
+        new Web3.providers.HttpProvider(process.env.REACT_APP_MUMBAI_ENDPOINT)
       )
 
       let endpointContract
@@ -145,12 +145,22 @@ function App() {
   }
 
   const promptById = async (promptId) => {
-    const promptCid = await contract.methods.promptCid(promptId).call()
+    let promptCid
+    try {
+      promptCid = await contract.methods.promptCid(promptId).call()
+    } catch (err) {
+      console.log(err.message)
+    }
     return promptCid
   }
 
   const authorById = async (promptId) => {
-    const promptAuthor = await contract.methods.promptAuthor(promptId).call()
+    let promptAuthor
+    try {
+      promptAuthor = await contract.methods.promptAuthor(promptId).call()
+    } catch (err) {
+      console.log(err.message)
+    }
     return promptAuthor
   }
 
@@ -429,6 +439,20 @@ function App() {
           </Route>
         )}
         <Route exact path='/prompts'>
+          <Feed
+            accounts={accounts}
+            length={length}
+            promptById={promptById}
+            authorById={authorById}
+            branchesById={branchesById}
+            tokensById={tokensById}
+            branchify={branchify}
+            updateLength={updateLength}
+            collectionList={collectionList}
+            validPrice={validPrice}
+          />
+        </Route>
+        <Route exact path='/prompts/:handle'>
           <Feed
             accounts={accounts}
             length={length}

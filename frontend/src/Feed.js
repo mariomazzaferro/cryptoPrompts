@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react'
 import axios from 'axios'
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap'
+import { useParams, useHistory } from 'react-router-dom'
 import ccplus from './Ccplus.jpg'
 import heart from './Heart.png'
 
@@ -32,6 +33,10 @@ const Feed = ({
   const formRef = useRef(null)
   const formRef1 = useRef(null)
 
+  let history = useHistory()
+
+  let { handle } = useParams()
+
   useEffect(() => {
     setNFTId(parseInt(length))
     setTitle(undefined)
@@ -42,6 +47,11 @@ const Feed = ({
     setShowId(undefined)
     setText(`.`)
     setSpinner(true)
+
+    if (handle) {
+      setNFTId(parseInt(handle))
+      getPrompt(parseInt(handle))
+    }
   }, [length])
 
   const getPrompt = async (id) => {
@@ -70,9 +80,13 @@ const Feed = ({
         const c = NFTId - 1
         setNFTId(c)
         await getPrompt(c)
+        history.push(`/`)
+        history.push(`/prompts/${c}`)
       } else {
         setNFTId(length - 1)
         await getPrompt(length - 1)
+        history.push(`/`)
+        history.push(`/prompts/${length - 1}`)
       }
     }
   }
@@ -83,10 +97,14 @@ const Feed = ({
         const c = NFTId + 1
         setNFTId(c)
         await getPrompt(c)
+        history.push(`/`)
+        history.push(`/prompts/${c}`)
       } else {
         updateLength()
         setNFTId(0)
         await getPrompt(0)
+        history.push(`/`)
+        history.push(`/prompts/0`)
       }
     }
   }

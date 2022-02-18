@@ -25,13 +25,6 @@ const Copyrights = () => {
           Commons License in addition to the Creative Commons Plus Agreement
           below.
         </p>
-        <p>
-          Agreement (CC+): the only public permissions beyond the scope of the
-          Λttribution-NonCommercial-ShareΛlike 4.0 International Creative
-          Commons License are the commercial use of the Prompt's content for
-          sales and pawns of its Comment Prompt tokens by the Comment Prompt
-          tokens' respective owners.
-        </p>
         <a
           rel='license'
           href='http://creativecommons.org/licenses/by-nc-sa/4.0/'
@@ -63,19 +56,12 @@ const Copyrights = () => {
         <br />
         <br />
         <p>
-          Ownership of a Prompt token entitles you to the permissions of an
-          Λttribution 4.0 International Creative Commons License towards that
-          Prompt's exclusive content.
-        </p>
-        <p>
-          Furthermore, ownership of a Prompt token entitles you to the
-          permissions established in the Creative Commons Plus Agreement two
-          images above.
-        </p>
-        <p>
-          Since Creative Commons Licenses are not exclusive, all rights are
-          still reserved to the Prompt's author, including minting and selling
-          tokens for licensing, collecting, or any other use.
+          <b>Creative Commons Plus Agreement</b>: the only public permission
+          beyond the scope of the Λttribution-NonCommercial-ShareΛlike 4.0
+          International Creative Commons License is the following: ownership of
+          a Prompt token entitles you to the permissions of an Λttribution 4.0
+          International Creative Commons License towards that Prompt's exclusive
+          content.
         </p>
         <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'>
           <img
@@ -88,16 +74,11 @@ const Copyrights = () => {
           Creative Commons Λttribution 4.0 International License
         </a>
         <br />
-        <a rel='CC+' href='https://wiki.creativecommons.org/wiki/CCPlus'>
-          <img
-            alt='Creative Commons Plus'
-            style={{ borderWidth: 0, width: '2.6rem', height: '1.9rem' }}
-            src={ccplus}
-          />
-        </a>
-        <a rel='license' href='https://wiki.creativecommons.org/wiki/CCPlus'>
-          Creative Commons Plus
-        </a>
+        <p>
+          Since Creative Commons Licenses are not exclusive, original rights are
+          still reserved to the Prompt's author, including minting and selling
+          tokens for licensing, collecting, or any other use.
+        </p>
       </Card>
     </Container>
   )

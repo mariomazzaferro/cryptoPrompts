@@ -614,7 +614,7 @@ const Sales = ({
     <div>
       <Container>
         <Card
-          className='shadow-lg p-3 mb-5 bg-white rounded'
+          className='shadow-lg p-3 mb-1 bg-white rounded'
           style={{ width: 'auto', maxWidth: '57rem' }}
         >
           <Card.Body>
@@ -673,7 +673,7 @@ const Sales = ({
         </Card>
 
         <Card
-          className='shadow-lg p-3 mb-5 bg-white rounded'
+          className='shadow-lg p-3 mb-1 bg-white rounded'
           style={{ width: 'auto', maxWidth: '57rem' }}
         >
           <Card.Body>
@@ -707,14 +707,8 @@ const Sales = ({
             </Card.Text>
           </Card.Body>
         </Card>
-      </Container>
-      <br />
-      <br />
-      <br />
-      <br />
 
-      {accounts.length !== 0 && (
-        <Container>
+        {accounts.length !== 0 && (
           <Card
             className='shadow-lg p-3 mb-5 bg-white rounded'
             style={{ width: 'auto', maxWidth: '57rem' }}
@@ -748,9 +742,16 @@ const Sales = ({
               </Card.Title>
             </Card.Body>
           </Card>
+        )}
+      </Container>
+      <br />
+      <br />
+      <br />
 
+      {accounts.length !== 0 && (
+        <Container>
           <Card
-            className='shadow-lg p-3 mb-5 bg-white rounded'
+            className='shadow-lg p-3 mb-1 bg-white rounded'
             style={{ width: 'auto', maxWidth: '57rem' }}
           >
             <Card.Body>
@@ -822,9 +823,8 @@ const Sales = ({
           <br />
           <br />
           <br />
-          <br />
           <Card
-            className='shadow-lg p-3 mb-5 bg-white rounded'
+            className='shadow-lg p-3 mb-3 bg-white rounded'
             style={{ width: 'auto' }}
           >
             <Card.Body>
@@ -899,7 +899,7 @@ const Sales = ({
         <br />
         {text && title ? (
           <Card
-            className='shadow-lg p-3 mb-5 bg-white rounded text-center'
+            className='shadow-lg p-3 mb-3 bg-white rounded text-center'
             style={{ width: 'auto' }}
           >
             <Card.Body>
@@ -1069,7 +1069,7 @@ const Sales = ({
           </Card>
         ) : (
           <Card
-            className='shadow-lg p-3 mb-5 bg-white rounded text-center'
+            className='shadow-lg p-3 mb-3 bg-white rounded text-center'
             style={{ width: 'auto', minHeight: '15.5rem' }}
           >
             <Card.Body>
@@ -1168,10 +1168,9 @@ const Sales = ({
       <br />
       <br />
       <br />
-      <br />
       <Container>
         <Card
-          className='shadow-lg p-3 mb-5 bg-white rounded'
+          className='shadow-lg p-3 mb-1 bg-white rounded'
           style={{ width: 'auto', maxWidth: '57rem' }}
         >
           <Card.Body>
@@ -1209,7 +1208,7 @@ const Sales = ({
         {accounts.length !== 0 && (
           <div>
             <Card
-              className='shadow-lg p-3 mb-5 bg-white rounded'
+              className='shadow-lg p-3 mb-1 bg-white rounded'
               style={{ width: 'auto', maxWidth: '57rem' }}
             >
               <Card.Body>
@@ -1262,7 +1261,7 @@ const Sales = ({
             </Card>
 
             <Card
-              className='shadow-lg p-3 mb-5 bg-white rounded'
+              className='shadow-lg p-3 mb-1 bg-white rounded'
               style={{ width: 'auto', maxWidth: '57rem' }}
             >
               <Card.Body>
@@ -1308,6 +1307,7 @@ const Sales = ({
             </Card>
           </div>
         )}
+        <br />
       </Container>
     </div>
   )

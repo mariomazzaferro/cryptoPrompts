@@ -3,9 +3,9 @@ pragma solidity 0.8.0;
 
 import "../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-/// @title Contract for publishing Prompts and NFT CC Licenses
+/// @title Contract for publishing Prompts and NFT Copyright Permissions
 /// @author Mario Mazzaferro
-/// @notice Allows users to publish content (Prompts) and manage their CC Licenses through NFTs
+/// @notice Allows users to publish content (Prompts) and manage their NFT Copyright Permissions
 contract Prompts is ERC721 {
     /// @notice Tracks number of minted tokens
     uint256 public counter;
@@ -18,7 +18,7 @@ contract Prompts is ERC721 {
         uint256[] tokens;
     }
 
-    /// @notice Stores auction's data
+    /// @notice Stores Auction's data
     struct Auction {
         uint256 tokenId;
         address payable seller;
@@ -32,7 +32,7 @@ contract Prompts is ERC721 {
     /// @notice List of all Prompts ordered by Prompt Id ascending order
     Prompt[] public prompts;
 
-    /// @notice List of all auctions ordered by Auction Id ascending order
+    /// @notice List of all Auctions ordered by Auction Id ascending order
     Auction[] public auctions;
 
     /// @notice Relates Writer's Address to its respective Prompt Collection
@@ -104,11 +104,11 @@ contract Prompts is ERC721 {
     function _publishValidPrompt(string calldata newCid) private {
         _safeMint(msg.sender, counter);
         tokenPrompt[counter] = prompts.length;
+        collections[msg.sender].push(prompts.length);
         uint256[] memory branches;
         uint256[] memory tokens;
         prompts.push(Prompt(newCid, msg.sender, branches, tokens));
         prompts[tokenPrompt[counter]].tokens.push(counter);
-        collections[msg.sender].push(counter);
     }
 
     /// @notice Publishes Prompt
@@ -124,8 +124,8 @@ contract Prompts is ERC721 {
         external
         validPromptId(rootId)
     {
+        prompts[rootId].branches.push(prompts.length);
         _publishValidPrompt(newCid);
-        prompts[rootId].branches.push(counter);
         counter++;
     }
 
