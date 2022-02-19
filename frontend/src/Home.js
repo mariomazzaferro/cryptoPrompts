@@ -34,14 +34,8 @@ const Home = ({ accounts, connectMetamask }) => {
         <br />
         <br />
         <p>
-          Writers have never had so many resources for creating and publishing
-          their work as they do today. Λnd yet, we still face some limitations
-          (even with Web2); censorship, disenfranchised artists, the bureaucracy
-          and shortcomings of the publishing industry.
-        </p>
-        <p>
-          Crypto Prompts is a tool that seeks to further empower writers by
-          allowing them to freely negotiate copyright permissions to their work.
+          Crypto Prompts is a platform that allows writers to freely trade their
+          copyright permissions through NFTs.
         </p>
         <p>
           To give some context: there is a subreddit called{' '}
@@ -183,12 +177,10 @@ const Home = ({ accounts, connectMetamask }) => {
         </h3>
         <br />
         <p>Authors automatically have copyright over their creations.</p>
-        <br />
         <p>
-          Every Prompt is published under the
-          Λttribution-NonCommercial-ShareΛlike 4.0 International Creative
-          Commons License in addition to the Creative Commons Plus Agreement
-          below.
+          Every Prompt is published under the CC
+          Λttribution-NonCommercial-ShareΛlike 4.0 International License in
+          addition to the CC Plus Agreement below.
         </p>
         <a
           rel='license'
@@ -222,11 +214,10 @@ const Home = ({ accounts, connectMetamask }) => {
         <br />
         <p>
           <b>Creative Commons Plus Agreement</b>: the only public permission
-          beyond the scope of the Λttribution-NonCommercial-ShareΛlike 4.0
-          International Creative Commons License is the following: ownership of
-          a Prompt token entitles you to the permissions of an Λttribution 4.0
-          International Creative Commons License towards that Prompt's exclusive
-          content.
+          beyond the scope of the CC Λttribution-NonCommercial-ShareΛlike 4.0
+          International License is the following: ownership of a Prompt token
+          entitles you to the permissions of a CC Λttribution 4.0 International
+          License towards that Prompt's exclusive content.
         </p>
         <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'>
           <img
@@ -240,9 +231,9 @@ const Home = ({ accounts, connectMetamask }) => {
         </a>
         <br />
         <p>
-          Since Creative Commons Licenses are not exclusive, original rights are
-          still reserved to the Prompt's author, including minting and selling
-          tokens for licensing, collecting, or any other use.
+          Since CC Licenses are not exclusive, original rights are still
+          reserved to the Prompt's author, including minting and selling tokens
+          for licensing, collecting, or any other use.
         </p>
       </Card>
       <br />

@@ -18,12 +18,10 @@ const Copyrights = () => {
         <br />
         <br />
         <p>Authors automatically have copyright over their creations.</p>
-        <br />
         <p>
-          Every Prompt is published under the
-          Λttribution-NonCommercial-ShareΛlike 4.0 International Creative
-          Commons License in addition to the Creative Commons Plus Agreement
-          below.
+          Every Prompt is published under the CC
+          Λttribution-NonCommercial-ShareΛlike 4.0 International License in
+          addition to the Creative Commons Plus Agreement below.
         </p>
         <a
           rel='license'
@@ -57,11 +55,10 @@ const Copyrights = () => {
         <br />
         <p>
           <b>Creative Commons Plus Agreement</b>: the only public permission
-          beyond the scope of the Λttribution-NonCommercial-ShareΛlike 4.0
-          International Creative Commons License is the following: ownership of
-          a Prompt token entitles you to the permissions of an Λttribution 4.0
-          International Creative Commons License towards that Prompt's exclusive
-          content.
+          beyond the scope of the CC Λttribution-NonCommercial-ShareΛlike 4.0
+          International License is the following: ownership of a Prompt token
+          entitles you to the permissions of a CC Λttribution 4.0 International
+          License towards that Prompt's exclusive content.
         </p>
         <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'>
           <img
@@ -75,9 +72,9 @@ const Copyrights = () => {
         </a>
         <br />
         <p>
-          Since Creative Commons Licenses are not exclusive, original rights are
-          still reserved to the Prompt's author, including minting and selling
-          tokens for licensing, collecting, or any other use.
+          Since CC Licenses are not exclusive, original rights are still
+          reserved to the Prompt's author, including minting and selling tokens
+          for licensing, collecting, or any other use.
         </p>
       </Card>
     </Container>

@@ -102,20 +102,16 @@ contract Prompts is ERC721 {
     /// @notice Effectively publishes Prompt
     /// @param newCid IPFS CID of the Prompt that is being published
     function _publishValidPrompt(string calldata newCid) private {
-        _safeMint(msg.sender, counter);
-        tokenPrompt[counter] = prompts.length;
         collections[msg.sender].push(prompts.length);
         uint256[] memory branches;
         uint256[] memory tokens;
         prompts.push(Prompt(newCid, msg.sender, branches, tokens));
-        prompts[tokenPrompt[counter]].tokens.push(counter);
     }
 
     /// @notice Publishes Prompt
     /// @param newCid IPFS CID of the Prompt that is being published
     function publishPrompt(string calldata newCid) external {
         _publishValidPrompt(newCid);
-        counter++;
     }
 
     /// @notice Publishes branch Prompt
@@ -126,7 +122,6 @@ contract Prompts is ERC721 {
     {
         prompts[rootId].branches.push(prompts.length);
         _publishValidPrompt(newCid);
-        counter++;
     }
 
     /// @notice Mints Prompt token (CC License)

@@ -1074,11 +1074,17 @@ const Sales = ({
           >
             <Card.Body>
               <Card.Text>
-                <img
-                  alt='Creative Commons Heart Logo'
-                  style={{ borderWidth: 0, width: '10rem', height: '10rem' }}
-                  src={heart}
-                />
+                <a
+                  rel='noreferrer'
+                  target='_blank'
+                  href='https://www.cryptoprompts.art/copyrights'
+                >
+                  <img
+                    alt='Creative Commons Heart Logo'
+                    style={{ borderWidth: 0, width: '10rem', height: '10rem' }}
+                    src={heart}
+                  />
+                </a>
                 {!text && spinner && (
                   <div>
                     <br />
