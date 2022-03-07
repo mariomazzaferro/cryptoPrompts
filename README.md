@@ -4,11 +4,11 @@ There is a subreddit called <a href="https://www.reddit.com/r/WritingPrompts/">r
 
 Nevertheless, these profitable cases tend to be exceptions and not the rule. The publishing industry (like any other industry) has its intrinsic limitations. And as such, there are thresholds that most wanna-be writers never get to cross. With that in mind, Crypto Prompts should be seen as an alternative path. A writing marketplace that circumvents the traditional publishing pipeline, allowing authors to freely negotiate copyright permissions to their creative work without intermediaries.
 
-Crypto Prompts implements Writing Prompts' content creation dynamic in the Polygon Network (Blockchain). Here, Prompts are perpetual objects carved into the blockchain, allowing the author to mint Non-Fungible Token Licenses that can be sold, auctioned, transferred, etc. Furthermore, users can comment any published Prompt creating a "Comment Prompt" with new content related to the "Root Prompt". Comment Prompts can be commented as well.
+Crypto Prompts implements Writing Prompts' content creation dynamic in the Polygon Network (Blockchain). Here, Prompts are perpetual objects carved into the blockchain, allowing the author to mint License Associated NFTs (LANs) that can be sold, auctioned, transferred, etc. Furthermore, users can comment any published Prompt creating a "Comment Prompt" with new content related to the "Root Prompt". Comment Prompts can be commented as well.
 
 ## Overview
 
-This platform is 100% decentralized (IPFS + smart contract), and its code is open source. Crypto Prompts seeks no profit; everything you pay is spent exclusively on blockchain fees and Prompt token trades. This project is inspired by the Writing Prompts subreddit, with its literary appeal, but there are no rules here; you can write whatever you want. There can be "question Prompts", making the content dynamic similar to Quora. There can be "discussion Prompts", tilting more towards Reddit's dynamic. Go crazy, you can publish an entire novel if you dare. There are endless possibilities for new Prompts, it's impossible to guess all of them now, the best way to predict the future is by writing it.
+This platform is 100% decentralized (IPFS + smart contract), and its code is open source. Crypto Prompts seeks no profit; everything you pay is spent exclusively on blockchain fees and LAN trades. This project is inspired by the Writing Prompts subreddit, with its literary appeal, but there are no rules here; you can write whatever you want. There can be "question Prompts", making the content dynamic similar to Quora. There can be "discussion Prompts", tilting more towards Reddit's dynamic. Go crazy, you can publish an entire novel if you dare. There are endless possibilities for new Prompts, it's impossible to guess all of them now, the best way to predict the future is by writing it.
 
 Crypto Prompts aims to:
 
@@ -23,7 +23,7 @@ Crypto Prompts aims to:
 2- User publishes an Initial Prompt or a Comment Prompt.<br/>
 3- User can read other people's Prompts and publish Comment Prompts of them.<br/>
 4- User can read other people's Prompts and each of its comments.<br/>
-5- User can transfer, buy, sell or auction Prompt tokens.<br/>
+5- User can transfer, buy, sell or auction Prompt LANs.<br/>
 
 ## Development
 

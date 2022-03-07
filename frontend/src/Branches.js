@@ -178,7 +178,7 @@ const Branches = ({
               <h5
                 style={{ color: 'lightgray' }}
               >{`COMMENTS: ${childBranches}`}</h5>
-              <h5 style={{ color: 'lightgray' }}>{`TOKENS: ${tokens}`}</h5>
+              <h5 style={{ color: 'lightgray' }}>{`LΛNs: ${tokens}`}</h5>
             </Card.Text>
           </Card.Body>
         </Card>

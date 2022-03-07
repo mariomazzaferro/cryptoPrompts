@@ -222,13 +222,13 @@ const Sales = ({
       }
       if (res) {
         if (res.status) {
-          alert(`Successful Purchase of Token Id ${infoShowTokenId}`)
+          alert(`Successful Purchase of LΛN Id ${infoShowTokenId}`)
         } else {
           alert('Purchase Failed')
         }
       } else {
         alert(
-          `Token purchase is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/`
+          `LΛN purchase is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/`
         )
       }
 
@@ -275,7 +275,7 @@ const Sales = ({
       if (res) {
         if (res.status) {
           const newId = res.events.Transfer.returnValues[2]
-          alert(`Token Id ${newId} minted successfully`)
+          alert(`LΛN Id ${newId} minted successfully`)
         } else {
           alert('Minting failed')
         }
@@ -555,9 +555,9 @@ const Sales = ({
       }
       if (res) {
         if (res.status) {
-          alert('Token transfer successful')
+          alert('LΛN transfer successful')
         } else {
-          alert('Token transfer failed')
+          alert('LΛN transfer failed')
         }
       } else {
         alert(
@@ -624,7 +624,7 @@ const Sales = ({
                   <Row>
                     <Col>
                       <Form.Control
-                        placeholder='Token Id : )'
+                        placeholder='LΛN Id : )'
                         type='number'
                         onChange={(e) => updateTokenInfo(e)}
                       ></Form.Control>
@@ -636,7 +636,7 @@ const Sales = ({
                         className='font-weight-bold'
                         style={{ color: 'silver' }}
                       >
-                        <i>Get Token's Information</i>
+                        <i>Get LΛN's Information</i>
                       </Button>
                     </Col>
                     <Col>
@@ -648,7 +648,7 @@ const Sales = ({
                             className='font-weight-bold'
                             style={{ color: 'silver' }}
                           >
-                            <i>Buy Token $$</i>
+                            <i>Buy LΛN $$</i>
                           </Button>
                           {loading8 && <div class='spinner-border'></div>}
                         </div>
@@ -659,15 +659,15 @@ const Sales = ({
               </Form>
             </Card.Title>
             <Card.Text>
-              <h5>{infoShowTokenId && `Token Id: ${infoShowTokenId}`}</h5>
-              <h5>{infoPromptId && `Token's Prompt Id: ${infoPromptId}`}</h5>
-              <h5>{infoOwner && `Token's Owner: ${infoOwner}`}</h5>
+              <h5>{infoShowTokenId && `LΛN Id: ${infoShowTokenId}`}</h5>
+              <h5>{infoPromptId && `LΛN's Prompt Id: ${infoPromptId}`}</h5>
+              <h5>{infoOwner && `LΛN's Owner: ${infoOwner}`}</h5>
               <h5>
                 {infoShowTokenId &&
                   infoPrice &&
-                  `Token's Price: ${infoPrice} MΛTIC`}
+                  `LΛN's Price: ${infoPrice} MΛTIC`}
               </h5>
-              <h5>{infoShowTokenId && !infoPrice && `Token not for sale`}</h5>
+              <h5>{infoShowTokenId && !infoPrice && `LΛN not for sale`}</h5>
             </Card.Text>
           </Card.Body>
         </Card>
@@ -695,7 +695,7 @@ const Sales = ({
                         className='font-weight-bold'
                         style={{ color: 'silver' }}
                       >
-                        <i>Get Prompt's Token List</i>
+                        <i>Get Prompt's LΛN List</i>
                       </Button>
                     </Col>
                   </Row>
@@ -703,7 +703,7 @@ const Sales = ({
               </Form>
             </Card.Title>
             <Card.Text>
-              <h5>{tokenList && `Prompt's List of Token Ids: ${tokenList}`}</h5>
+              <h5>{tokenList && `Prompt's List of LΛN Ids: ${tokenList}`}</h5>
             </Card.Text>
           </Card.Body>
         </Card>
@@ -732,7 +732,7 @@ const Sales = ({
                           className='font-weight-bold'
                           style={{ color: 'silver' }}
                         >
-                          <i>Mint New Prompt Token (License) $</i>
+                          <i>Mint New Prompt LΛN (License) $</i>
                         </Button>
                         {loading7 && <div class='spinner-border'></div>}
                       </Col>
@@ -760,7 +760,7 @@ const Sales = ({
                   <Row>
                     <Col>
                       <Form.Control
-                        placeholder='Token Id : )'
+                        placeholder='LΛN Id : )'
                         type='number'
                         onChange={(e) => updateAddId(e)}
                       ></Form.Control>
@@ -779,7 +779,7 @@ const Sales = ({
                         className='font-weight-bold'
                         style={{ color: 'silver' }}
                       >
-                        <i>Put Token up for Sale $</i>
+                        <i>Put LΛN up for Sale $</i>
                       </Button>
                       {loading3 && <div class='spinner-border'></div>}
                     </Col>
@@ -799,7 +799,7 @@ const Sales = ({
                   <Row>
                     <Col>
                       <Form.Control
-                        placeholder='Token Id : )'
+                        placeholder='LΛN Id : )'
                         type='number'
                         onChange={(e) => updateRemoveId(e)}
                       ></Form.Control>
@@ -811,7 +811,7 @@ const Sales = ({
                         className='font-weight-bold'
                         style={{ color: 'silver' }}
                       >
-                        <i>Remove Token from Sale $</i>
+                        <i>Remove LΛN from Sale $</i>
                       </Button>
                       {loading4 && <div class='spinner-border'></div>}
                     </Col>
@@ -833,7 +833,7 @@ const Sales = ({
                   <Row>
                     <Col>
                       <Form.Control
-                        placeholder='Token Id : )'
+                        placeholder='LΛN Id : )'
                         type='number'
                         onChange={(e) => updateAuId(e)}
                       ></Form.Control>
@@ -908,13 +908,11 @@ const Sales = ({
                   style={{ color: 'lightgray' }}
                 >{`ΛUCTION ID: ${auctionId}`}</h5>
                 <br />
-                <h5
-                  style={{ color: 'lightgray' }}
-                >{`TOKEN ID: ${auTokenId}`}</h5>
+                <h5 style={{ color: 'lightgray' }}>{`LΛN ID: ${auTokenId}`}</h5>
                 <br />
                 <h5
                   style={{ color: 'lightgray' }}
-                >{`TOKEN'S PROMPT ID: ${showId}`}</h5>
+                >{`LΛN'S PROMPT ID: ${showId}`}</h5>
                 <br />
                 <br />
                 <h3>{`${title}`}</h3>
@@ -1109,7 +1107,7 @@ const Sales = ({
                     <Row>
                       <Col>
                         <Form.Control
-                          placeholder='Token Id : )'
+                          placeholder='LΛN Id : )'
                           type='number'
                           onChange={(e) => updateTokenAu(e)}
                         ></Form.Control>
@@ -1121,7 +1119,7 @@ const Sales = ({
                           className='font-weight-bold'
                           style={{ color: 'silver' }}
                         >
-                          <i>Get Token's Λuctions</i>
+                          <i>Get LΛN's Λuctions</i>
                         </Button>
                       </Col>
                     </Row>
@@ -1131,7 +1129,7 @@ const Sales = ({
               <Card.Text>
                 <h5>
                   {tokenAuctionList.length !== 0 &&
-                    `Token's Λuction Ids: ${tokenAuctionList}`}
+                    `LΛN's Λuction Ids: ${tokenAuctionList}`}
                 </h5>
               </Card.Text>
             </Card.Body>
@@ -1198,7 +1196,7 @@ const Sales = ({
                         className='font-weight-bold'
                         style={{ color: 'silver' }}
                       >
-                        <i>Get Token Balance for this Λddress</i>
+                        <i>Get LΛN Balance for this Λddress</i>
                       </Button>
                     </Col>
                   </Row>
@@ -1206,7 +1204,7 @@ const Sales = ({
               </Form>
             </Card.Title>
             <Card.Text>
-              <h5>{owner && balance && `Token Balance: ${balance}`}</h5>
+              <h5>{owner && balance && `LΛN Balance: ${balance}`}</h5>
             </Card.Text>
           </Card.Body>
         </Card>
@@ -1242,7 +1240,7 @@ const Sales = ({
                         </Col>
                         <Col>
                           <Form.Control
-                            placeholder='Token Id : )'
+                            placeholder='LΛN Id : )'
                             type='number'
                             onChange={(e) => updateTokenId(e)}
                           ></Form.Control>
@@ -1254,7 +1252,7 @@ const Sales = ({
                             className='font-weight-bold'
                             style={{ color: 'silver' }}
                           >
-                            <i>Transfer Token $</i>
+                            <i>Transfer LΛN $</i>
                           </Button>
                           {loading1 && <div class='spinner-border'></div>}
                         </Col>
@@ -1288,7 +1286,7 @@ const Sales = ({
                         </Col>
                         <Col>
                           <Form.Control
-                            placeholder='Token Id : )'
+                            placeholder='LΛN Id : )'
                             type='number'
                             onChange={(e) => updateApproveId(e)}
                           ></Form.Control>

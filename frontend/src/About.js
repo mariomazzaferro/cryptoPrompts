@@ -42,10 +42,10 @@ const About = () => {
               Crypto Prompts implements Writing Prompts' content creation
               dynamic in the Polygon Network (Blockchain). Here, Prompts are
               perpetual objects carved into the blockchain, allowing the author
-              to mint Non-Fungible Token Licenses that can be sold, auctioned,
-              transferred, etc. Furthermore, users can comment any published
-              Prompt creating a "Comment Prompt" with new content related to the
-              "Root Prompt". Comment Prompts can be commented as well.
+              to mint License Λssociated NFTs (LΛNs) that can be sold,
+              auctioned, transferred, etc. Furthermore, users can comment any
+              published Prompt creating a new Prompt with new content related to
+              the "Root Prompt". Comment Prompts can be commented as well.
             </p>
           </Card.Text>
         </Card.Body>
@@ -88,9 +88,9 @@ const About = () => {
                 code
               </a>{' '}
               is open source. Crypto Prompts seeks no profit; everything you pay
-              is spent exclusively on blockchain fees and Prompt token trades.
-              This project is inspired by the Writing Prompts subreddit, with
-              its literary appeal, but there are no rules here; you can write
+              is spent exclusively on blockchain fees and LΛN trades. This
+              project is inspired by the Writing Prompts subreddit, with its
+              literary appeal, but there are no rules here; you can write
               whatever you want. There can be "question Prompts", making the
               content dynamic similar to Quora. There can be "discussion
               Prompts", tilting more towards Reddit's dynamic. Go crazy, you can

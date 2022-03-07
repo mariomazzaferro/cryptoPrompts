@@ -19,57 +19,22 @@ const Copyrights = () => {
         <br />
         <p>Authors automatically have copyright over their creations.</p>
         <p>
-          Every Prompt is published under the CC
-          Λttribution-NonCommercial-ShareΛlike 4.0 International License in
-          addition to the Creative Commons Plus Agreement below.
+          Every publish Prompt's original content is Licensed under a
+          BY-NC-SA/BY Satoshi License (
+          <a href='https://satoshilicenses.org/'>www.satoshilicenses.org)</a>,{' '}
+          <br /> Associated NFT at Polygon
+          Mainnet/0xc3Bb7B810b5B4B731F78b978a67ab55d3b516c15/Prompt's License
+          Associated NFTs.
         </p>
-        <a
-          rel='license'
-          href='http://creativecommons.org/licenses/by-nc-sa/4.0/'
-        >
-          <img
-            alt='Creative Commons License'
-            style={{ borderWidth: 0 }}
-            src='https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png'
-          />
-        </a>
-        <a
-          rel='license'
-          href='http://creativecommons.org/licenses/by-nc-sa/4.0/'
-        >
-          Creative Commons Λttribution-NonCommercial-ShareΛlike 4.0
-          International License
-        </a>
-        <br />
-        <a rel='CC+' href='https://wiki.creativecommons.org/wiki/CCPlus'>
-          <img
-            alt='Creative Commons Plus'
-            style={{ borderWidth: 0, width: '2.6rem', height: '1.9rem' }}
-            src={ccplus}
-          />
-        </a>
-        <a rel='license' href='https://wiki.creativecommons.org/wiki/CCPlus'>
-          Creative Commons Plus
-        </a>
-        <br />
         <br />
         <p>
-          <b>Creative Commons Plus Agreement</b>: the only public permission
-          beyond the scope of the CC Λttribution-NonCommercial-ShareΛlike 4.0
-          International License is the following: ownership of a Prompt token
-          entitles you to the permissions of a CC Λttribution 4.0 International
-          License towards that Prompt's exclusive content.
+          This means that the content published on Crypto Prompts is licensed
+          under the CC Attribution-NonCommercial-ShareAlike 4.0 International
+          License, while owners of the Associated NFTs (at Polygon
+          Mainnet/0xc3Bb7B810b5B4B731F78b978a67ab55d3b516c15/Prompt Id) are
+          entitled to the same permissions of a CC Attribution 4.0 International
+          License towards that Prompt's original content.
         </p>
-        <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'>
-          <img
-            alt='Creative Commons License'
-            style={{ borderWidth: 0 }}
-            src='https://i.creativecommons.org/l/by/4.0/88x31.png'
-          />
-        </a>
-        <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'>
-          Creative Commons Λttribution 4.0 International License
-        </a>
         <br />
         <p>
           Since CC Licenses are not exclusive, original rights are still

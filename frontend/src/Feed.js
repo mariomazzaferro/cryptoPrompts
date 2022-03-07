@@ -259,7 +259,7 @@ const Feed = ({
                 >{`ROOT PROMPT ID: ${root}`}</h5>
               )}
               <h5 style={{ color: 'lightgray' }}>{`COMMENTS: ${branches}`}</h5>
-              <h5 style={{ color: 'lightgray' }}>{`TOKENS: ${tokens}`}</h5>
+              <h5 style={{ color: 'lightgray' }}>{`LΛNs: ${tokens}`}</h5>
               {accounts.length !== 0 && showId !== undefined && (
                 <Form ref={formRef} onSubmit={(e) => submitBranch(e)}>
                   <Form.Group>

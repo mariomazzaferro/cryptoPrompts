@@ -51,9 +51,9 @@ const Home = ({ accounts, connectMetamask }) => {
         <p>
           Nevertheless, these profitable cases tend to be exceptions and not the
           rule. The publishing industry (like any other industry) has its
-          intrinsic limitations. And as such, there are thresholds that most
+          intrinsic limitations. Λnd as such, there are thresholds that most
           wanna-be writers never get to cross. With that in mind, Crypto Prompts
-          should be seen as an alternative path. A writing marketplace that
+          should be seen as an alternative path. Λ writing marketplace that
           circumvents the traditional publishing pipeline, allowing authors to
           freely negotiate copyright permissions to their creative work without
           intermediaries.
@@ -61,8 +61,8 @@ const Home = ({ accounts, connectMetamask }) => {
         <p>
           Crypto Prompts implements Writing Prompts' content creation dynamic in
           the Polygon Network (Blockchain). Here, Prompts are perpetual objects
-          carved into the blockchain, allowing the author to mint Non-Fungible
-          Token Licenses that can be sold, auctioned, transferred, etc.
+          carved into the blockchain, allowing the author to mint License
+          Λssociated NFTs (LΛNs) that can be sold, auctioned, transferred, etc.
           Furthermore, users can comment any published Prompt creating a new
           Prompt with new content related to the "Root Prompt".
         </p>
@@ -98,15 +98,14 @@ const Home = ({ accounts, connectMetamask }) => {
           contract), and its{' '}
           <a href='https://github.com/mariomazzaferro/cryptoPrompts/'>code</a>{' '}
           is open source. This Project seeks no profit; everything you pay is
-          spent exclusively on blockchain fees and Prompt token trades. Our
-          inspiration is the Writing Prompts subreddit, with its literary
-          appeal, but there are no rules here; you can write whatever you want.
-          There can be "question Prompts", making the content dynamic similar to
-          Quora. There can be "discussion Prompts", tilting more towards
-          Reddit's dynamic. Go crazy, you can publish an entire novel if you
-          dare. There are endless possibilities for new Prompts, it's impossible
-          to guess all of them now, the best way to predict the future is by
-          writing it.
+          spent exclusively on blockchain fees and LΛN trades. Our inspiration
+          is the Writing Prompts subreddit, with its literary appeal, but there
+          are no rules here; you can write whatever you want. There can be
+          "question Prompts", making the content dynamic similar to Quora. There
+          can be "discussion Prompts", tilting more towards Reddit's dynamic. Go
+          crazy, you can publish an entire novel if you dare. There are endless
+          possibilities for new Prompts, it's impossible to guess all of them
+          now, the best way to predict the future is by writing it.
         </p>
         <p>
           Notice that the fee for publishing Prompts (less than a penny) does
@@ -128,7 +127,7 @@ const Home = ({ accounts, connectMetamask }) => {
         <br />
         <p>
           Readers are able to interact with this website without a crypto
-          wallet. But in order to publish and manage your own Prompts and tokens
+          wallet. But in order to publish and manage your own Prompts and NFTs
           you will need to <a href='https://metamask.io/'>install Metamask</a>{' '}
           on your browser.
         </p>
@@ -147,25 +146,25 @@ const Home = ({ accounts, connectMetamask }) => {
         </p>
 
         <p>
-          A Prompt allows its author to mint Prompt tokens. A Prompt token is an
-          NFT that grants Creative Commons License permission to its owner (see
-          Copyrights and Creative Commons bellow).
+          Λ Prompt allows its author to mint License Λssociated NFTs (LΛNs). A
+          Prompt's LΛN is an NFT that grants Creative Commons License permission
+          to its owner (see Copyrights and Creative Commons bellow).
         </p>
 
         <p>
-          There are two ways to buy/sell Prompt tokens in this platform: (1)
-          auctions and (2) fixed-price sales. Λuctions have a fixed duration of
-          1 week, in which buyers bid MΛTIC cumulatively until the week comes to
-          an end. Once the auction is over, every stakeholder can withdraw their
-          rightful resources. If you are a Bidder but not the Top Bidder: you
-          can simply withdraw your funds. If you are the Top Bidder or the
-          Seller: both of you share the action to withdraw the prize; once
-          either of you takes that action, the Top Bid will be transferred to
-          the Seller, and the Prompt token auctioned will be transferred to the
-          Top Bidder. The Prompt token gets "locked" during the auction. So, if
-          the worst comes to the worst, and nobody bid to buy your Prompt token:
-          you, the seller, still need to take the withdraw action to "unlock"
-          your crappy Prompt token.
+          There are two ways to buy/sell License Λssociated NFTs in this
+          platform: (1) auctions and (2) fixed-price sales. Λuctions have a
+          fixed duration of 1 week, in which buyers bid MΛTIC cumulatively until
+          the week comes to an end. Once the auction is over, every stakeholder
+          can withdraw their rightful resources. If you are a Bidder but not the
+          Top Bidder: you can simply withdraw your funds. If you are the Top
+          Bidder or the Seller: both of you share the action to withdraw the
+          prize; once either of you takes that action, the Top Bid will be
+          transferred to the Seller, and the Prompt token auctioned will be
+          transferred to the Top Bidder. The Prompt token gets "locked" during
+          the auction. So, if the worst comes to the worst, and nobody bid to
+          buy your Prompt token: you, the seller, still need to take the
+          withdraw action to "unlock" your crappy Prompt token.
         </p>
         <br />
         <br />
@@ -178,57 +177,22 @@ const Home = ({ accounts, connectMetamask }) => {
         <br />
         <p>Authors automatically have copyright over their creations.</p>
         <p>
-          Every Prompt is published under the CC
-          Λttribution-NonCommercial-ShareΛlike 4.0 International License in
-          addition to the CC Plus Agreement below.
+          Every publish Prompt's original content is Licensed under a
+          BY-NC-SA/BY Satoshi License (
+          <a href='https://satoshilicenses.org/'>www.satoshilicenses.org)</a>,{' '}
+          <br /> Associated NFT at Polygon
+          Mainnet/0xc3Bb7B810b5B4B731F78b978a67ab55d3b516c15/Prompt's License
+          Associated NFTs.
         </p>
-        <a
-          rel='license'
-          href='http://creativecommons.org/licenses/by-nc-sa/4.0/'
-        >
-          <img
-            alt='Creative Commons License'
-            style={{ borderWidth: 0 }}
-            src='https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png'
-          />
-        </a>
-        <a
-          rel='license'
-          href='http://creativecommons.org/licenses/by-nc-sa/4.0/'
-        >
-          Creative Commons Λttribution-NonCommercial-ShareΛlike 4.0
-          International License
-        </a>
-        <br />
-        <a rel='CC+' href='https://wiki.creativecommons.org/wiki/CCPlus'>
-          <img
-            alt='Creative Commons Plus'
-            style={{ borderWidth: 0, width: '2.6rem', height: '1.9rem' }}
-            src={ccplus}
-          />
-        </a>
-        <a rel='license' href='https://wiki.creativecommons.org/wiki/CCPlus'>
-          Creative Commons Plus
-        </a>
-        <br />
         <br />
         <p>
-          <b>Creative Commons Plus Agreement</b>: the only public permission
-          beyond the scope of the CC Λttribution-NonCommercial-ShareΛlike 4.0
-          International License is the following: ownership of a Prompt token
-          entitles you to the permissions of a CC Λttribution 4.0 International
-          License towards that Prompt's exclusive content.
+          This means that the content published on Crypto Prompts is licensed
+          under the CC Attribution-NonCommercial-ShareAlike 4.0 International
+          License, while owners of the Associated NFTs (at Polygon
+          Mainnet/0xc3Bb7B810b5B4B731F78b978a67ab55d3b516c15/Prompt Id) are
+          entitled to the same permissions of a CC Attribution 4.0 International
+          License towards that Prompt's original content.
         </p>
-        <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'>
-          <img
-            alt='Creative Commons License'
-            style={{ borderWidth: 0 }}
-            src='https://i.creativecommons.org/l/by/4.0/88x31.png'
-          />
-        </a>
-        <a rel='license' href='http://creativecommons.org/licenses/by/4.0/'>
-          Creative Commons Λttribution 4.0 International License
-        </a>
         <br />
         <p>
           Since CC Licenses are not exclusive, original rights are still
