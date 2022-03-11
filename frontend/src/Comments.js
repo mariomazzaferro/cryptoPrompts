@@ -4,23 +4,23 @@ import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap'
 import ccplus from './Ccplus.jpg'
 import heart from './Heart.png'
 
-const Branches = ({
+const Comments = ({
   length,
-  branchesById,
+  commentsById,
   tokensById,
-  getBranchCid,
-  getBranchId,
+  getCommentCid,
+  getCommentId,
   authorById,
 }) => {
-  const [branchId, setBranchId] = useState(undefined)
+  const [commentId, setCommentId] = useState(undefined)
   const [text, setText] = useState(undefined)
   const [title, setTitle] = useState(undefined)
   const [writer, setWriter] = useState(undefined)
-  const [branchNumber, setBranchNumber] = useState(undefined)
-  const [showBranchNumber, setShowBranchNumber] = useState(undefined)
-  const [branches, setBranches] = useState(undefined)
+  const [commentNumber, setCommentNumber] = useState(undefined)
+  const [showCommentNumber, setShowCommentNumber] = useState(undefined)
+  const [comments, setComments] = useState(undefined)
   const [tokens, setTokens] = useState(undefined)
-  const [childBranches, setChildBranches] = useState(undefined)
+  const [childComments, setChildComments] = useState(undefined)
   const [NFTId, setNFTId] = useState(undefined)
   const [showNFTId, setShowNFTId] = useState(undefined)
   const [spinner, setSpinner] = useState(false)
@@ -28,16 +28,16 @@ const Branches = ({
   useEffect(() => {
     setTitle(undefined)
     setWriter(undefined)
-    setBranches(undefined)
+    setComments(undefined)
     setTokens(undefined)
     setShowNFTId(undefined)
     setText(`.`)
     setSpinner(true)
   }, [])
 
-  const updateBranchNumber = (e) => {
-    let branchNum = e.target.value
-    setBranchNumber(parseInt(branchNum))
+  const updateCommentNumber = (e) => {
+    let commentNum = e.target.value
+    setCommentNumber(parseInt(commentNum))
   }
 
   const updateNFTId = (e) => {
@@ -47,46 +47,46 @@ const Branches = ({
 
   const getNFT = async (e) => {
     e.preventDefault()
-    if (0 <= NFTId && NFTId < length && branchNumber > 0) {
-      await getPrompt(NFTId, branchNumber)
+    if (0 <= NFTId && NFTId < length && commentNumber > 0) {
+      await getPost(NFTId, commentNumber)
     }
   }
 
-  const getPrompt = async (promptId, branchNumberPlus) => {
+  const getPost = async (postId, commentNumberPlus) => {
     setText(undefined)
-    const branchNumber = branchNumberPlus - 1
-    const cid = await getBranchCid(promptId, branchNumber)
-    const branchId = await getBranchId(promptId, branchNumber)
-    const author = await authorById(branchId)
-    setBranchId(branchId)
+    const commentNumber = commentNumberPlus - 1
+    const cid = await getCommentCid(postId, commentNumber)
+    const commentId = await getCommentId(postId, commentNumber)
+    const author = await authorById(commentId)
+    setCommentId(commentId)
     const blob = await axios.get(`https://ipfs.io/ipfs/${cid}`)
     setTitle(blob.data.title)
-    const branches = await branchesById(promptId)
+    const comments = await commentsById(postId)
     setWriter(author)
-    setBranches(branches)
-    const childBranches = await branchesById(branchId)
-    const tokens = await tokensById(branchId)
-    setChildBranches(childBranches)
+    setComments(comments)
+    const childComments = await commentsById(commentId)
+    const tokens = await tokensById(commentId)
+    setChildComments(childComments)
     setTokens(tokens)
-    setShowNFTId(promptId)
-    const showBranchNumber = branchNumber + 1
-    setShowBranchNumber(showBranchNumber)
+    setShowNFTId(postId)
+    const showCommentsNumber = commentNumber + 1
+    setShowCommentNumber(showCommentNumber)
     setText(blob.data.body)
   }
 
   const next = async () => {
-    if (branchNumber + 1 <= branches) {
-      const c = branchNumber + 1
-      setBranchNumber(c)
-      await getPrompt(NFTId, c)
+    if (commentNumber + 1 <= comments) {
+      const c = commentNumber + 1
+      setCommentNumber(c)
+      await getPost(NFTId, c)
     }
   }
 
   const prev = async () => {
-    if (branchNumber > 1) {
-      const c = branchNumber - 1
-      setBranchNumber(c)
-      await getPrompt(NFTId, c)
+    if (commentNumber > 1) {
+      const c = commentNumber - 1
+      setCommentNumber(c)
+      await getPost(NFTId, c)
     }
   }
 
@@ -128,17 +128,17 @@ const Branches = ({
                 <Col>
                   <h5
                     style={{ color: 'lightgray' }}
-                  >{`ROOT PROMPT ID: ${showNFTId}`}</h5>
+                  >{`ROOT POST ID: ${showNFTId}`}</h5>
                 </Col>
                 <Col>
                   <h5
                     style={{ color: 'lightgray' }}
-                  >{`COMMENT: ${showBranchNumber}/${branches}`}</h5>
+                  >{`COMMENT: ${showCommentNumber}/${comments}`}</h5>
                 </Col>
               </Row>
               <br />
               <br />
-              <h5 style={{ color: 'lightgray' }}>{`PROMPT ID: ${branchId}`}</h5>
+              <h5 style={{ color: 'lightgray' }}>{`POST ID: ${commentId}`}</h5>
               <br />
               <br />
               <h3>{`${title}`}</h3>
@@ -154,7 +154,7 @@ const Branches = ({
               <a
                 rel='noreferrer'
                 target='_blank'
-                href='https://www.cryptoprompts.art/copyrights'
+                href='https://www.cryptoposts.art/copyrights'
               >
                 <img
                   alt='Creative Commons License'
@@ -165,7 +165,7 @@ const Branches = ({
               <a
                 rel='noreferrer'
                 target='_blank'
-                href='https://www.cryptoprompts.art/copyrights'
+                href='https://www.cryptoposts.art/copyrights'
               >
                 <img
                   alt='Creative Commons Plus'
@@ -177,7 +177,7 @@ const Branches = ({
               <br />
               <h5
                 style={{ color: 'lightgray' }}
-              >{`COMMENTS: ${childBranches}`}</h5>
+              >{`COMMENTS: ${childComments}`}</h5>
               <h5 style={{ color: 'lightgray' }}>{`LΛNs: ${tokens}`}</h5>
             </Card.Text>
           </Card.Body>
@@ -192,7 +192,7 @@ const Branches = ({
               <a
                 rel='noreferrer'
                 target='_blank'
-                href='https://www.cryptoprompts.art/copyrights'
+                href='https://www.cryptoposts.art/copyrights'
               >
                 <img
                   alt='Creative Commons Heart Logo'
@@ -223,7 +223,7 @@ const Branches = ({
                 <Row>
                   <Col>
                     <Form.Control
-                      placeholder='Root Prompt Id : )'
+                      placeholder='Root Post Id : )'
                       type='number'
                       value={NFTId}
                       onChange={(e) => updateNFTId(e)}
@@ -233,8 +233,8 @@ const Branches = ({
                     <Form.Control
                       placeholder='Comment Number : )'
                       type='number'
-                      value={branchNumber}
-                      onChange={(e) => updateBranchNumber(e)}
+                      value={commentNumber}
+                      onChange={(e) => updateCommentNumber(e)}
                     ></Form.Control>
                   </Col>
                   <Col>
@@ -257,4 +257,4 @@ const Branches = ({
   )
 }
 
-export default Branches
+export default Comments

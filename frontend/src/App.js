@@ -7,9 +7,8 @@ import { getWeb3, getContract, getContractAddress, client } from './utils.js'
 import Home from './Home.js'
 import New from './New.js'
 import Feed from './Feed.js'
-import Branches from './Branches.js'
+import Comments from './Comments.js'
 import Sales from './Sales.js'
-import About from './About.js'
 import Copyrights from './Copyrights.js'
 
 const ModelViewer = require('@metamask/logo')
@@ -52,7 +51,7 @@ function App() {
 
       let length
       try {
-        length = await endpointContract.methods.promptsLenght().call()
+        length = await endpointContract.methods.postsLenght().call()
       } catch (err) {
         console.log(err.message)
       }
@@ -84,7 +83,7 @@ function App() {
       setNoMetamask(false)
     } else {
       alert(
-        'Metamask connection failed. Make sure you have Metamask installed and connected to Polygon Mainnet.'
+        'Metamask connection failed. Make sure you have Metamask installed and connected to Polygon Mumbai Network.'
       )
     }
   }
@@ -95,7 +94,7 @@ function App() {
   }
 
   const updateLength = async () => {
-    const length = await contract.methods.promptsLenght().call()
+    const length = await contract.methods.postsLenght().call()
     setLength(length)
   }
 
@@ -110,88 +109,88 @@ function App() {
     return cid
   }
 
-  const writePrompt = async (title, text) => {
+  const writePost = async (title, text) => {
     let formatedJSON = JSON.stringify({ title: `${title}`, body: `${text}` })
     const cid = await storeString(formatedJSON)
     const res = await contract.methods
-      .publishPrompt(cid)
+      .publishPost(cid)
       .send({ from: accounts[0] })
     return res
   }
 
-  const branchify = async (title, newText, oldText, oldId) => {
+  const writeComment = async (title, newText, oldId) => {
     let formatedString = JSON.stringify({
       title: `${title}`,
-      body: `${oldText}\nΛ${newText}`,
+      body: `Λ${newText}`,
       root: oldId,
     })
     const cid = await storeString(formatedString)
     const res = await contract.methods
-      .publishPrompt(cid, oldId)
+      .publishPost(cid, oldId)
       .send({ from: accounts[0] })
     return res
   }
 
-  const mintToken = async (promptId) => {
+  const mintToken = async (postId) => {
     const res = await contract.methods
-      .mintToken(promptId)
+      .mintToken(postId)
       .send({ from: accounts[0] })
     return res
   }
 
-  const tokenPrompt = async (tokenId) => {
-    const promptId = await contract.methods.tokenPrompt(tokenId).call()
-    return promptId
+  const tokenPost = async (tokenId) => {
+    const postId = await contract.methods.tokenPost(tokenId).call()
+    return postId
   }
 
-  const promptById = async (promptId) => {
-    let promptCid
+  const postById = async (postId) => {
+    let postCid
     try {
-      promptCid = await contract.methods.promptCid(promptId).call()
+      postCid = await contract.methods.postCid(postId).call()
     } catch (err) {
       console.log(err.message)
     }
-    return promptCid
+    return postCid
   }
 
-  const authorById = async (promptId) => {
-    let promptAuthor
+  const authorById = async (postId) => {
+    let postAuthor
     try {
-      promptAuthor = await contract.methods.promptAuthor(promptId).call()
+      postAuthor = await contract.methods.postAuthor(postId).call()
     } catch (err) {
       console.log(err.message)
     }
-    return promptAuthor
+    return postAuthor
   }
 
-  const branchesById = async (promptId) => {
-    const branches = await contract.methods.promptBranches(promptId).call()
-    return branches
+  const commentsById = async (postId) => {
+    const comments = await contract.methods.postComments(postId).call()
+    return comments
   }
 
-  const tokensById = async (promptId) => {
-    const tokens = await contract.methods.promptTokens(promptId).call()
+  const tokensById = async (postId) => {
+    const tokens = await contract.methods.postTokens(postId).call()
     return tokens
   }
 
-  const promptTokenList = async (promptId) => {
-    const tokenList = await contract.methods.promptTokenList(promptId).call()
+  const postTokenList = async (postId) => {
+    const tokenList = await contract.methods.postTokenList(postId).call()
     return tokenList
   }
 
-  const getBranchCid = async (promptId, branchNumber) => {
-    const branchPromptId = await contract.methods
-      .branchId(promptId, branchNumber)
+  const getCommentCid = async (postId, commentNumber) => {
+    const commentPostId = await contract.methods
+      .commentId(postId, commentNumber)
       .call()
-    const branchCid = await contract.methods.promptCid(branchPromptId).call()
-    return branchCid
+    const commentCid = await contract.methods.postCid(commentPostId).call()
+    return commentCid
   }
 
-  const getBranchId = async (promptId, branchNumber) => {
-    const branchPromptId = await contract.methods
-      .branchId(promptId, branchNumber)
+  const getCommentId = async (postId, commentNumber) => {
+    const commentPostId = await contract.methods
+      .commentId(postId, commentNumber)
       .call()
-    return branchPromptId
+    return commentPostId
   }
 
   const collectionList = async (writer) => {
@@ -241,9 +240,9 @@ function App() {
     return res
   }
 
-  const tokenAuctions = async (promptId) => {
+  const tokenAuctions = async (postId) => {
     const auctionList = await contract.methods
-      .tokenAuctionCollection(promptId)
+      .tokenAuctionCollection(postId)
       .call()
     return auctionList
   }
@@ -372,17 +371,14 @@ function App() {
                     <i>WHITE PΛPER</i>
                   </h5>
                 </Nav.Link>
-                <Nav.Link className='px-5' as={Link} to={'/prompts'}>
-                  <i>PROMPTS</i>
+                <Nav.Link className='px-5' as={Link} to={'/posts'}>
+                  <i>POSTS</i>
                 </Nav.Link>
                 <Nav.Link className='px-5' as={Link} to={'/comments'}>
                   <i>COMMENTS</i>
                 </Nav.Link>
                 <Nav.Link className='px-5' as={Link} to={'/sales'}>
                   <i>SΛLES</i>
-                </Nav.Link>
-                <Nav.Link className='px-5' as={Link} to={'/about'}>
-                  <i>ΛBOUT</i>
                 </Nav.Link>
                 <Nav.Link className='px-5' onClick={() => connectMetamask()}>
                   <i>CONNECT METΛMΛSK</i>
@@ -403,19 +399,16 @@ function App() {
                 <Nav.Link className='px-5' as={Link} to={'/new'}>
                   <i>NEW</i>
                 </Nav.Link>
-                <Nav.Link className='px-4' as={Link} to={'/prompts'}>
-                  <i>PROMPTS</i>
+                <Nav.Link className='px-5' as={Link} to={'/posts'}>
+                  <i>POSTS</i>
                 </Nav.Link>
                 <Nav.Link className='px-5' as={Link} to={'/comments'}>
                   <i>COMMENTS</i>
                 </Nav.Link>
-                <Nav.Link className='px-4' as={Link} to={'/sales'}>
+                <Nav.Link className='px-5' as={Link} to={'/sales'}>
                   <i>SΛLES</i>
                 </Nav.Link>
-                <Nav.Link className='px-5' as={Link} to={'/about'}>
-                  <i>ΛBOUT</i>
-                </Nav.Link>
-                <Nav.Link className='px-2' onClick={() => disconnectMetamask()}>
+                <Nav.Link className='px-5' onClick={() => disconnectMetamask()}>
                   <i>DISCONNECT METΛMΛSK</i>
                 </Nav.Link>
               </Nav>
@@ -435,62 +428,62 @@ function App() {
         </Route>
         {!noMetamask && (
           <Route exact path='/new'>
-            <New writePrompt={writePrompt} updateLength={updateLength} />
+            <New writePost={writePost} updateLength={updateLength} />
           </Route>
         )}
-        <Route exact path='/prompts'>
+        <Route exact path='/posts'>
           <Feed
             accounts={accounts}
             length={length}
-            promptById={promptById}
+            postById={postById}
             authorById={authorById}
-            branchesById={branchesById}
+            commentsById={commentsById}
             tokensById={tokensById}
-            branchify={branchify}
+            writeComment={writeComment}
             updateLength={updateLength}
             collectionList={collectionList}
             validPrice={validPrice}
           />
         </Route>
-        <Route exact path='/prompts/:handle'>
+        <Route exact path='/posts/:handle'>
           <Feed
             accounts={accounts}
             length={length}
-            promptById={promptById}
+            postById={postById}
             authorById={authorById}
-            branchesById={branchesById}
+            commentsById={commentsById}
             tokensById={tokensById}
-            branchify={branchify}
+            writeComment={writeComment}
             updateLength={updateLength}
             collectionList={collectionList}
             validPrice={validPrice}
           />
         </Route>
         <Route exact path='/comments'>
-          <Branches
+          <Comments
             length={length}
             authorById={authorById}
-            branchesById={branchesById}
+            commentsById={commentsById}
             tokensById={tokensById}
-            getBranchCid={getBranchCid}
-            getBranchId={getBranchId}
+            getCommentCid={getCommentCid}
+            getCommentId={getCommentId}
           />
         </Route>
         <Route exact path='/sales'>
           <Sales
             accounts={accounts}
-            tokenPrompt={tokenPrompt}
+            tokenPost={tokenPost}
             validPrice={validPrice}
-            promptTokenList={promptTokenList}
+            postTokenList={postTokenList}
             buy={buy}
             mintToken={mintToken}
             addSale={addSale}
             removeSale={removeSale}
             auLength={auLength}
             startAuction={startAuction}
-            promptById={promptById}
+            postById={postById}
             authorById={authorById}
-            branchesById={branchesById}
+            commentsById={commentsById}
             auctionTokenId={auctionTokenId}
             auctionSeller={auctionSeller}
             auctionMinValue={auctionMinValue}
@@ -510,9 +503,6 @@ function App() {
             transfer={transfer}
             approve={approve}
           />
-        </Route>
-        <Route exact path='/about'>
-          <About />
         </Route>
         <Route exact path='/copyrights'>
           <Copyrights />

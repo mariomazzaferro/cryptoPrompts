@@ -8,11 +8,11 @@ import heart from './Heart.png'
 const Feed = ({
   accounts,
   length,
-  promptById,
+  postById,
   authorById,
-  branchesById,
+  commentsById,
   tokensById,
-  branchify,
+  writeComment,
   updateLength,
   collectionList,
 }) => {
@@ -20,12 +20,12 @@ const Feed = ({
   const [title, setTitle] = useState(undefined)
   const [writer, setWriter] = useState(undefined)
   const [root, setRoot] = useState(undefined)
-  const [branches, setBranches] = useState(undefined)
+  const [comments, setComments] = useState(undefined)
   const [tokens, setTokens] = useState(false)
   const [NFTId, setNFTId] = useState(undefined)
   const [showId, setShowId] = useState(undefined)
-  const [branchText, setBranchText] = useState(undefined)
-  const [branchTitle, setBranchTitle] = useState(undefined)
+  const [commentText, setCommentText] = useState(undefined)
+  const [commentTitle, setCommentTitle] = useState(undefined)
   const [loading, setLoading] = useState(false)
   const [collWriter, setCollWriter] = useState(false)
   const [list, setList] = useState(false)
@@ -42,7 +42,7 @@ const Feed = ({
     setTitle(undefined)
     setWriter(undefined)
     setRoot(undefined)
-    setBranches(undefined)
+    setComments(undefined)
     setTokens(undefined)
     setShowId(undefined)
     setText(`.`)
@@ -50,25 +50,25 @@ const Feed = ({
 
     if (handle) {
       setNFTId(parseInt(handle))
-      getPrompt(parseInt(handle))
+      getPost(parseInt(handle))
     }
   }, [length])
 
-  const getPrompt = async (id) => {
+  const getPost = async (id) => {
     setText(undefined)
     setRoot(undefined)
     setShowId(undefined)
-    const cid = await promptById(id)
+    const cid = await postById(id)
     const author = await authorById(id)
     const blob = await axios.get(`https://ipfs.io/ipfs/${cid}`)
     setTitle(blob.data.title)
     if (typeof blob.data.root !== undefined) {
       setRoot(blob.data.root)
     }
-    const branches = await branchesById(id)
+    const comments = await commentsById(id)
     const tokens = await tokensById(id)
     setWriter(author)
-    setBranches(branches)
+    setComments(comments)
     setTokens(tokens)
     setShowId(id)
     setText(blob.data.body)
@@ -79,14 +79,14 @@ const Feed = ({
       if (0 < NFTId) {
         const c = NFTId - 1
         setNFTId(c)
-        await getPrompt(c)
+        await getPost(c)
         history.push(`/`)
-        history.push(`/prompts/${c}`)
+        history.push(`/posts/${c}`)
       } else {
         setNFTId(length - 1)
-        await getPrompt(length - 1)
+        await getPost(length - 1)
         history.push(`/`)
-        history.push(`/prompts/${length - 1}`)
+        history.push(`/posts/${length - 1}`)
       }
     }
   }
@@ -96,58 +96,58 @@ const Feed = ({
       if (NFTId + 1 < length) {
         const c = NFTId + 1
         setNFTId(c)
-        await getPrompt(c)
+        await getPost(c)
         history.push(`/`)
-        history.push(`/prompts/${c}`)
+        history.push(`/posts/${c}`)
       } else {
         updateLength()
         setNFTId(0)
-        await getPrompt(0)
+        await getPost(0)
         history.push(`/`)
-        history.push(`/prompts/0`)
+        history.push(`/posts/0`)
       }
     }
   }
 
-  const updateBranch = (e) => {
-    const branchText = e.target.value
-    setBranchText(branchText)
+  const updateComment = (e) => {
+    const commentText = e.target.value
+    setCommentText(commentText)
   }
 
-  const updateBranchTitle = (e) => {
-    const branchTitle = e.target.value
-    setBranchTitle(branchTitle)
+  const updateCommentTitle = (e) => {
+    const commentTitle = e.target.value
+    setCommentTitle(commentTitle)
   }
 
-  const submitBranch = async (e) => {
+  const submitComment = async (e) => {
     e.preventDefault()
-    if (branchText && text && branchTitle && showId <= length) {
+    if (commentText && commentTitle && showId <= length) {
       setLoading(true)
       let res
       try {
-        res = await branchify(branchTitle, branchText, text, showId)
+        res = await writeComment(commentTitle, commentText, showId)
         console.log(res)
       } catch (err) {
         console.log(err.message)
       }
-      setBranchText(undefined)
+      setCommentText(undefined)
       formRef.current.reset()
       setLoading(false)
       if (res) {
         if (res.status) {
-          alert(`Prompt published successfully`)
+          alert(`Post published successfully`)
 
           await updateLength()
         } else {
-          alert('Branching failed')
+          alert('Commenting failed')
         }
       } else {
         alert(
-          `Branching is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/`
+          `Commenting is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/`
         )
       }
     } else {
-      alert('Branching failed. Make sure your Prompt has a title and a body.')
+      alert('Commenting failed. Make sure your Post has a title and a body.')
     }
   }
 
@@ -176,7 +176,7 @@ const Feed = ({
   const getNFT = async (e) => {
     e.preventDefault()
     if (typeof NFTId !== undefined && 0 <= NFTId && NFTId < parseInt(length)) {
-      await getPrompt(NFTId)
+      await getPost(NFTId)
     }
     setNFTId(undefined)
     formRef1.current.reset()
@@ -192,7 +192,7 @@ const Feed = ({
             className='font-weight-bold'
             style={{ color: 'silver' }}
           >
-            <i>Previous Prompt</i>
+            <i>Previous Post</i>
           </Button>
         </Col>
         <Col></Col>
@@ -204,7 +204,7 @@ const Feed = ({
             className='font-weight-bold'
             style={{ color: 'silver' }}
           >
-            <i>Next Prompt</i>
+            <i>Next Post</i>
           </Button>
         </Col>
       </Row>
@@ -216,7 +216,7 @@ const Feed = ({
         >
           <Card.Body>
             <Card.Title>
-              <h5 style={{ color: 'lightgray' }}>{`PROMPT ID: ${showId}`}</h5>
+              <h5 style={{ color: 'lightgray' }}>{`POST ID: ${showId}`}</h5>
               <br />
               <br />
               <h3>{`${title}`}</h3>
@@ -232,7 +232,7 @@ const Feed = ({
               <a
                 rel='noreferrer'
                 target='_blank'
-                href='https://www.cryptoprompts.art/copyrights'
+                href='https://www.cryptoposts.art/copyrights'
               >
                 <img
                   alt='Creative Commons License'
@@ -243,7 +243,7 @@ const Feed = ({
               <a
                 rel='noreferrer'
                 target='_blank'
-                href='https://www.cryptoprompts.art/copyrights'
+                href='https://www.cryptoposts.art/copyrights'
               >
                 <img
                   alt='Creative Commons Plus'
@@ -256,12 +256,12 @@ const Feed = ({
               {(root !== undefined || root === 0) && (
                 <h5
                   style={{ color: 'lightgray' }}
-                >{`ROOT PROMPT ID: ${root}`}</h5>
+                >{`ROOT POST ID: ${root}`}</h5>
               )}
-              <h5 style={{ color: 'lightgray' }}>{`COMMENTS: ${branches}`}</h5>
+              <h5 style={{ color: 'lightgray' }}>{`COMMENTS: ${comments}`}</h5>
               <h5 style={{ color: 'lightgray' }}>{`LΛNs: ${tokens}`}</h5>
               {accounts.length !== 0 && showId !== undefined && (
-                <Form ref={formRef} onSubmit={(e) => submitBranch(e)}>
+                <Form ref={formRef} onSubmit={(e) => submitComment(e)}>
                   <Form.Group>
                     <br />
                     <Form.Control
@@ -269,7 +269,7 @@ const Feed = ({
                       as='textarea'
                       rows='1'
                       placeholder='Title : )'
-                      onChange={(e) => updateBranchTitle(e)}
+                      onChange={(e) => updateCommentTitle(e)}
                     ></Form.Control>
                     <br />
                     <Form.Control
@@ -277,7 +277,7 @@ const Feed = ({
                       as='textarea'
                       rows='13'
                       placeholder='Write your Comment... : )'
-                      onChange={(e) => updateBranch(e)}
+                      onChange={(e) => updateComment(e)}
                     ></Form.Control>
                     <Button
                       variant='dark'
@@ -285,7 +285,7 @@ const Feed = ({
                       className='font-weight-bold'
                       style={{ color: 'silver' }}
                     >
-                      <i>Publish Prompt $</i>
+                      <i>Publish Post $</i>
                     </Button>
                     {loading && (
                       <div>
@@ -309,7 +309,7 @@ const Feed = ({
               <a
                 rel='noreferrer'
                 target='_blank'
-                href='https://www.cryptoprompts.art/copyrights'
+                href='https://www.cryptoposts.art/copyrights'
               >
                 <img
                   alt='Creative Commons Heart Logo'
@@ -376,7 +376,7 @@ const Feed = ({
                   <Row>
                     <Col>
                       <Form.Control
-                        placeholder='Prompt Id : )'
+                        placeholder='Post Id : )'
                         type='number'
                         onChange={(e) => updateNFTId(e)}
                       ></Form.Control>
@@ -388,7 +388,7 @@ const Feed = ({
                         className='font-weight-bold'
                         style={{ color: 'silver' }}
                       >
-                        <i>View Prompt</i>
+                        <i>View Post</i>
                       </Button>
                     </Col>
                   </Row>

@@ -6,11 +6,11 @@ import heart from './Heart.png'
 
 const Sales = ({
   accounts,
-  tokenPrompt,
+  tokenPost,
   validPrice,
   buy,
   mintToken,
-  promptTokenList,
+  postTokenList,
   addSale,
   removeSale,
   startAuction,
@@ -18,9 +18,9 @@ const Sales = ({
   withdrawFunds,
   withdrawPrize,
   auLength,
-  promptById,
+  postById,
   authorById,
-  branchesById,
+  commentsById,
   auctionTokenId,
   auctionSeller,
   auctionMinValue,
@@ -39,11 +39,11 @@ const Sales = ({
 }) => {
   const [infoTokenId, setInfoTokenId] = useState(undefined)
   const [infoShowTokenId, setInfoShowTokenId] = useState(undefined)
-  const [infoPromptId, setInfoPromptId] = useState(undefined)
+  const [infoPostId, setInfoPostId] = useState(undefined)
   const [infoPrice, setInfoPrice] = useState(undefined)
   const [infoOwner, setInfoOwner] = useState(undefined)
 
-  const [promptToks, setPromptToks] = useState(undefined)
+  const [postToks, setPostToks] = useState(undefined)
   const [tokenList, setTokenList] = useState(undefined)
   const [tokId, setTokId] = useState(undefined)
   const [owner, setOwner] = useState(undefined)
@@ -74,7 +74,7 @@ const Sales = ({
   const [showId, setShowId] = useState(undefined)
   const [title, setTitle] = useState(undefined)
   const [text, setText] = useState(undefined)
-  const [branches, setBranches] = useState(undefined)
+  const [comments, setComments] = useState(undefined)
   const [root, setRoot] = useState(undefined)
   const [writer, setWriter] = useState(undefined)
   const [seller, setSeller] = useState(undefined)
@@ -102,7 +102,7 @@ const Sales = ({
   useEffect(() => {
     setInfoTokenId(undefined)
     setInfoShowTokenId(undefined)
-    setInfoPromptId(undefined)
+    setInfoPostId(undefined)
     setInfoPrice(undefined)
     setInfoOwner(undefined)
     setTokenList(undefined)
@@ -110,7 +110,7 @@ const Sales = ({
     setTitle(undefined)
     setWriter(undefined)
     setRoot(undefined)
-    setBranches(undefined)
+    setComments(undefined)
     setShowId(undefined)
     setText(`.`)
     setSpinner(true)
@@ -121,9 +121,9 @@ const Sales = ({
     setRoot(undefined)
     setAuctionId(auctionId)
     const auTokenId = await auctionTokenId(auctionId)
-    const promptId = await tokenPrompt(auTokenId)
-    const author = await authorById(promptId)
-    const branches = await branchesById(promptId)
+    const postId = await tokenPost(auTokenId)
+    const author = await authorById(postId)
+    const comments = await commentsById(postId)
     const seller = await auctionSeller(auctionId)
     const minValue = await auctionMinValue(auctionId)
     const increment = await auctionIncrement(auctionId)
@@ -135,16 +135,16 @@ const Sales = ({
     if (accounts.length !== 0) {
       funds = await viewFunds(auctionId)
     }
-    const cid = await promptById(promptId)
+    const cid = await postById(postId)
     const blob = await axios.get(`https://ipfs.io/ipfs/${cid}`)
     setTitle(blob.data.title)
     if (blob.data.root) {
       setRoot(blob.data.root)
     }
     setWriter(author)
-    setBranches(branches)
+    setComments(comments)
     setAuTokenId(auTokenId)
-    setShowId(promptId)
+    setShowId(postId)
     setSeller(seller)
     setMinValue(minValue)
     setIncrement(increment)
@@ -185,7 +185,7 @@ const Sales = ({
 
   const updateTokenInfo = (e) => {
     setInfoShowTokenId(undefined)
-    setInfoPromptId(undefined)
+    setInfoPostId(undefined)
     setInfoPrice(undefined)
     setInfoOwner(undefined)
     const id = e.target.value
@@ -194,18 +194,18 @@ const Sales = ({
 
   const getTokenInfo = async (e) => {
     e.preventDefault()
-    let infoPromptId
+    let infoPostId
     let infoPrice
     let infoOwner
     if (infoTokenId) {
-      infoPromptId = await tokenPrompt(infoTokenId)
+      infoPostId = await tokenPost(infoTokenId)
       infoPrice = await validPrice(infoTokenId)
       infoOwner = await ownerOf(infoTokenId)
 
       formRef8.current.reset()
 
       setInfoShowTokenId(infoTokenId)
-      setInfoPromptId(infoPromptId)
+      setInfoPostId(infoPostId)
       setInfoPrice(infoPrice)
       setInfoOwner(infoOwner)
     }
@@ -234,23 +234,23 @@ const Sales = ({
 
       setLoading8(false)
       setInfoShowTokenId(undefined)
-      setInfoPromptId(undefined)
+      setInfoPostId(undefined)
       setInfoPrice(undefined)
       setInfoOwner(undefined)
     }
   }
 
-  const updatePromptToks = (e) => {
+  const updatePostToks = (e) => {
     setTokenList(undefined)
     const id = e.target.value
-    setPromptToks(id)
+    setPostToks(id)
   }
 
-  const getPromptToks = async (e) => {
+  const getPostToks = async (e) => {
     e.preventDefault()
     let tokenList
-    if (promptToks) {
-      tokenList = await promptTokenList(promptToks)
+    if (postToks) {
+      tokenList = await postTokenList(postToks)
     }
     setTokenList(tokenList)
   }
@@ -660,7 +660,7 @@ const Sales = ({
             </Card.Title>
             <Card.Text>
               <h5>{infoShowTokenId && `LΛN Id: ${infoShowTokenId}`}</h5>
-              <h5>{infoPromptId && `LΛN's Prompt Id: ${infoPromptId}`}</h5>
+              <h5>{infoPostId && `LΛN's Post Id: ${infoPostId}`}</h5>
               <h5>{infoOwner && `LΛN's Owner: ${infoOwner}`}</h5>
               <h5>
                 {infoShowTokenId &&
@@ -678,14 +678,14 @@ const Sales = ({
         >
           <Card.Body>
             <Card.Title>
-              <Form inline onSubmit={(e) => getPromptToks(e)}>
+              <Form inline onSubmit={(e) => getPostToks(e)}>
                 <Form.Group>
                   <Row>
                     <Col>
                       <Form.Control
-                        placeholder='Prompt Id : )'
+                        placeholder='Post Id : )'
                         type='number'
-                        onChange={(e) => updatePromptToks(e)}
+                        onChange={(e) => updatePostToks(e)}
                       ></Form.Control>
                     </Col>
                     <Col>
@@ -695,7 +695,7 @@ const Sales = ({
                         className='font-weight-bold'
                         style={{ color: 'silver' }}
                       >
-                        <i>Get Prompt's LΛN List</i>
+                        <i>Get Post's LΛN List</i>
                       </Button>
                     </Col>
                   </Row>
@@ -703,7 +703,7 @@ const Sales = ({
               </Form>
             </Card.Title>
             <Card.Text>
-              <h5>{tokenList && `Prompt's List of LΛN Ids: ${tokenList}`}</h5>
+              <h5>{tokenList && `Post's List of LΛN Ids: ${tokenList}`}</h5>
             </Card.Text>
           </Card.Body>
         </Card>
@@ -720,7 +720,7 @@ const Sales = ({
                     <Row>
                       <Col>
                         <Form.Control
-                          placeholder='Prompt Id : )'
+                          placeholder='Post Id : )'
                           type='number'
                           onChange={(e) => updateTokId(e)}
                         ></Form.Control>
@@ -732,7 +732,7 @@ const Sales = ({
                           className='font-weight-bold'
                           style={{ color: 'silver' }}
                         >
-                          <i>Mint New Prompt LΛN (License) $</i>
+                          <i>Mint New LΛN $</i>
                         </Button>
                         {loading7 && <div class='spinner-border'></div>}
                       </Col>
@@ -912,7 +912,7 @@ const Sales = ({
                 <br />
                 <h5
                   style={{ color: 'lightgray' }}
-                >{`LΛN'S PROMPT ID: ${showId}`}</h5>
+                >{`LΛN'S POST ID: ${showId}`}</h5>
                 <br />
                 <br />
                 <h3>{`${title}`}</h3>
@@ -928,7 +928,7 @@ const Sales = ({
                 <a
                   rel='noreferrer'
                   target='_blank'
-                  href='https://www.cryptoprompts.art/copyrights'
+                  href='https://www.cryptoposts.art/copyrights'
                 >
                   <img
                     alt='Creative Commons License'
@@ -939,7 +939,7 @@ const Sales = ({
                 <a
                   rel='noreferrer'
                   target='_blank'
-                  href='https://www.cryptoprompts.art/copyrights'
+                  href='https://www.cryptoposts.art/copyrights'
                 >
                   <img
                     alt='Creative Commons Plus'
@@ -956,11 +956,11 @@ const Sales = ({
                 {root && (
                   <h5
                     style={{ color: 'lightgray' }}
-                  >{`ROOT PROMPT ID: ${root}`}</h5>
+                  >{`ROOT POST ID: ${root}`}</h5>
                 )}
                 <h5
                   style={{ color: 'lightgray' }}
-                >{`COMMENTS: ${branches}`}</h5>
+                >{`COMMENTS: ${comments}`}</h5>
                 <br />
                 <h5 style={{ color: 'lightgray' }}>{`SELLER: ${seller}`}</h5>
                 <h5
@@ -1075,7 +1075,7 @@ const Sales = ({
                 <a
                   rel='noreferrer'
                   target='_blank'
-                  href='https://www.cryptoprompts.art/copyrights'
+                  href='https://www.cryptoposts.art/copyrights'
                 >
                   <img
                     alt='Creative Commons Heart Logo'

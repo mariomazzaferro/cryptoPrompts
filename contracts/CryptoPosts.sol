@@ -3,18 +3,18 @@ pragma solidity 0.8.0;
 
 import "../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol";
 
-/// @title Contract for publishing Prompts and NFT Copyright Permissions
+/// @title Crypto Posts
 /// @author Mario Mazzaferro
-/// @notice Allows users to publish content (Prompts) and manage their NFT Copyright Permissions
-contract Prompts is ERC721 {
+/// @notice Manage Copyright Permissions through License Associated NFTs (LANs)
+contract CryptoPosts is ERC721 {
     /// @notice Tracks number of minted tokens
     uint256 public counter;
 
-    /// @notice Stores Prompt's data
-    struct Prompt {
+    /// @notice Stores Post's data
+    struct Post {
         string cid;
         address author;
-        uint256[] branches;
+        uint256[] comments;
         uint256[] tokens;
     }
 
@@ -29,17 +29,17 @@ contract Prompts is ERC721 {
         uint256[] bids;
     }
 
-    /// @notice List of all Prompts ordered by Prompt Id ascending order
-    Prompt[] public prompts;
+    /// @notice List of all Posts ordered by Post Id ascending order
+    Post[] public posts;
 
     /// @notice List of all Auctions ordered by Auction Id ascending order
     Auction[] public auctions;
 
-    /// @notice Relates Writer's Address to its respective Prompt Collection
+    /// @notice Relates Writer's Address to its respective Post Collection
     mapping(address => uint256[]) public collections;
 
-    /// @notice Relates token Id to its respective Prompt
-    mapping(uint256 => uint256) public tokenPrompt;
+    /// @notice Relates token Id to its respective Post
+    mapping(uint256 => uint256) public tokenPost;
 
     /// @notice Relates token Id to its respective price
     mapping(uint256 => uint256) public price;
@@ -62,9 +62,9 @@ contract Prompts is ERC721 {
         _;
     }
 
-    /// @notice Checks if promptId is an existing Prompt
-    modifier validPromptId(uint256 promptId) {
-        require(promptId < prompts.length, "Invalid Prompt");
+    /// @notice Checks if postId is an existing Post
+    modifier validPostId(uint256 postId) {
+        require(postId < posts.length, "Invalid Post");
         _;
     }
 
@@ -76,7 +76,7 @@ contract Prompts is ERC721 {
     }
 
     /// @notice Sets initial values for the ERC-721 standard
-    constructor() ERC721("Prompts", "PRP") {}
+    constructor() ERC721("CryptoPosts", "CPT") {}
 
     /// @notice Returns MetadataURI for that specific tokenId
     /// @param tokenId Id of the specific Token
@@ -94,130 +94,130 @@ contract Prompts is ERC721 {
             string(
                 abi.encodePacked(
                     "https://ipfs.io/ipfs/",
-                    prompts[tokenPrompt[tokenId]].cid
+                    posts[tokenPost[tokenId]].cid
                 )
             );
     }
 
-    /// @notice Effectively publishes Prompt
-    /// @param newCid IPFS CID of the Prompt that is being published
-    function _publishValidPrompt(string calldata newCid) private {
-        collections[msg.sender].push(prompts.length);
-        uint256[] memory branches;
+    /// @notice Effectively publishes Post
+    /// @param newCid IPFS CID of the Post that is being published
+    function _publishValidPost(string calldata newCid) private {
+        collections[msg.sender].push(posts.length);
+        uint256[] memory comments;
         uint256[] memory tokens;
-        prompts.push(Prompt(newCid, msg.sender, branches, tokens));
+        posts.push(Post(newCid, msg.sender, comments, tokens));
     }
 
-    /// @notice Publishes Prompt
-    /// @param newCid IPFS CID of the Prompt that is being published
-    function publishPrompt(string calldata newCid) external {
-        _publishValidPrompt(newCid);
+    /// @notice Publishes Post
+    /// @param newCid IPFS CID of the Post that is being published
+    function publishPost(string calldata newCid) external {
+        _publishValidPost(newCid);
     }
 
-    /// @notice Publishes branch Prompt
-    /// @param newCid IPFS CID of the Prompt that is being published
-    function publishPrompt(string calldata newCid, uint256 rootId)
+    /// @notice Publishes Comment Post
+    /// @param newCid IPFS CID of the Post that is being published
+    function publishPost(string calldata newCid, uint256 rootId)
         external
-        validPromptId(rootId)
+        validPostId(rootId)
     {
-        prompts[rootId].branches.push(prompts.length);
-        _publishValidPrompt(newCid);
+        posts[rootId].comments.push(posts.length);
+        _publishValidPost(newCid);
     }
 
-    /// @notice Mints Prompt token (CC License)
-    /// @param promptId Id of target Prompt to be used for Prompt token minting
-    function mintToken(uint256 promptId) external validPromptId(promptId) {
-        require(msg.sender == prompts[promptId].author);
+    /// @notice Mints token (License Associated NFT)
+    /// @param postId Id of target Post to be used for token minting
+    function mintToken(uint256 postId) external validPostId(postId) {
+        require(msg.sender == posts[postId].author);
         _safeMint(msg.sender, counter);
-        tokenPrompt[counter] = promptId;
-        prompts[promptId].tokens.push(counter);
+        tokenPost[counter] = postId;
+        posts[postId].tokens.push(counter);
         counter++;
     }
 
-    /// @notice Returns length of the prompts list
-    function promptsLenght() external view returns (uint256) {
-        return prompts.length;
+    /// @notice Returns length of the posts list
+    function postsLenght() external view returns (uint256) {
+        return posts.length;
     }
 
-    /// @notice Returns IPFS CID of a specific promptId
-    /// @param promptId Id of the specific Prompt
-    function promptCid(uint256 promptId)
+    /// @notice Returns IPFS CID of a specific postId
+    /// @param postId Id of the specific Post
+    function postCid(uint256 postId)
         external
         view
-        validPromptId(promptId)
+        validPostId(postId)
         returns (string memory)
     {
-        return prompts[promptId].cid;
+        return posts[postId].cid;
     }
 
-    /// @notice Returns author of a specific promptId
-    /// @param promptId Id of the specific Prompt
-    function promptAuthor(uint256 promptId)
+    /// @notice Returns author of a specific postId
+    /// @param postId Id of the specific Post
+    function postAuthor(uint256 postId)
         external
         view
-        validPromptId(promptId)
+        validPostId(postId)
         returns (address)
     {
-        return prompts[promptId].author;
+        return posts[postId].author;
     }
 
-    /// @notice Returns number of branches for that specific promptId
-    /// @param promptId Id of the specific Prompt
-    function promptBranches(uint256 promptId)
+    /// @notice Returns number of comments for that specific postId
+    /// @param postId Id of the specific Post
+    function postComments(uint256 postId)
         external
         view
-        validPromptId(promptId)
+        validPostId(postId)
         returns (uint256)
     {
-        return prompts[promptId].branches.length;
+        return posts[postId].comments.length;
     }
 
-    /// @notice Returns list of branches for that specific promptId
-    /// @param promptId Id of the specific Prompt
-    function promptBranchList(uint256 promptId)
+    /// @notice Returns list of comments for that specific postId
+    /// @param postId Id of the specific Post
+    function postCommentList(uint256 postId)
         external
         view
-        validPromptId(promptId)
+        validPostId(postId)
         returns (uint256[] memory)
     {
-        return prompts[promptId].branches;
+        return posts[postId].comments;
     }
 
-    /// @notice Returns Id of a specific Branch
-    /// @param promptId Id of the specific Prompt
-    /// @param branchNumber Number of the specific Branch
-    function branchId(uint256 promptId, uint256 branchNumber)
+    /// @notice Returns Id of a specific Comment
+    /// @param postId Id of the specific Post
+    /// @param commentNumber Number of the specific Comment
+    function commentId(uint256 postId, uint256 commentNumber)
         external
         view
-        validPromptId(promptId)
+        validPostId(postId)
         returns (uint256)
     {
-        return prompts[promptId].branches[branchNumber];
+        return posts[postId].comments[commentNumber];
     }
 
-    /// @notice Returns number of tokens for that specific promptId
-    /// @param promptId Id of the specific Prompt
-    function promptTokens(uint256 promptId)
+    /// @notice Returns number of tokens for that specific postId
+    /// @param postId Id of the specific Post
+    function postTokens(uint256 postId)
         external
         view
-        validPromptId(promptId)
+        validPostId(postId)
         returns (uint256)
     {
-        return prompts[promptId].tokens.length;
+        return posts[postId].tokens.length;
     }
 
-    /// @notice Returns list of tokens for that specific promptId
-    /// @param promptId Id of the specific Prompt
-    function promptTokenList(uint256 promptId)
+    /// @notice Returns list of tokens for that specific postId
+    /// @param postId Id of the specific Post
+    function postTokenList(uint256 postId)
         external
         view
-        validPromptId(promptId)
+        validPostId(postId)
         returns (uint256[] memory)
     {
-        return prompts[promptId].tokens;
+        return posts[postId].tokens;
     }
 
-    /// @notice Returns list of Prompts written by a specific address
+    /// @notice Returns list of Posts written by a specific address
     /// @param authorAddress Address of the specific author
     function authorCollection(address authorAddress)
         external

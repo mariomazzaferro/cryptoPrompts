@@ -1,40 +1,40 @@
 import React, { useState, useRef } from 'react'
 import { Container, Button, Form, Card } from 'react-bootstrap'
 
-const New = ({ writePrompt, updateLength }) => {
-  const [prompt, setPrompt] = useState(undefined)
+const New = ({ writePost, updateLength }) => {
+  const [post, setPost] = useState(undefined)
   const [title, setTitle] = useState(undefined)
   const [loading, setLoading] = useState(false)
   const formRef = useRef(null)
 
   const submit = async (e) => {
     e.preventDefault()
-    if (prompt && title) {
+    if (post && title) {
       setLoading(true)
       let res
       try {
-        res = await writePrompt(title, prompt)
+        res = await writePost(title, post)
       } catch (err) {
         console.log(err.message)
       }
-      setPrompt(undefined)
+      setPost(undefined)
       setTitle(undefined)
       formRef.current.reset()
       setLoading(false)
       if (res) {
         if (res.status) {
-          alert(`Prompt published successfully`)
+          alert(`Post published successfully`)
           await updateLength()
         } else {
-          alert('Prompt failed')
+          alert('Post failed')
         }
       } else {
         alert(
-          `Prompt creation is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/`
+          `Post publication is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/`
         )
       }
     } else {
-      alert('Prompt failed. Make sure your Prompt has a title and a body.')
+      alert('Post failed. Make sure your Post has a title and a body.')
     }
   }
 
@@ -43,9 +43,9 @@ const New = ({ writePrompt, updateLength }) => {
     setTitle(title)
   }
 
-  const updatePrompt = (e) => {
-    const prompt = e.target.value
-    setPrompt(prompt)
+  const updatePost = (e) => {
+    const post = e.target.value
+    setPost(post)
   }
 
   return (
@@ -69,8 +69,8 @@ const New = ({ writePrompt, updateLength }) => {
                 style={{ textAlign: 'center' }}
                 as='textarea'
                 rows='15'
-                placeholder='Write your Prompt... : )'
-                onChange={(e) => updatePrompt(e)}
+                placeholder='Write your Post... : )'
+                onChange={(e) => updatePost(e)}
               ></Form.Control>
               <Button
                 variant='dark'
@@ -78,7 +78,7 @@ const New = ({ writePrompt, updateLength }) => {
                 className='font-weight-bold'
                 style={{ color: 'silver' }}
               >
-                <i>Publish Prompt $</i>
+                <i>Publish Post $</i>
               </Button>
               {loading && (
                 <div>

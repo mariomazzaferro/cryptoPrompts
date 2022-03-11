@@ -1,6 +1,6 @@
 import Web3 from 'web3'
 import { NFTStorage } from 'nft.storage'
-import Prompts from './contracts/Prompts.json'
+import CryptoPosts from './contracts/CryptoPosts.json'
 
 const client = new NFTStorage({
   token: process.env.REACT_APP_NFTSTORAGE_API_KEY,
@@ -42,16 +42,16 @@ const getWeb3 = async () => {
 
 const getContract = async (web3) => {
   const networkId = await web3.eth.net.getId()
-  const contractDeployment = Prompts.networks[networkId]
+  const contractDeployment = CryptoPosts.networks[networkId]
   return new web3.eth.Contract(
-    Prompts.abi,
+    CryptoPosts.abi,
     contractDeployment && contractDeployment.address
   )
 }
 
 const getContractAddress = async (web3) => {
   const networkId = await web3.eth.net.getId()
-  const contractDeployment = Prompts.networks[networkId]
+  const contractDeployment = CryptoPosts.networks[networkId]
   return contractDeployment.address
 }
 

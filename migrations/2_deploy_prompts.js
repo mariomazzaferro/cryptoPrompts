@@ -1,5 +1,5 @@
-const Prompts = artifacts.require("Prompts");
+const CryptoPosts = artifacts.require('CryptoPosts')
 
 module.exports = function (deployer) {
-  deployer.deploy(Prompts);
-};
+  deployer.deploy(CryptoPosts)
+}
