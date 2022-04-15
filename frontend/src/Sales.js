@@ -20,7 +20,8 @@ const Sales = ({
   auLength,
   postById,
   authorById,
-  commentsById,
+  rootById,
+  derivativesById,
   auctionTokenId,
   auctionSeller,
   auctionMinValue,
@@ -74,7 +75,7 @@ const Sales = ({
   const [showId, setShowId] = useState(undefined)
   const [title, setTitle] = useState(undefined)
   const [text, setText] = useState(undefined)
-  const [comments, setComments] = useState(undefined)
+  const [derivatives, setDerivatives] = useState(undefined)
   const [root, setRoot] = useState(undefined)
   const [writer, setWriter] = useState(undefined)
   const [seller, setSeller] = useState(undefined)
@@ -110,7 +111,7 @@ const Sales = ({
     setTitle(undefined)
     setWriter(undefined)
     setRoot(undefined)
-    setComments(undefined)
+    setDerivatives(undefined)
     setShowId(undefined)
     setText(`.`)
     setSpinner(true)
@@ -123,7 +124,8 @@ const Sales = ({
     const auTokenId = await auctionTokenId(auctionId)
     const postId = await tokenPost(auTokenId)
     const author = await authorById(postId)
-    const comments = await commentsById(postId)
+    const root = await rootById(postId)
+    const derivatives = await derivativesById(postId)
     const seller = await auctionSeller(auctionId)
     const minValue = await auctionMinValue(auctionId)
     const increment = await auctionIncrement(auctionId)
@@ -138,11 +140,9 @@ const Sales = ({
     const cid = await postById(postId)
     const blob = await axios.get(`https://ipfs.io/ipfs/${cid}`)
     setTitle(blob.data.title)
-    if (blob.data.root) {
-      setRoot(blob.data.root)
-    }
     setWriter(author)
-    setComments(comments)
+    setRoot(root)
+    setDerivatives(derivatives)
     setAuTokenId(auTokenId)
     setShowId(postId)
     setSeller(seller)
@@ -960,7 +960,7 @@ const Sales = ({
                 )}
                 <h5
                   style={{ color: 'lightgray' }}
-                >{`COMMENTS: ${comments}`}</h5>
+                >{`DERIVATIVES: ${derivatives}`}</h5>
                 <br />
                 <h5 style={{ color: 'lightgray' }}>{`SELLER: ${seller}`}</h5>
                 <h5

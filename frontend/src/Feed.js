@@ -10,9 +10,10 @@ const Feed = ({
   length,
   postById,
   authorById,
-  commentsById,
+  rootById,
+  derivativesById,
   tokensById,
-  writeComment,
+  writeDerivative,
   updateLength,
   collectionList,
 }) => {
@@ -20,12 +21,12 @@ const Feed = ({
   const [title, setTitle] = useState(undefined)
   const [writer, setWriter] = useState(undefined)
   const [root, setRoot] = useState(undefined)
-  const [comments, setComments] = useState(undefined)
+  const [derivatives, setDerivatives] = useState(undefined)
   const [tokens, setTokens] = useState(false)
-  const [NFTId, setNFTId] = useState(undefined)
+  const [postId, setPostId] = useState(undefined)
   const [showId, setShowId] = useState(undefined)
-  const [commentText, setCommentText] = useState(undefined)
-  const [commentTitle, setCommentTitle] = useState(undefined)
+  const [derivativeText, setDerivativeText] = useState(undefined)
+  const [derivativeTitle, setDerivativeTitle] = useState(undefined)
   const [loading, setLoading] = useState(false)
   const [collWriter, setCollWriter] = useState(false)
   const [list, setList] = useState(false)
@@ -38,18 +39,18 @@ const Feed = ({
   let { handle } = useParams()
 
   useEffect(() => {
-    setNFTId(parseInt(length))
+    setPostId(parseInt(length))
     setTitle(undefined)
     setWriter(undefined)
     setRoot(undefined)
-    setComments(undefined)
+    setDerivatives(undefined)
     setTokens(undefined)
     setShowId(undefined)
     setText(`.`)
     setSpinner(true)
 
     if (handle) {
-      setNFTId(parseInt(handle))
+      setPostId(parseInt(handle))
       getPost(parseInt(handle))
     }
   }, [length])
@@ -60,30 +61,29 @@ const Feed = ({
     setShowId(undefined)
     const cid = await postById(id)
     const author = await authorById(id)
+    const root = await rootById(id)
     const blob = await axios.get(`https://ipfs.io/ipfs/${cid}`)
     setTitle(blob.data.title)
-    if (typeof blob.data.root !== undefined) {
-      setRoot(blob.data.root)
-    }
-    const comments = await commentsById(id)
+    const derivatives = await derivativesById(id)
     const tokens = await tokensById(id)
     setWriter(author)
-    setComments(comments)
+    setRoot(root)
+    setDerivatives(derivatives)
     setTokens(tokens)
     setShowId(id)
     setText(blob.data.body)
   }
 
   const next = async () => {
-    if (length > 0) {
-      if (0 < NFTId) {
-        const c = NFTId - 1
-        setNFTId(c)
+    if (length > 1) {
+      if (1 < postId) {
+        const c = postId - 1
+        setPostId(c)
         await getPost(c)
         history.push(`/`)
         history.push(`/posts/${c}`)
       } else {
-        setNFTId(length - 1)
+        setPostId(length - 1)
         await getPost(length - 1)
         history.push(`/`)
         history.push(`/posts/${length - 1}`)
@@ -92,62 +92,64 @@ const Feed = ({
   }
 
   const prev = async () => {
-    if (length > 0) {
-      if (NFTId + 1 < length) {
-        const c = NFTId + 1
-        setNFTId(c)
+    if (length > 1) {
+      if (postId + 1 < length) {
+        const c = postId + 1
+        setPostId(c)
         await getPost(c)
         history.push(`/`)
         history.push(`/posts/${c}`)
       } else {
         updateLength()
-        setNFTId(0)
-        await getPost(0)
+        setPostId(1)
+        await getPost(1)
         history.push(`/`)
-        history.push(`/posts/0`)
+        history.push(`/posts/1`)
       }
     }
   }
 
-  const updateComment = (e) => {
-    const commentText = e.target.value
-    setCommentText(commentText)
+  const updateDerivative = (e) => {
+    const derivativeText = e.target.value
+    setDerivativeText(derivativeText)
   }
 
-  const updateCommentTitle = (e) => {
-    const commentTitle = e.target.value
-    setCommentTitle(commentTitle)
+  const updateDerivativeTitle = (e) => {
+    const derivativeTitle = e.target.value
+    setDerivativeTitle(derivativeTitle)
   }
 
-  const submitComment = async (e) => {
+  const submitDerivative = async (e) => {
     e.preventDefault()
-    if (commentText && commentTitle && showId <= length) {
+    if (derivativeText && derivativeTitle && showId <= length) {
       setLoading(true)
       let res
       try {
-        res = await writeComment(commentTitle, commentText, showId)
+        res = await writeDerivative(derivativeTitle, derivativeText, showId)
         console.log(res)
       } catch (err) {
         console.log(err.message)
       }
-      setCommentText(undefined)
+      setDerivativeText(undefined)
       formRef.current.reset()
       setLoading(false)
       if (res) {
         if (res.status) {
-          alert(`Post published successfully`)
+          alert(`Derivative Post published successfully`)
 
           await updateLength()
         } else {
-          alert('Commenting failed')
+          alert('Publishing Derivative failed')
         }
       } else {
         alert(
-          `Commenting is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/`
+          `Publishing Derivative is taking too long. The transaction might still be mined. Wait a while and then check your address transactions on https://polygonscan.com/`
         )
       }
     } else {
-      alert('Commenting failed. Make sure your Post has a title and a body.')
+      alert(
+        'Publishing Derivative failed. Make sure your Post has a title and a body.'
+      )
     }
   }
 
@@ -168,17 +170,21 @@ const Feed = ({
     setList(list)
   }
 
-  const updateNFTId = (e) => {
-    const NFTId = e.target.value
-    setNFTId(parseInt(NFTId))
+  const updatePostId = (e) => {
+    const postId = e.target.value
+    setPostId(parseInt(postId))
   }
 
-  const getNFT = async (e) => {
+  const getSpecificPost = async (e) => {
     e.preventDefault()
-    if (typeof NFTId !== undefined && 0 <= NFTId && NFTId < parseInt(length)) {
-      await getPost(NFTId)
+    if (
+      typeof postId !== undefined &&
+      0 < postId &&
+      postId < parseInt(length)
+    ) {
+      await getPost(postId)
     }
-    setNFTId(undefined)
+    setPostId(undefined)
     formRef1.current.reset()
   }
 
@@ -253,15 +259,17 @@ const Feed = ({
               </a>
               <br />
               <br />
-              {(root !== undefined || root === 0) && (
+              {root != 0 && (
                 <h5
                   style={{ color: 'lightgray' }}
                 >{`ROOT POST ID: ${root}`}</h5>
               )}
-              <h5 style={{ color: 'lightgray' }}>{`COMMENTS: ${comments}`}</h5>
+              <h5
+                style={{ color: 'lightgray' }}
+              >{`DERIVATIVES: ${derivatives}`}</h5>
               <h5 style={{ color: 'lightgray' }}>{`LΛNs: ${tokens}`}</h5>
               {accounts.length !== 0 && showId !== undefined && (
-                <Form ref={formRef} onSubmit={(e) => submitComment(e)}>
+                <Form ref={formRef} onSubmit={(e) => submitDerivative(e)}>
                   <Form.Group>
                     <br />
                     <Form.Control
@@ -269,15 +277,15 @@ const Feed = ({
                       as='textarea'
                       rows='1'
                       placeholder='Title : )'
-                      onChange={(e) => updateCommentTitle(e)}
+                      onChange={(e) => updateDerivativeTitle(e)}
                     ></Form.Control>
                     <br />
                     <Form.Control
                       style={{ textAlign: 'center' }}
                       as='textarea'
                       rows='13'
-                      placeholder='Write your Comment... : )'
-                      onChange={(e) => updateComment(e)}
+                      placeholder='Write your Derivative Post... : )'
+                      onChange={(e) => updateDerivative(e)}
                     ></Form.Control>
                     <Button
                       variant='dark'
@@ -371,14 +379,14 @@ const Feed = ({
         >
           <Card.Body>
             <Card.Title>
-              <Form ref={formRef1} inline onSubmit={(e) => getNFT(e)}>
+              <Form ref={formRef1} inline onSubmit={(e) => getSpecificPost(e)}>
                 <Form.Group>
                   <Row>
                     <Col>
                       <Form.Control
                         placeholder='Post Id : )'
                         type='number'
-                        onChange={(e) => updateNFTId(e)}
+                        onChange={(e) => updatePostId(e)}
                       ></Form.Control>
                     </Col>
                     <Col>

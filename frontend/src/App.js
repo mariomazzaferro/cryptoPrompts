@@ -7,7 +7,7 @@ import { getWeb3, getContract, getContractAddress, client } from './utils.js'
 import Home from './Home.js'
 import New from './New.js'
 import Feed from './Feed.js'
-import Comments from './Comments.js'
+import Derivatives from './Derivatives.js'
 import Sales from './Sales.js'
 import Copyrights from './Copyrights.js'
 
@@ -118,11 +118,10 @@ function App() {
     return res
   }
 
-  const writeComment = async (title, newText, oldId) => {
+  const writeDerivative = async (title, newText, oldId) => {
     let formatedString = JSON.stringify({
-      title: `${title}`,
-      body: `Λ${newText}`,
-      root: oldId,
+      title: `Δ ${title}`,
+      body: `${newText}`,
     })
     const cid = await storeString(formatedString)
     const res = await contract.methods
@@ -163,9 +162,19 @@ function App() {
     return postAuthor
   }
 
-  const commentsById = async (postId) => {
-    const comments = await contract.methods.postComments(postId).call()
-    return comments
+  const rootById = async (postId) => {
+    let postRoot
+    try {
+      postRoot = await contract.methods.postRoot(postId).call()
+    } catch (err) {
+      console.log(err.message)
+    }
+    return postRoot
+  }
+
+  const derivativesById = async (postId) => {
+    const derivatives = await contract.methods.postDerivatives(postId).call()
+    return derivatives
   }
 
   const tokensById = async (postId) => {
@@ -178,19 +187,21 @@ function App() {
     return tokenList
   }
 
-  const getCommentCid = async (postId, commentNumber) => {
-    const commentPostId = await contract.methods
-      .commentId(postId, commentNumber)
+  const getDerivativeCid = async (postId, derivativeNumber) => {
+    const derivativePostId = await contract.methods
+      .derivativeId(postId, derivativeNumber)
       .call()
-    const commentCid = await contract.methods.postCid(commentPostId).call()
-    return commentCid
+    const derivativeCid = await contract.methods
+      .postCid(derivativePostId)
+      .call()
+    return derivativeCid
   }
 
-  const getCommentId = async (postId, commentNumber) => {
-    const commentPostId = await contract.methods
-      .commentId(postId, commentNumber)
+  const getDerivativeId = async (postId, derivativeNumber) => {
+    const derivativePostId = await contract.methods
+      .derivativeId(postId, derivativeNumber)
       .call()
-    return commentPostId
+    return derivativePostId
   }
 
   const collectionList = async (writer) => {
@@ -374,8 +385,8 @@ function App() {
                 <Nav.Link className='px-5' as={Link} to={'/posts'}>
                   <i>POSTS</i>
                 </Nav.Link>
-                <Nav.Link className='px-5' as={Link} to={'/comments'}>
-                  <i>COMMENTS</i>
+                <Nav.Link className='px-5' as={Link} to={'/derivatives'}>
+                  <i>DERIVΛTIVES</i>
                 </Nav.Link>
                 <Nav.Link className='px-5' as={Link} to={'/sales'}>
                   <i>SΛLES</i>
@@ -402,8 +413,8 @@ function App() {
                 <Nav.Link className='px-5' as={Link} to={'/posts'}>
                   <i>POSTS</i>
                 </Nav.Link>
-                <Nav.Link className='px-5' as={Link} to={'/comments'}>
-                  <i>COMMENTS</i>
+                <Nav.Link className='px-5' as={Link} to={'/derivatives'}>
+                  <i>DERIVΛTIVES</i>
                 </Nav.Link>
                 <Nav.Link className='px-5' as={Link} to={'/sales'}>
                   <i>SΛLES</i>
@@ -437,9 +448,10 @@ function App() {
             length={length}
             postById={postById}
             authorById={authorById}
-            commentsById={commentsById}
+            rootById={rootById}
+            derivativesById={derivativesById}
             tokensById={tokensById}
-            writeComment={writeComment}
+            writeDerivative={writeDerivative}
             updateLength={updateLength}
             collectionList={collectionList}
             validPrice={validPrice}
@@ -451,22 +463,23 @@ function App() {
             length={length}
             postById={postById}
             authorById={authorById}
-            commentsById={commentsById}
+            rootById={rootById}
+            derivativesById={derivativesById}
             tokensById={tokensById}
-            writeComment={writeComment}
+            writeDerivative={writeDerivative}
             updateLength={updateLength}
             collectionList={collectionList}
             validPrice={validPrice}
           />
         </Route>
-        <Route exact path='/comments'>
-          <Comments
+        <Route exact path='/derivatives'>
+          <Derivatives
             length={length}
             authorById={authorById}
-            commentsById={commentsById}
+            derivativesById={derivativesById}
             tokensById={tokensById}
-            getCommentCid={getCommentCid}
-            getCommentId={getCommentId}
+            getDerivativeCid={getDerivativeCid}
+            getDerivativeId={getDerivativeId}
           />
         </Route>
         <Route exact path='/sales'>
@@ -483,7 +496,8 @@ function App() {
             startAuction={startAuction}
             postById={postById}
             authorById={authorById}
-            commentsById={commentsById}
+            rootById={rootById}
+            derivativesById={derivativesById}
             auctionTokenId={auctionTokenId}
             auctionSeller={auctionSeller}
             auctionMinValue={auctionMinValue}

@@ -14,7 +14,8 @@ contract CryptoPosts is ERC721 {
     struct Post {
         string cid;
         address author;
-        uint256[] comments;
+        uint256 root;
+        uint256[] derivatives;
         uint256[] tokens;
     }
 
@@ -50,21 +51,24 @@ contract CryptoPosts is ERC721 {
     /// @notice Relates Auction Id to it's mapping of bidders to funds
     mapping(uint256 => mapping(address => uint256)) public funds;
 
+    /// @notice Relates addresses that own LAN of PostIds
+    mapping(uint256 => mapping(address => bool)) public canMint;
+
     /// @notice Checks if msg.sender owns tokenId
     modifier OnlyTokenOwner(uint256 tokenId) {
-        require(ownerOf(tokenId) == msg.sender, "You don't own this token");
+        require(ownerOf(tokenId) == msg.sender);
         _;
     }
 
     /// @notice Checks if tokenId is for sale
     modifier HasPrice(uint256 tokenId) {
-        require(price[tokenId] > 0, "This token is not for sale");
+        require(price[tokenId] > 0);
         _;
     }
 
     /// @notice Checks if postId is an existing Post
     modifier validPostId(uint256 postId) {
-        require(postId < posts.length, "Invalid Post");
+        require(postId < posts.length && postId != 0);
         _;
     }
 
@@ -76,7 +80,30 @@ contract CryptoPosts is ERC721 {
     }
 
     /// @notice Sets initial values for the ERC-721 standard
-    constructor() ERC721("CryptoPosts", "CPT") {}
+    constructor() ERC721("CryptoPosts", "CPT") {
+        counter++;
+        uint256[] memory derivatives;
+        uint256[] memory tokens;
+        posts.push(Post("", msg.sender, 0, derivatives, tokens));
+    }
+
+    /// @notice
+    /// @param from Address of the sender
+    /// @param to Address of the receiver
+    /// @param tokenId Id of the specific Token
+    function _beforeTokenTransfer(
+        address from,
+        address to,
+        uint256 tokenId
+    ) internal override {
+        require(canMint[tokenPost[tokenId]][to] == false);
+        if (from != address(0)) {
+            canMint[tokenPost[tokenId]][from] = false;
+        }
+        if (to != address(0)) {
+            canMint[tokenPost[tokenId]][to] = true;
+        }
+    }
 
     /// @notice Returns MetadataURI for that specific tokenId
     /// @param tokenId Id of the specific Token
@@ -86,10 +113,7 @@ contract CryptoPosts is ERC721 {
         override
         returns (string memory)
     {
-        require(
-            _exists(tokenId),
-            "ERC721Metadata: URI query for nonexistent token"
-        );
+        require(_exists(tokenId));
         return
             string(
                 abi.encodePacked(
@@ -99,35 +123,36 @@ contract CryptoPosts is ERC721 {
             );
     }
 
-    /// @notice Effectively publishes Post
-    /// @param newCid IPFS CID of the Post that is being published
-    function _publishValidPost(string calldata newCid) private {
-        collections[msg.sender].push(posts.length);
-        uint256[] memory comments;
-        uint256[] memory tokens;
-        posts.push(Post(newCid, msg.sender, comments, tokens));
-    }
-
     /// @notice Publishes Post
     /// @param newCid IPFS CID of the Post that is being published
     function publishPost(string calldata newCid) external {
-        _publishValidPost(newCid);
+        collections[msg.sender].push(posts.length);
+        uint256[] memory derivatives;
+        uint256[] memory tokens;
+        posts.push(Post(newCid, msg.sender, 0, derivatives, tokens));
     }
 
-    /// @notice Publishes Comment Post
+    /// @notice Publishes Derivative Post
+    /// @param newCid IPFS CID of the Post that is being published
     /// @param newCid IPFS CID of the Post that is being published
     function publishPost(string calldata newCid, uint256 rootId)
         external
         validPostId(rootId)
     {
-        posts[rootId].comments.push(posts.length);
-        _publishValidPost(newCid);
+        posts[rootId].derivatives.push(posts.length);
+        collections[msg.sender].push(posts.length);
+        uint256[] memory derivatives;
+        uint256[] memory tokens;
+        posts.push(Post(newCid, msg.sender, rootId, derivatives, tokens));
     }
 
     /// @notice Mints token (License Associated NFT)
     /// @param postId Id of target Post to be used for token minting
     function mintToken(uint256 postId) external validPostId(postId) {
         require(msg.sender == posts[postId].author);
+        if (posts[postId].root != 0) {
+            require(canMint[posts[postId].root][msg.sender] == true);
+        }
         _safeMint(msg.sender, counter);
         tokenPost[counter] = postId;
         posts[postId].tokens.push(counter);
@@ -161,38 +186,49 @@ contract CryptoPosts is ERC721 {
         return posts[postId].author;
     }
 
-    /// @notice Returns number of comments for that specific postId
+    /// @notice Returns root of a specific postId
     /// @param postId Id of the specific Post
-    function postComments(uint256 postId)
+    function postRoot(uint256 postId)
         external
         view
         validPostId(postId)
         returns (uint256)
     {
-        return posts[postId].comments.length;
+        return posts[postId].root;
     }
 
-    /// @notice Returns list of comments for that specific postId
+    /// @notice Returns number of derivatives for that specific postId
     /// @param postId Id of the specific Post
-    function postCommentList(uint256 postId)
+    function postDerivatives(uint256 postId)
+        external
+        view
+        validPostId(postId)
+        returns (uint256)
+    {
+        return posts[postId].derivatives.length;
+    }
+
+    /// @notice Returns list of derivatives for that specific postId
+    /// @param postId Id of the specific Post
+    function postDerivativeList(uint256 postId)
         external
         view
         validPostId(postId)
         returns (uint256[] memory)
     {
-        return posts[postId].comments;
+        return posts[postId].derivatives;
     }
 
-    /// @notice Returns Id of a specific Comment
+    /// @notice Returns Id of a specific Derivative
     /// @param postId Id of the specific Post
-    /// @param commentNumber Number of the specific Comment
-    function commentId(uint256 postId, uint256 commentNumber)
+    /// @param derivativeNumber Number of the specific Derivative
+    function derivativeId(uint256 postId, uint256 derivativeNumber)
         external
         view
         validPostId(postId)
         returns (uint256)
     {
-        return posts[postId].comments[commentNumber];
+        return posts[postId].derivatives[derivativeNumber];
     }
 
     /// @notice Returns number of tokens for that specific postId
@@ -252,8 +288,8 @@ contract CryptoPosts is ERC721 {
     /// @notice Buys token
     /// @param tokenId Id of the token
     function buy(uint256 tokenId) external payable HasPrice(tokenId) {
-        require(msg.value >= price[tokenId], "Not enough funds sent");
-        require(msg.sender != ownerOf(tokenId), "You already own this token");
+        require(msg.value >= price[tokenId]);
+        require(msg.sender != ownerOf(tokenId));
         price[tokenId] = 0;
         payable(ownerOf(tokenId)).transfer(msg.value);
         IERC721(address(this)).safeTransferFrom(
@@ -284,7 +320,7 @@ contract CryptoPosts is ERC721 {
         uint256 minValue,
         uint256 increment
     ) external OnlyTokenOwner(tokenId) {
-        require(price[tokenId] == 0, "Token is already for sale");
+        require(price[tokenId] == 0);
         transferFrom(msg.sender, address(this), tokenId);
         uint256[] memory bids;
         tokenAuctions[tokenId].push(auctions.length);

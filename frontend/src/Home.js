@@ -40,12 +40,10 @@ const Home = ({ accounts, connectMetamask }) => {
           Our smart contract lives in the Polygon Mumbai Network (for now...)
           and our Posts are perpetual objects carved into the blockchain,
           allowing the author to mint License Λssociated NFTs (LΛNs) that grant
-          copyright permissions of the Post's content.
+          copyright permissions to the Post's content.
         </p>
         <p>
-          Satoshi Licenses are a special kind of license that allow creators to
-          grant copyright permissions through Λssociated NFTs. Our Posts are
-          licensed under the{' '}
+          Every Crypto Post is published under a{' '}
           <a
             href='https://satoshilicenses.org/#byncsa-by'
             target='_blank'
@@ -53,8 +51,8 @@ const Home = ({ accounts, connectMetamask }) => {
           >
             BY-NC-SΛ/BY Satoshi License
           </a>
-          . Which means that material published through Crypto Posts has the
-          same public permissions of a{' '}
+          . This means that material published through Crypto Posts has the same
+          public permissions of a{' '}
           <a
             href='https://creativecommons.org/licenses/by-nc-sa/4.0/'
             target='_blank'
@@ -73,6 +71,14 @@ const Home = ({ accounts, connectMetamask }) => {
           </a>
           ).
         </p>
+        <p>
+          Λs a consequence of our licensing: any user can create derivative work
+          of any Crypto Post as long as the derivative work is published under
+          the same license as the original (which happens automatically in our
+          platform). Furthermore, if you own the License Λssociated NFT of the
+          original Post: you are able to mint License Λssociated NFTs of your
+          Derivative Posts.
+        </p>
         <br />
         <br />
         <br />
@@ -83,7 +89,7 @@ const Home = ({ accounts, connectMetamask }) => {
         </h3>
         <br />
         <p>- Λttribute practical ownership and authorship to indie writings.</p>
-        <p>- Λllow disintermediated copyright trade.</p>
+        <p>- Λllow disintermediated trade of copyright permissions.</p>
         <p>- Secure creative writing from censorship.</p>
         <p>- Stimulate collaborative writing.</p>
         <br />
@@ -133,17 +139,17 @@ const Home = ({ accounts, connectMetamask }) => {
           </a>{' '}
           on your browser.
         </p>
+
         <p>
-          Whenever someone comments a Post: a new "Comment Post" is created.
-          Comment Posts begin with the lambda standard ("Λ") and have their own
-          title. Each Comment Post can be commented on as well. Basically a
-          Comment Post is a regular Post that points to another Post.
+          Λ Post allows its author to mint License Λssociated NFTs (LΛNs). Λ
+          Post's LΛN is an NFT that grants copyright permissions to its owner
+          (see Copyrights and Creative Commons bellow).
         </p>
 
         <p>
-          Λ Post allows its author to mint License Λssociated NFTs (LΛNs). A
-          Post's LΛN is an NFT that grants copyright permissions to its owner
-          (see Copyrights and Creative Commons bellow).
+          Derivative Posts are automatically flagged with the Delta Standard (Δ)
+          on their title. Λuthors are only allowed to mint LΛNs of Derivative
+          Posts if they own a LΛN of the original Post.
         </p>
 
         <p>
@@ -163,13 +169,13 @@ const Home = ({ accounts, connectMetamask }) => {
         <br />
         <h3 style={{ color: 'dimgray' }}>
           <i>
-            <b>COPYRIGHTS & CREΛTIVE COMMONS</b>
+            <b>COPYRIGHT & CREΛTIVE COMMONS</b>
           </i>
         </h3>
         <br />
         <p>Λuthors automatically have copyright over their creations.</p>
         <p>
-          Every published Post's original material is Licensed under a
+          Each published Post's original material is Licensed under a
           BY-NC-SΛ/BY Satoshi License (
           <a
             href='https://satoshilicenses.org/#byncsa-by'
@@ -178,9 +184,9 @@ const Home = ({ accounts, connectMetamask }) => {
           >
             www.satoshilicenses.org
           </a>
-          ), <br /> Λssociated NFT at Polygon Mumbai Network
-          /0x33A8Cadc2F7cC6e2e588ea6A15CE0BC5B362CCB4/Post's License Λssociated
-          NFTs.
+          ), <br /> Λssociated NFT at: Polygon Mumbai
+          Network/0xb418ab5E15d3A3F8977ac158ccB397cebAc081dD/Respective Post's
+          Λssociated NFTs.
         </p>
         <br />
         <p>
@@ -215,7 +221,7 @@ const Home = ({ accounts, connectMetamask }) => {
         <br />
         <p>
           <i>
-            <b>Get in touch: nakamoto@satoshilicenses.org</b>
+            <b>Get in touch: satoshi.licenses@gmail.com</b>
           </i>
         </p>
       </Card>

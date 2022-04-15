@@ -4,89 +4,89 @@ import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap'
 import ccplus from './Ccplus.jpg'
 import heart from './Heart.png'
 
-const Comments = ({
+const Derivatives = ({
   length,
-  commentsById,
-  tokensById,
-  getCommentCid,
-  getCommentId,
   authorById,
+  derivativesById,
+  tokensById,
+  getDerivativeCid,
+  getDerivativeId,
 }) => {
-  const [commentId, setCommentId] = useState(undefined)
+  const [derivativeId, setDerivativeId] = useState(undefined)
   const [text, setText] = useState(undefined)
   const [title, setTitle] = useState(undefined)
   const [writer, setWriter] = useState(undefined)
-  const [commentNumber, setCommentNumber] = useState(undefined)
-  const [showCommentNumber, setShowCommentNumber] = useState(undefined)
-  const [comments, setComments] = useState(undefined)
+  const [derivativeNumber, setDerivativeNumber] = useState(undefined)
+  const [showDerivativeNumber, setShowDerivativeNumber] = useState(undefined)
+  const [derivatives, setDerivatives] = useState(undefined)
   const [tokens, setTokens] = useState(undefined)
-  const [childComments, setChildComments] = useState(undefined)
-  const [NFTId, setNFTId] = useState(undefined)
-  const [showNFTId, setShowNFTId] = useState(undefined)
+  const [childDerivatives, setChildDerivatives] = useState(undefined)
+  const [postId, setPostId] = useState(undefined)
+  const [showPostId, setShowPostId] = useState(undefined)
   const [spinner, setSpinner] = useState(false)
 
   useEffect(() => {
     setTitle(undefined)
     setWriter(undefined)
-    setComments(undefined)
+    setDerivatives(undefined)
     setTokens(undefined)
-    setShowNFTId(undefined)
+    setShowPostId(undefined)
     setText(`.`)
     setSpinner(true)
   }, [])
 
-  const updateCommentNumber = (e) => {
-    let commentNum = e.target.value
-    setCommentNumber(parseInt(commentNum))
+  const updateDerivativeNumber = (e) => {
+    let derivativeNum = e.target.value
+    setDerivativeNumber(parseInt(derivativeNum))
   }
 
-  const updateNFTId = (e) => {
-    const NFTId = e.target.value
-    setNFTId(parseInt(NFTId))
+  const updatePostId = (e) => {
+    const postId = e.target.value
+    setPostId(parseInt(postId))
   }
 
-  const getNFT = async (e) => {
+  const getSpecificPost = async (e) => {
     e.preventDefault()
-    if (0 <= NFTId && NFTId < length && commentNumber > 0) {
-      await getPost(NFTId, commentNumber)
+    if (0 < postId && postId < length && derivativeNumber > 0) {
+      await getPost(postId, derivativeNumber)
     }
   }
 
-  const getPost = async (postId, commentNumberPlus) => {
+  const getPost = async (getPostId, derivativeNumberPlus) => {
     setText(undefined)
-    const commentNumber = commentNumberPlus - 1
-    const cid = await getCommentCid(postId, commentNumber)
-    const commentId = await getCommentId(postId, commentNumber)
-    const author = await authorById(commentId)
-    setCommentId(commentId)
+    const derivativeNumber = derivativeNumberPlus - 1
+    const cid = await getDerivativeCid(getPostId, derivativeNumber)
+    const derivativeId = await getDerivativeId(getPostId, derivativeNumber)
+    const author = await authorById(derivativeId)
+    setDerivativeId(derivativeId)
     const blob = await axios.get(`https://ipfs.io/ipfs/${cid}`)
     setTitle(blob.data.title)
-    const comments = await commentsById(postId)
+    const derivatives = await derivativesById(getPostId)
     setWriter(author)
-    setComments(comments)
-    const childComments = await commentsById(commentId)
-    const tokens = await tokensById(commentId)
-    setChildComments(childComments)
+    setDerivatives(derivatives)
+    const childDerivatives = await derivativesById(derivativeId)
+    const tokens = await tokensById(derivativeId)
+    setChildDerivatives(childDerivatives)
     setTokens(tokens)
-    setShowNFTId(postId)
-    const showCommentsNumber = commentNumber + 1
-    setShowCommentNumber(showCommentNumber)
+    setShowPostId(getPostId)
+    const showDerivativeNumber = derivativeNumber + 1
+    setShowDerivativeNumber(showDerivativeNumber)
     setText(blob.data.body)
   }
 
   const next = async () => {
-    if (commentNumber + 1 <= comments) {
-      const c = commentNumber + 1
-      setCommentNumber(c)
-      await getPost(NFTId, c)
+    if (derivativeNumber + 1 <= derivatives) {
+      const c = derivativeNumber + 1
+      setDerivativeNumber(c)
+      await getPost(postId, c)
     }
   }
 
   const prev = async () => {
-    if (commentNumber > 1) {
-      const c = commentNumber - 1
-      setCommentNumber(c)
-      await getPost(NFTId, c)
+    if (derivativeNumber > 1) {
+      const c = derivativeNumber - 1
+      setDerivativeNumber(c)
+      await getPost(postId, c)
     }
   }
 
@@ -100,7 +100,7 @@ const Comments = ({
             className='font-weight-bold'
             style={{ color: 'silver' }}
           >
-            <i>Previous Comment</i>
+            <i>Previous Derivative</i>
           </Button>
         </Col>
         <Col></Col>
@@ -112,7 +112,7 @@ const Comments = ({
             className='font-weight-bold'
             style={{ color: 'silver' }}
           >
-            <i>Next Comment</i>
+            <i>Next Derivative</i>
           </Button>
         </Col>
       </Row>
@@ -128,17 +128,19 @@ const Comments = ({
                 <Col>
                   <h5
                     style={{ color: 'lightgray' }}
-                  >{`ROOT POST ID: ${showNFTId}`}</h5>
+                  >{`ROOT POST ID: ${showPostId}`}</h5>
                 </Col>
                 <Col>
                   <h5
                     style={{ color: 'lightgray' }}
-                  >{`COMMENT: ${showCommentNumber}/${comments}`}</h5>
+                  >{`DERIVATIVE: ${showDerivativeNumber}/${derivatives}`}</h5>
                 </Col>
               </Row>
               <br />
               <br />
-              <h5 style={{ color: 'lightgray' }}>{`POST ID: ${commentId}`}</h5>
+              <h5
+                style={{ color: 'lightgray' }}
+              >{`POST ID: ${derivativeId}`}</h5>
               <br />
               <br />
               <h3>{`${title}`}</h3>
@@ -177,7 +179,7 @@ const Comments = ({
               <br />
               <h5
                 style={{ color: 'lightgray' }}
-              >{`COMMENTS: ${childComments}`}</h5>
+              >{`DERIVATIVES: ${childDerivatives}`}</h5>
               <h5 style={{ color: 'lightgray' }}>{`LΛNs: ${tokens}`}</h5>
             </Card.Text>
           </Card.Body>
@@ -218,23 +220,23 @@ const Comments = ({
       >
         <Card.Body>
           <Card.Title>
-            <Form inline onSubmit={(e) => getNFT(e)}>
+            <Form inline onSubmit={(e) => getSpecificPost(e)}>
               <Form.Group>
                 <Row>
                   <Col>
                     <Form.Control
                       placeholder='Root Post Id : )'
                       type='number'
-                      value={NFTId}
-                      onChange={(e) => updateNFTId(e)}
+                      value={postId}
+                      onChange={(e) => updatePostId(e)}
                     ></Form.Control>
                   </Col>
                   <Col>
                     <Form.Control
-                      placeholder='Comment Number : )'
+                      placeholder='Derivative Number : )'
                       type='number'
-                      value={commentNumber}
-                      onChange={(e) => updateCommentNumber(e)}
+                      value={derivativeNumber}
+                      onChange={(e) => updateDerivativeNumber(e)}
                     ></Form.Control>
                   </Col>
                   <Col>
@@ -244,7 +246,7 @@ const Comments = ({
                       className='font-weight-bold'
                       style={{ color: 'silver' }}
                     >
-                      <i>View Comment</i>
+                      <i>View Derivative</i>
                     </Button>
                   </Col>
                 </Row>
@@ -257,4 +259,4 @@ const Comments = ({
   )
 }
 
-export default Comments
+export default Derivatives

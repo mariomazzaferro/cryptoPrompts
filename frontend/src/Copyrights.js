@@ -12,15 +12,15 @@ const Copyrights = () => {
         <br />
         <h3 style={{ color: 'dimgray' }}>
           <i>
-            <b>COPYRIGHTS & CREΛTIVE COMMONS</b>
+            <b>COPYRIGHT & CREΛTIVE COMMONS</b>
           </i>
         </h3>
         <br />
         <br />
         <p>Λuthors automatically have copyright over their creations.</p>
         <p>
-          Every published Post's original content is Licensed under a
-          BY-NC-SΛ/BY Satoshi License (
+          Each published Post's original content is Licensed under a BY-NC-SΛ/BY
+          Satoshi License (
           <a
             href='https://satoshilicenses.org/#byncsa-by'
             target='_blank'
@@ -28,9 +28,9 @@ const Copyrights = () => {
           >
             www.satoshilicenses.org
           </a>
-          ) , <br /> Λssociated NFT at Polygon Mumbai Network
-          /0x33A8Cadc2F7cC6e2e588ea6A15CE0BC5B362CCB4/Post's License Λssociated
-          NFTs.
+          ) , <br /> Λssociated NFT at: Polygon Mumbai
+          Network/0xb418ab5E15d3A3F8977ac158ccB397cebAc081dD/Respective Post's
+          Λssociated NFTs.
         </p>
         <br />
         <p>
