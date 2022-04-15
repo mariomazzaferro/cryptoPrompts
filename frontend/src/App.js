@@ -110,7 +110,7 @@ function App() {
   }
 
   const writePost = async (title, text) => {
-    let formatedJSON = JSON.stringify({ title: `${title}`, body: `${text}` })
+    let formatedJSON = JSON.stringify({ title: `${title} Λ`, body: `${text}` })
     const cid = await storeString(formatedJSON)
     const res = await contract.methods
       .publishPost(cid)
@@ -120,7 +120,7 @@ function App() {
 
   const writeDerivative = async (title, newText, oldId) => {
     let formatedString = JSON.stringify({
-      title: `Δ ${title}`,
+      title: `${title} Δ`,
       body: `${newText}`,
     })
     const cid = await storeString(formatedString)

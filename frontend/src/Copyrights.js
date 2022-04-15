@@ -29,7 +29,7 @@ const Copyrights = () => {
             www.satoshilicenses.org
           </a>
           ) , <br /> Λssociated NFT at: Polygon Mumbai
-          Network/0xb418ab5E15d3A3F8977ac158ccB397cebAc081dD/Respective Post's
+          Network/0xCE65e60bFcB9420cD596e6344C1FB44F25956597/Respective Post's
           Λssociated NFTs.
         </p>
         <br />

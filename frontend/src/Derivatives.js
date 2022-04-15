@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap'
 import ccplus from './Ccplus.jpg'
-import heart from './Heart.png'
+import delta from './A.png'
 
 const Derivatives = ({
   length,
@@ -191,17 +191,11 @@ const Derivatives = ({
         >
           <Card.Body>
             <Card.Text>
-              <a
-                rel='noreferrer'
-                target='_blank'
-                href='https://www.cryptoposts.art/copyrights'
-              >
-                <img
-                  alt='Creative Commons Heart Logo'
-                  style={{ borderWidth: 0, width: '10rem', height: '10rem' }}
-                  src={heart}
-                />
-              </a>
+              <img
+                alt='Delta'
+                style={{ borderWidth: 0, width: '10rem', height: '10rem' }}
+                src={delta}
+              />
               {!text && spinner && (
                 <div>
                   <br />

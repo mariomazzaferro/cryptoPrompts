@@ -49073,12 +49073,12 @@
         }
       },
       "links": {},
-      "address": "0xb418ab5E15d3A3F8977ac158ccB397cebAc081dD",
-      "transactionHash": "0x810242930494a9532f8d93540adcbd01164c128be2b356da214b0ba7c2aa25a0"
+      "address": "0xCE65e60bFcB9420cD596e6344C1FB44F25956597",
+      "transactionHash": "0x797f9e46427bf63f96eccd963bf0d5ec0a524e33f8c8116604e338d54b6ee84e"
     }
   },
   "schemaVersion": "3.4.1",
-  "updatedAt": "2022-04-15T14:08:55.493Z",
+  "updatedAt": "2022-04-15T22:28:34.882Z",
   "networkType": "ethereum",
   "devdoc": {
     "author": "Mario Mazzaferro",

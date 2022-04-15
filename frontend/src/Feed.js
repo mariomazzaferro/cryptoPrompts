@@ -3,7 +3,7 @@ import axios from 'axios'
 import { Container, Button, Card, Form, Row, Col } from 'react-bootstrap'
 import { useParams, useHistory } from 'react-router-dom'
 import ccplus from './Ccplus.jpg'
-import heart from './Heart.png'
+import lambdaDelta from './AA.png'
 
 const Feed = ({
   accounts,
@@ -314,17 +314,11 @@ const Feed = ({
         >
           <Card.Body>
             <Card.Text>
-              <a
-                rel='noreferrer'
-                target='_blank'
-                href='https://www.cryptoposts.art/copyrights'
-              >
-                <img
-                  alt='Creative Commons Heart Logo'
-                  style={{ borderWidth: 0, width: '10rem', height: '10rem' }}
-                  src={heart}
-                />
-              </a>
+              <img
+                alt='Lambda + Delta'
+                style={{ borderWidth: 0, width: '20rem', height: '10rem' }}
+                src={lambdaDelta}
+              />
               {!text && spinner && (
                 <div>
                   <br />

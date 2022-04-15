@@ -13,7 +13,7 @@ const Home = ({ accounts, connectMetamask }) => {
           <i>
             <b>
               Publish your writings and trade your copyright permissions through
-              NFTs
+              NFTs!
             </b>
           </i>
         </h3>
@@ -141,15 +141,15 @@ const Home = ({ accounts, connectMetamask }) => {
         </p>
 
         <p>
-          Λ Post allows its author to mint License Λssociated NFTs (LΛNs). Λ
-          Post's LΛN is an NFT that grants copyright permissions to its owner
-          (see Copyrights and Creative Commons bellow).
+          Original Posts are automatically flagged with the Lambda Standard (Λ)
+          on their title. Λ Post's LΛN is an NFT that grants copyright
+          permissions to its owner (see Copyright and Creative Commons bellow).
         </p>
 
         <p>
           Derivative Posts are automatically flagged with the Delta Standard (Δ)
-          on their title. Λuthors are only allowed to mint LΛNs of Derivative
-          Posts if they own a LΛN of the original Post.
+          on their title. Λuthors are only allowed to mint LΛNs of their
+          Derivative Posts if they own a LΛN of the Original Post.
         </p>
 
         <p>
@@ -185,7 +185,7 @@ const Home = ({ accounts, connectMetamask }) => {
             www.satoshilicenses.org
           </a>
           ), <br /> Λssociated NFT at: Polygon Mumbai
-          Network/0xb418ab5E15d3A3F8977ac158ccB397cebAc081dD/Respective Post's
+          Network/0xCE65e60bFcB9420cD596e6344C1FB44F25956597/Respective Post's
           Λssociated NFTs.
         </p>
         <br />
@@ -221,7 +221,7 @@ const Home = ({ accounts, connectMetamask }) => {
         <br />
         <p>
           <i>
-            <b>Get in touch: satoshi.licenses@gmail.com</b>
+            <b>Get in touch: aeronovak@gmail.com</b>
           </i>
         </p>
       </Card>
