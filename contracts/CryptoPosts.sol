@@ -96,11 +96,11 @@ contract CryptoPosts is ERC721 {
         address to,
         uint256 tokenId
     ) internal override {
-        require(canMint[tokenPost[tokenId]][to] == false);
-        if (from != address(0)) {
+        if (from != address(0) && from != posts[tokenPost[tokenId]].author) {
             canMint[tokenPost[tokenId]][from] = false;
         }
-        if (to != address(0)) {
+        if (to != address(0) && to != posts[tokenPost[tokenId]].author) {
+            require(canMint[tokenPost[tokenId]][to] == false);
             canMint[tokenPost[tokenId]][to] = true;
         }
     }

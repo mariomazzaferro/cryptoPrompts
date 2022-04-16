@@ -185,7 +185,7 @@ const Home = ({ accounts, connectMetamask }) => {
             www.satoshilicenses.org
           </a>
           ), <br /> Λssociated NFT at: Polygon Mumbai
-          Network/0xCE65e60bFcB9420cD596e6344C1FB44F25956597/Respective Post's
+          Network/0x178753A476526f6E9575cB90C8EF6BeC66b6feFb/Respective Post's
           Λssociated NFTs.
         </p>
         <br />
