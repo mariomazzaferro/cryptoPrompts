@@ -1,8 +1,7 @@
 import React from 'react'
 import { Container, Card } from 'react-bootstrap'
-import ccplus from './Ccplus.jpg'
 
-const Copyrights = () => {
+const Copyright = () => {
   return (
     <Container>
       <Card
@@ -51,4 +50,4 @@ const Copyrights = () => {
   )
 }
 
-export default Copyrights
+export default Copyright

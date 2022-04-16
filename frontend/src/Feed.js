@@ -238,7 +238,7 @@ const Feed = ({
               <a
                 rel='noreferrer'
                 target='_blank'
-                href='https://www.cryptoposts.art/copyrights'
+                href='https://www.cryptoposts.art/copyright'
               >
                 <img
                   alt='Creative Commons License'
@@ -249,7 +249,7 @@ const Feed = ({
               <a
                 rel='noreferrer'
                 target='_blank'
-                href='https://www.cryptoposts.art/copyrights'
+                href='https://www.cryptoposts.art/copyright'
               >
                 <img
                   alt='Creative Commons Plus'

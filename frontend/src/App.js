@@ -9,7 +9,7 @@ import New from './New.js'
 import Feed from './Feed.js'
 import Derivatives from './Derivatives.js'
 import Sales from './Sales.js'
-import Copyrights from './Copyrights.js'
+import Copyright from './Copyright.js'
 
 const ModelViewer = require('@metamask/logo')
 const viewer = ModelViewer({
@@ -518,8 +518,8 @@ function App() {
             approve={approve}
           />
         </Route>
-        <Route exact path='/copyrights'>
-          <Copyrights />
+        <Route exact path='/copyright'>
+          <Copyright />
         </Route>
       </Switch>
       <Container className='center'>{viewer.container[0]}</Container>
